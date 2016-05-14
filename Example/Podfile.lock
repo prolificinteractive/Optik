@@ -1,0 +1,14 @@
+PODS:
+  - Optik (0.1.0)
+
+DEPENDENCIES:
+  - Optik (from `../`)
+
+EXTERNAL SOURCES:
+  Optik:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Optik: dd8645995ab14919febd3babeae7d31cacc7f87b
+
+COCOAPODS: 0.39.0

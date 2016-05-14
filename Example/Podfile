@@ -1,11 +1,9 @@
 use_frameworks!
 
-target 'Optik_Example' do
+target 'Optik_Example', :exclusive => true do
   pod 'Optik', :path => '../'
+end
 
-  target 'Optik_Tests' do
-    inherit! :search_paths
-
-    
-  end
+target 'Optik_Tests', :exclusive => true do
+  pod 'Optik', :path => '../'
 end
