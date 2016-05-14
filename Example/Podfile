@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'Optik_Example', :exclusive => true do
   pod 'Optik', :path => '../'
+  pod 'AlamofireImage', '2.4.0'
 end
 
 target 'Optik_Tests', :exclusive => true do

@@ -11,6 +11,7 @@
 		486216841CE76A3A00686557 /* life.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 486216801CE76A3A00686557 /* life.jpg */; };
 		486216861CE76A3A00686557 /* whiteboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 486216821CE76A3A00686557 /* whiteboard.jpg */; };
 		486216881CE76B1500686557 /* super_blood_moon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 486216871CE76B1500686557 /* super_blood_moon.jpg */; };
+		4862168A1CE76C4100686557 /* AlamofireImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486216891CE76C4100686557 /* AlamofireImageDownloader.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 		486216801CE76A3A00686557 /* life.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = life.jpg; sourceTree = "<group>"; };
 		486216821CE76A3A00686557 /* whiteboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = whiteboard.jpg; sourceTree = "<group>"; };
 		486216871CE76B1500686557 /* super_blood_moon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = super_blood_moon.jpg; sourceTree = "<group>"; };
+		486216891CE76C4100686557 /* AlamofireImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImageDownloader.swift; sourceTree = "<group>"; };
 		4D59FAFE5235A28089D818CF /* Pods_Optik_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Optik_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Optik_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Optik_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				486216891CE76C4100686557 /* AlamofireImageDownloader.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				4862167E1CE76A3A00686557 /* Resources */,
@@ -383,6 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4862168A1CE76C4100686557 /* AlamofireImageDownloader.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);

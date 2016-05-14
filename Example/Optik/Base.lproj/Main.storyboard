@@ -70,6 +70,9 @@
                                                 <exclude reference="zmE-8A-eW8"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="presentRemoteImageViewer:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="93h-64-ys8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
