@@ -9,24 +9,18 @@
 import UIKit
 import Optik
 
-class ViewController: UIViewController {
+internal final class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    @IBAction private func presentLocalImageViewer(sender: UIButton) {
+        let viewController = Optik.imageViewerWithImages([
+            UIImage(named: "super_blood_moon.jpg")!,
+            UIImage(named: "cats.jpg")!,
+            UIImage(named: "life.jpg")!,
+            UIImage(named: "whiteboard.jpg")!
+            ])
         
-        let viewController = Optik.imageViewerWithImages([])
         presentViewController(viewController, animated: true, completion: nil)
     }
-    
+
 }
 
