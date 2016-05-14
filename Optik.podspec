@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/Optik"
+  s.homepage         = "https://github.com/prolificinteractive/Optik"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "htinlinn" => "linn@prolificinteractive.com" }
