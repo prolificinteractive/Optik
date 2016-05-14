@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  Optik
 //
-//  Created by htinlinn on 05/14/2016.
-//  Copyright (c) 2016 htinlinn. All rights reserved.
+//  Created by Htin Linn on 05/14/2016.
+//  Copyright (c) 2016 Prolific Interactive. All rights reserved.
 //
 
 import UIKit
