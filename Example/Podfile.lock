@@ -15,6 +15,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
-  Optik: 7ea70aea74bce21108cf0ebc13b92be2fdccea9b
+  Optik: 0ae5b7ef874242de312e99a2265e215bde1438b1
 
 COCOAPODS: 0.39.0

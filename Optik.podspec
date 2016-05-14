@@ -24,8 +24,5 @@ TODO: Add long description of the pod here.
   s.requires_arc = true
 
   s.source_files = 'Optik/Classes/**/*'
-  
-  s.resource_bundles = {
-    'Optik' => ['Optik/Assets/*.xcassets']
-  }
+  s.resources = ['Optik/Assets/*.xcassets']
 end

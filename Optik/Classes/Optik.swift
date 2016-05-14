@@ -11,7 +11,7 @@ import UIKit
 // MARK: - Public functions
 
 public func imageViewerWithImages(images: [UIImage],
-                                  dismissButtonImage: UIImage? = UIImage(named: "DismissIcon"),
+                                  dismissButtonImage: UIImage? = nil,
                                   dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
     return imageViewerWithData(.Local(images: images),
                                dismissButtonImage: dismissButtonImage,
@@ -21,7 +21,7 @@ public func imageViewerWithImages(images: [UIImage],
 public func imageViewerWithURLs(urls: [NSURL],
                                 imageDownloader: ImageDownloader,
                                 activityIndicatorColor: UIColor = .whiteColor(),
-                                dismissButtonImage: UIImage? = UIImage(named: "DismissIcon"),
+                                dismissButtonImage: UIImage? = nil,
                                 dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
     return imageViewerWithData(.Remote(urls: urls, imageDownloader: imageDownloader),
                                activityIndicatorColor: activityIndicatorColor,
@@ -35,8 +35,11 @@ private func imageViewerWithData(imageData: ImageData,
                                  activityIndicatorColor: UIColor? = nil,
                                  dismissButtonImage: UIImage?,
                                  dismissButtonPosition: DismissButtonPosition) -> UIViewController {
+    let bundle = NSBundle(forClass: AlbumViewController.self)
+    let defaultDismissButtonImage = UIImage(named: "DismissIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
+    
     return AlbumViewController(imageData: imageData,
                                activityIndicatorColor: activityIndicatorColor,
-                               dismissButtonImage: dismissButtonImage,
+                               dismissButtonImage: (dismissButtonImage != nil) ? dismissButtonImage : defaultDismissButtonImage,
                                dismissButtonPosition: dismissButtonPosition)
 }
