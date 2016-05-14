@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Optik: dd8645995ab14919febd3babeae7d31cacc7f87b
+  Optik: 7ea70aea74bce21108cf0ebc13b92be2fdccea9b
 
 COCOAPODS: 0.39.0

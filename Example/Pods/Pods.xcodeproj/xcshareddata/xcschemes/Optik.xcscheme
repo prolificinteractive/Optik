@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '16F65EA5064E2AA0E6E73D46'
+               BlueprintIdentifier = '6F74B6CCC0F2CDC83460D362'
                BlueprintName = 'Optik'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Optik.framework'>

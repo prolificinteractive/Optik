@@ -10,6 +10,17 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
+		<key>00055394D4AEA862F23009EB14359E83</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
 		<key>00EE896EBAD5CC75BF1BD3507B0EDD47</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -68,6 +79,66 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>0A04B08C39FA8D93400501349023E976</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>333A9E53AD5DE0466A6D907CF23DA6A0</string>
+			<key>buildPhases</key>
+			<array>
+				<string>DDE0B974F0C2CACB9A257D9C668C9457</string>
+				<string>0C935E26E314DCA22F7EE3FB72AACC73</string>
+				<string>00055394D4AEA862F23009EB14359E83</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Optik-Optik</string>
+			<key>productName</key>
+			<string>Optik-Optik</string>
+			<key>productReference</key>
+			<string>201A4DA9FA16DCAFBB894F250A565C0B</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle</string>
+		</dict>
+		<key>0B9ABD92EDAF763459597C6D6572C6B9</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>1AFFA33C09E4B18B2567248E60E8F873</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>Optik</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>bundle</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>0BA012B004318153AAA322DF6C5A37AB</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>4721C1FABEB88D2EA984817D8E49C0AE</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
 		<key>0BC2872ED3E9282998A79A8AC130A294</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -78,6 +149,37 @@
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>0C935E26E314DCA22F7EE3FB72AACC73</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>0CE64E7BA598E7E8B7DE2BFBD661CBD5</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>6C24EA2E2EAF9B06656E40D6D4D9E337</string>
+				<string>AD98E634ADB20A503E1D4698DAA6449A</string>
+				<string>FEDF4764DE469586DC2DB0C276D5E008</string>
+				<string>FF4D45C2A0F3B6FFE0AC0AB6E420FD0A</string>
+				<string>5DB5BD3572AE4AC921E9A04E1792DE07</string>
+				<string>D8CBE25C892ECAF482D5E631DEBFD611</string>
+				<string>D49AE399DCDC0382661DA4F11934184C</string>
+				<string>DDD22FF3F0472B3A11FDA33D6CCAF800</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
@@ -216,6 +318,35 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>1D103E5B69BF599ACD3556FAE07C8C0C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D4F50B8BC4868F02D54A7DA3B3562C59</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>201A4DA9FA16DCAFBB894F250A565C0B</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Optik.bundle</string>
+			<key>path</key>
+			<string>Optik.bundle</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
 		<key>2035C1147B6C8491AEBE242792B5229B</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -229,6 +360,34 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>22FBAF309DBD161E1AFA227B89EDEA03</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>DE7F56E0DD0B0048867F5445C850C44E</string>
+			<key>buildPhases</key>
+			<array>
+				<string>0CE64E7BA598E7E8B7DE2BFBD661CBD5</string>
+				<string>451F5D2B7787C39BD9C6F0B996E984C0</string>
+				<string>0BA012B004318153AAA322DF6C5A37AB</string>
+				<string>BE9745E01C0BE6BC8D260FEE5F5F0556</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>7FE01510DE1E9288CC841EDB27F62B67</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Optik</string>
+			<key>productName</key>
+			<string>Optik</string>
+			<key>productReference</key>
+			<string>B64B35F0396B0BE107D95437CE7BEA27</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
 		<key>2A2AABCA9BD5C1C677FCD1539516CE06</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -241,6 +400,19 @@
 			<string>Pods-Optik_Example-acknowledgements.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2AA670F90DEE40F8765FCC9DC88D96E0</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>0A04B08C39FA8D93400501349023E976</string>
+			<key>remoteInfo</key>
+			<string>Optik-Optik</string>
 		</dict>
 		<key>2CD7850FC952E40642BD1E8F448906BF</key>
 		<dict>
@@ -286,6 +458,20 @@
 				</array>
 			</dict>
 		</dict>
+		<key>333A9E53AD5DE0466A6D907CF23DA6A0</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>0B9ABD92EDAF763459597C6D6572C6B9</string>
+				<string>8CE84A5480C653A772F3CA2F227D40BF</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
 		<key>342AC4F27CB19CE17FCDCFC7040032A1</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -299,7 +485,151 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>36B54674C3365797A1286F762617F781</key>
+		<key>37D3427E85BC0AAAE5421C836C666105</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Optik-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>38C57390D5AD2F89BE8265DD5934C7C8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>Optik</string>
+			<key>target</key>
+			<string>22FBAF309DBD161E1AFA227B89EDEA03</string>
+			<key>targetProxy</key>
+			<string>70F3484A482E9C03498D47D7FDF2ACBE</string>
+		</dict>
+		<key>3E4E89230EF59BC255123B67864ACF77</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>421CFCB2979855C3D91A40119CB48A98</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>99094E201032362B799D91D8121CBB85</string>
+				<string>17EE20ACE61E2A15DB1543ED9FBC964A</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>42E1065A2C61F5807D57C2E2E61F2237</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>6213A35F7663D7B5873EC8D523868F6A</string>
+			<key>buildPhases</key>
+			<array>
+				<string>87C2578C98BF110E79C0BDA219E41B03</string>
+				<string>72958AFC3B3D74589AC94B9B652F20B6</string>
+				<string>1B612AB2A4A41D775745C85B8574BBCD</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>38C57390D5AD2F89BE8265DD5934C7C8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-Optik_Example</string>
+			<key>productName</key>
+			<string>Pods-Optik_Example</string>
+			<key>productReference</key>
+			<string>7DD54D0697D14D283ACCA3E906701486</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>451F5D2B7787C39BD9C6F0B996E984C0</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>BFC5A4C27FC1663BB696F4B881400624</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>4539A601C37FB2A9083D64A4900D275B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-Optik_Example-acknowledgements.markdown</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4721C1FABEB88D2EA984817D8E49C0AE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>201A4DA9FA16DCAFBB894F250A565C0B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5AFA7B9F97D38FF4791CA2FD46C67670</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-Optik_Tests.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5B28EEC0F788345036FF543CB4171C75</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>AlbumViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5DB5BD3572AE4AC921E9A04E1792DE07</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C5297EEB636D39FA225F875D8E2C4260</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5F54CF378B066FDD4BDAAC1A3F1C7950</key>
 		<dict>
 			<key>baseConfigurationReference</key>
 			<string>1AFFA33C09E4B18B2567248E60E8F873</string>
@@ -355,210 +685,6 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>37D3427E85BC0AAAE5421C836C666105</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Optik-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>37E7CE2BBAF9B8C7C556769C4026E5CA</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C8CFC162C1C7FA1115577342FC692E78</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>38C57390D5AD2F89BE8265DD5934C7C8</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>name</key>
-			<string>Optik</string>
-			<key>target</key>
-			<string>D754FEE7294CE596AB1499F443C2C8FC</string>
-			<key>targetProxy</key>
-			<string>70F3484A482E9C03498D47D7FDF2ACBE</string>
-		</dict>
-		<key>3E4E89230EF59BC255123B67864ACF77</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>421CFCB2979855C3D91A40119CB48A98</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>99094E201032362B799D91D8121CBB85</string>
-				<string>17EE20ACE61E2A15DB1543ED9FBC964A</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>42E1065A2C61F5807D57C2E2E61F2237</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>6213A35F7663D7B5873EC8D523868F6A</string>
-			<key>buildPhases</key>
-			<array>
-				<string>87C2578C98BF110E79C0BDA219E41B03</string>
-				<string>72958AFC3B3D74589AC94B9B652F20B6</string>
-				<string>1B612AB2A4A41D775745C85B8574BBCD</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>38C57390D5AD2F89BE8265DD5934C7C8</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-Optik_Example</string>
-			<key>productName</key>
-			<string>Pods-Optik_Example</string>
-			<key>productReference</key>
-			<string>4E0B533C1A60C9673CD7E29D7FD46A09</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
-		</dict>
-		<key>4539A601C37FB2A9083D64A4900D275B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-Optik_Example-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4E0B533C1A60C9673CD7E29D7FD46A09</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>Pods_Optik_Example.framework</string>
-			<key>path</key>
-			<string>Pods_Optik_Example.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>4E383ECFF1C608FD64862BE61FA9D3FC</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>1AFFA33C09E4B18B2567248E60E8F873</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Optik/Optik-prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Optik/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.0</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>@executable_path/Frameworks</string>
-					<string>@loader_path/Frameworks</string>
-				</array>
-				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Optik/Optik.modulemap</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>PRODUCT_NAME</key>
-				<string>Optik</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>55A338CC700924A542A4857B58CAA402</key>
-		<dict>
-			<key>fileRef</key>
-			<string>97D3F946F4B275282F5846447D18EC7D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>5AFA7B9F97D38FF4791CA2FD46C67670</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-Optik_Tests.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5B28EEC0F788345036FF543CB4171C75</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>AlbumViewController.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>5FF26A5EACBF764E98B1F825CBFF2968</key>
 		<dict>
 			<key>isa</key>
@@ -566,7 +692,7 @@
 			<key>name</key>
 			<string>Optik</string>
 			<key>target</key>
-			<string>D754FEE7294CE596AB1499F443C2C8FC</string>
+			<string>22FBAF309DBD161E1AFA227B89EDEA03</string>
 			<key>targetProxy</key>
 			<string>6369C8C84B52F9492BC41DE7BDE1A6C9</string>
 		</dict>
@@ -593,16 +719,9 @@
 			<key>proxyType</key>
 			<string>1</string>
 			<key>remoteGlobalIDString</key>
-			<string>D754FEE7294CE596AB1499F443C2C8FC</string>
+			<string>22FBAF309DBD161E1AFA227B89EDEA03</string>
 			<key>remoteInfo</key>
 			<string>Optik</string>
-		</dict>
-		<key>67C285E4F454A4D6D810705D198889E7</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F02714D2FA50D43C89A377B52BF15DBC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>67EA2267A984B94DBAC8E9E4AD8CF6DD</key>
 		<dict>
@@ -618,6 +737,44 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>6C24EA2E2EAF9B06656E40D6D4D9E337</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5B28EEC0F788345036FF543CB4171C75</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6D1A03B9298FC131DAC56283C7B6B3B5</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_Optik_Tests.framework</string>
+			<key>path</key>
+			<string>Pods_Optik_Tests.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>70732497D8BC8365C225671DEEE7FF08</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>201A4DA9FA16DCAFBB894F250A565C0B</string>
+				<string>B64B35F0396B0BE107D95437CE7BEA27</string>
+				<string>7DD54D0697D14D283ACCA3E906701486</string>
+				<string>6D1A03B9298FC131DAC56283C7B6B3B5</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>70F3484A482E9C03498D47D7FDF2ACBE</key>
 		<dict>
 			<key>containerPortal</key>
@@ -627,7 +784,7 @@
 			<key>proxyType</key>
 			<string>1</string>
 			<key>remoteGlobalIDString</key>
-			<string>D754FEE7294CE596AB1499F443C2C8FC</string>
+			<string>22FBAF309DBD161E1AFA227B89EDEA03</string>
 			<key>remoteInfo</key>
 			<string>Optik</string>
 		</dict>
@@ -696,19 +853,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7D91BE58579E2B4B1E24256500891F67</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>DD6EF3324EFFA8A01628DA96B141526D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
 		<key>7DB346D0F39D3F0E887471402A8071AB</key>
 		<dict>
 			<key>children</key>
@@ -716,13 +860,28 @@
 				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
 				<string>7EF2C9156923C2D5C5E1002B5A3A62E0</string>
 				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
-				<string>E51B9204C0750A492B2E01944BF7A45A</string>
+				<string>70732497D8BC8365C225671DEEE7FF08</string>
 				<string>67EA2267A984B94DBAC8E9E4AD8CF6DD</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7DD54D0697D14D283ACCA3E906701486</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_Optik_Example.framework</string>
+			<key>path</key>
+			<string>Pods_Optik_Example.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>7EF2C9156923C2D5C5E1002B5A3A62E0</key>
 		<dict>
@@ -736,6 +895,75 @@
 			<string>Development Pods</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7FE01510DE1E9288CC841EDB27F62B67</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>Optik-Optik</string>
+			<key>target</key>
+			<string>0A04B08C39FA8D93400501349023E976</string>
+			<key>targetProxy</key>
+			<string>2AA670F90DEE40F8765FCC9DC88D96E0</string>
+		</dict>
+		<key>81099E1EE6F3757F8BC6D136960D6727</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>1AFFA33C09E4B18B2567248E60E8F873</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/Optik/Optik-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Optik/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Optik/Optik.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>Optik</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
 		</dict>
 		<key>87C2578C98BF110E79C0BDA219E41B03</key>
 		<dict>
@@ -776,42 +1004,27 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>8B785CCCC74B8A419C4635E905A0A91D</key>
+		<key>8CE84A5480C653A772F3CA2F227D40BF</key>
 		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
+			<key>baseConfigurationReference</key>
+			<string>1AFFA33C09E4B18B2567248E60E8F873</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>Optik</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>bundle</string>
+			</dict>
 			<key>isa</key>
-			<string>PBXFileReference</string>
+			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>Optik.framework</string>
-			<key>path</key>
-			<string>Optik.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>8D33A84D43379CE7FC308E837B5E8F03</key>
-		<dict>
-			<key>fileRef</key>
-			<string>792BD7ADD3E5A41E2F03242E4F0F5B2D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>91F047AB3E5E51705592BD33EFAF8186</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>Pods_Optik_Tests.framework</string>
-			<key>path</key>
-			<string>Pods_Optik_Tests.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
+			<string>Release</string>
 		</dict>
 		<key>9465506DBD20CF46DA082F26F2729F0A</key>
 		<dict>
@@ -924,19 +1137,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>9BFF833CE4240F942778918BF1F01B1B</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>F303A3EBCBA117A82CBD24D9B78A287A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
 		<key>9C46D8948BB400C0D4C8DF5D4D2A34C5</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1023,6 +1223,13 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
+		<key>AD98E634ADB20A503E1D4698DAA6449A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F02714D2FA50D43C89A377B52BF15DBC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>AF90226D0450EFD8050FFAE2C68014F8</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1034,39 +1241,20 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B4CBF9D0802D824728831F6B4214A616</key>
+		<key>B64B35F0396B0BE107D95437CE7BEA27</key>
 		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>4E383ECFF1C608FD64862BE61FA9D3FC</string>
-				<string>36B54674C3365797A1286F762617F781</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
 			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
 			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>B5E1F6EA11A776DDC789FD52685AA556</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>E67BD749F1CAFC60D715DD03BFE35F91</string>
-				<string>67C285E4F454A4D6D810705D198889E7</string>
-				<string>E4903C8873372C2AE19DA33E9CDF1D32</string>
-				<string>37E7CE2BBAF9B8C7C556769C4026E5CA</string>
-				<string>BF97DD75B103F8294D25BAE0D5CEB5C6</string>
-				<string>55A338CC700924A542A4857B58CAA402</string>
-				<string>F31DF84F32E0F55E93E9C5A4A87930AE</string>
-				<string>8D33A84D43379CE7FC308E837B5E8F03</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Optik.framework</string>
+			<key>path</key>
+			<string>Optik.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
 		<dict>
@@ -1121,9 +1309,22 @@
 			<key>productName</key>
 			<string>Pods-Optik_Tests</string>
 			<key>productReference</key>
-			<string>91F047AB3E5E51705592BD33EFAF8186</string>
+			<string>6D1A03B9298FC131DAC56283C7B6B3B5</string>
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>BE9745E01C0BE6BC8D260FEE5F5F0556</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>1D103E5B69BF599ACD3556FAE07C8C0C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
 		<key>BEA583DA42236034D377F69DEE6CA480</key>
 		<dict>
@@ -1162,10 +1363,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>BF97DD75B103F8294D25BAE0D5CEB5C6</key>
+		<key>BFC5A4C27FC1663BB696F4B881400624</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C5297EEB636D39FA225F875D8E2C4260</string>
+			<string>3E4E89230EF59BC255123B67864ACF77</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1320,7 +1521,7 @@
 			<key>mainGroup</key>
 			<string>7DB346D0F39D3F0E887471402A8071AB</string>
 			<key>productRefGroup</key>
-			<string>E51B9204C0750A492B2E01944BF7A45A</string>
+			<string>70732497D8BC8365C225671DEEE7FF08</string>
 			<key>projectDirPath</key>
 			<string></string>
 			<key>projectReferences</key>
@@ -1329,10 +1530,18 @@
 			<string></string>
 			<key>targets</key>
 			<array>
-				<string>D754FEE7294CE596AB1499F443C2C8FC</string>
+				<string>22FBAF309DBD161E1AFA227B89EDEA03</string>
+				<string>0A04B08C39FA8D93400501349023E976</string>
 				<string>42E1065A2C61F5807D57C2E2E61F2237</string>
 				<string>BD25B83B9609DA89418E8134676E94C9</string>
 			</array>
+		</dict>
+		<key>D49AE399DCDC0382661DA4F11934184C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>73249D5B78EE36280165E885F2B90BAA</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>D4F50B8BC4868F02D54A7DA3B3562C59</key>
 		<dict>
@@ -1347,30 +1556,12 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D754FEE7294CE596AB1499F443C2C8FC</key>
+		<key>D8CBE25C892ECAF482D5E631DEBFD611</key>
 		<dict>
-			<key>buildConfigurationList</key>
-			<string>B4CBF9D0802D824728831F6B4214A616</string>
-			<key>buildPhases</key>
-			<array>
-				<string>B5E1F6EA11A776DDC789FD52685AA556</string>
-				<string>9BFF833CE4240F942778918BF1F01B1B</string>
-				<string>7D91BE58579E2B4B1E24256500891F67</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
+			<key>fileRef</key>
+			<string>97D3F946F4B275282F5846447D18EC7D</string>
 			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Optik</string>
-			<key>productName</key>
-			<string>Optik</string>
-			<key>productReference</key>
-			<string>8B785CCCC74B8A419C4635E905A0A91D</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>DB73FB0FE5769466C93742E82EE89D41</key>
 		<dict>
@@ -1385,19 +1576,37 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DD6EF3324EFFA8A01628DA96B141526D</key>
+		<key>DDD22FF3F0472B3A11FDA33D6CCAF800</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D4F50B8BC4868F02D54A7DA3B3562C59</string>
+			<string>792BD7ADD3E5A41E2F03242E4F0F5B2D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
+		</dict>
+		<key>DDE0B974F0C2CACB9A257D9C668C9457</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>DE7F56E0DD0B0048867F5445C850C44E</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>81099E1EE6F3757F8BC6D136960D6727</string>
+				<string>5F54CF378B066FDD4BDAAC1A3F1C7950</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
 		</dict>
 		<key>E10963559CB8D87EC558928B049E6224</key>
 		<dict>
@@ -1432,13 +1641,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E4903C8873372C2AE19DA33E9CDF1D32</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F61DC656CEF08BFC225343FBE8F01565</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>E4D6CEFDF746E8538FB6340C72433978</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1449,28 +1651,6 @@
 			<string>Optik.modulemap</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E51B9204C0750A492B2E01944BF7A45A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8B785CCCC74B8A419C4635E905A0A91D</string>
-				<string>4E0B533C1A60C9673CD7E29D7FD46A09</string>
-				<string>91F047AB3E5E51705592BD33EFAF8186</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E67BD749F1CAFC60D715DD03BFE35F91</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5B28EEC0F788345036FF543CB4171C75</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>E8B06E43397DE8625338F628B460B5D4</key>
 		<dict>
@@ -1590,20 +1770,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>F303A3EBCBA117A82CBD24D9B78A287A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E4E89230EF59BC255123B67864ACF77</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F31DF84F32E0F55E93E9C5A4A87930AE</key>
-		<dict>
-			<key>fileRef</key>
-			<string>73249D5B78EE36280165E885F2B90BAA</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>F3F146A5AA4239EBC333C3C0BBD67B27</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -1697,6 +1863,20 @@
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
 			<string>Release</string>
+		</dict>
+		<key>FEDF4764DE469586DC2DB0C276D5E008</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F61DC656CEF08BFC225343FBE8F01565</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>FF4D45C2A0F3B6FFE0AC0AB6E420FD0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C8CFC162C1C7FA1115577342FC692E78</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

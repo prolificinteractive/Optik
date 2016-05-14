@@ -25,7 +25,7 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'Optik/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'Optik' => ['Optik/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'Optik' => ['Optik/Assets/*.xcassets']
+  }
 end

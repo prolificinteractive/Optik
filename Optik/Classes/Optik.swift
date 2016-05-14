@@ -12,7 +12,7 @@ public struct Optik {
     
     // MARK: - Static functions
     
-    static func imageViewerWithImages(images: [UIImage],
+    public static func imageViewerWithImages(images: [UIImage],
                                       dismissButtonImage: UIImage? = UIImage(named: "DismissIcon"),
                                       dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
         return imageViewerWithData(.Local(images: images),
@@ -20,7 +20,7 @@ public struct Optik {
                                    dismissButtonPosition: dismissButtonPosition)
     }
     
-    static func imageViewerWithURLs(urls: [NSURL],
+    public static func imageViewerWithURLs(urls: [NSURL],
                                     imageDownloader: ImageDownloader,
                                     activityIndicatorColor: UIColor = .whiteColor(),
                                     dismissButtonImage: UIImage? = UIImage(named: "DismissIcon"),
