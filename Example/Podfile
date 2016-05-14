@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Optik_Example' do
+  pod 'Optik', :path => '../'
+
+  target 'Optik_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
