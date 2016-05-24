@@ -92,7 +92,7 @@ let imageViewer = Optik.imageViewerWithImages([
 
 #### Activity Indicator
 
-When fetching remote images, an activity indicator is displayec while image are loaded. To indicate a custom activity indicator color, provide an `activityIndicatorColor:` parameter when creating an image viewer:
+When fetching remote images, an activity indicator is displayed while images are loaded. To indicate a custom activity indicator color, provide an `activityIndicatorColor:` parameter when creating an image viewer:
 
 ```swift
 let imageViewer = Optik.imageViewerWithURLs([
