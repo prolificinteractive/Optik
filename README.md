@@ -1,6 +1,6 @@
 # Optik
 
-[![Travis build status](https://img.shields.io/travis/prolificinteractive/PROJECT_NAME.svg?style=flat-square)](https://travis-ci.org/prolificinteractive/Optik)
+[![Travis build status](https://img.shields.io/travis/prolificinteractive/Optik.svg?style=flat-square)](https://travis-ci.org/prolificinteractive/Optik)
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/Optik.svg?style=flat-square)](https://img.shields.io/cocoapods/v/Optik.svg)
 [![Platform](https://img.shields.io/cocoapods/p/Optik.svg?style=flat-square)](http://cocoadocs.org/docsets/Optik)
 [![Docs](https://img.shields.io/cocoapods/metrics/doc-percent/Optik.svg?style=flat-square)](http://cocoadocs.org/docsets/Optik)
