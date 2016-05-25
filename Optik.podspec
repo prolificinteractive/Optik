@@ -1,17 +1,9 @@
-#
-# Be sure to run `pod lib lint Optik.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "Optik"
   s.version          = "0.1.0"
   s.summary          = "A Swift library for displaying images from any source, local or remote."
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Optik provides a simple viewing experience for a set of images, whether stored locally or remotely.
                        DESC
 
   s.homepage         = "https://github.com/prolificinteractive/Optik"
