@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "Optik"
   s.version          = "0.1.0"
-  s.summary          = "An image viewer in Swift."
+  s.summary          = "A Swift library for displaying images from any source, local or remote."
   s.description      = <<-DESC
 TODO: Add long description of the pod here.
                        DESC
