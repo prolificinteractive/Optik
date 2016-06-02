@@ -24,6 +24,7 @@ internal final class AlbumViewController: UIViewController {
     private var pageViewController: UIPageViewController?
     
     private var imageData: ImageData
+    private var initialImageDisplayIndex: Int
     private var activityIndicatorColor: UIColor?
     private var dismissButtonImage: UIImage?
     private var dismissButtonPosition: DismissButtonPosition
@@ -33,8 +34,9 @@ internal final class AlbumViewController: UIViewController {
     
     // MARK: - Init/Deinit
     
-    init(imageData: ImageData, activityIndicatorColor: UIColor?, dismissButtonImage: UIImage?, dismissButtonPosition: DismissButtonPosition) {
+    init(imageData: ImageData, initialImageDisplayIndex: Int, activityIndicatorColor: UIColor?, dismissButtonImage: UIImage?, dismissButtonPosition: DismissButtonPosition) {
         self.imageData = imageData
+        self.initialImageDisplayIndex = initialImageDisplayIndex
         self.activityIndicatorColor = activityIndicatorColor
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
@@ -108,7 +110,7 @@ internal final class AlbumViewController: UIViewController {
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
-        if let imageViewController = imageViewControllerAtIndex(0) {
+        if let imageViewController = imageViewControllerAtIndex(initialImageDisplayIndex) {
             pageViewController.setViewControllers([imageViewController],
                                                   direction: .Forward,
                                                   animated: false,
