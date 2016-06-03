@@ -22,10 +22,12 @@ import UIKit
  */
 public func imageViewerWithImages(images: [UIImage],
                                   initialImageDisplayIndex: Int = 0,
+                                  backgroundColor: UIColor = .blackColor(),
                                   dismissButtonImage: UIImage? = nil,
                                   dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
     return imageViewerWithData(.Local(images: images),
                                initialImageDisplayIndex: initialImageDisplayIndex,
+                               backgroundColor: backgroundColor,
                                dismissButtonImage: dismissButtonImage,
                                dismissButtonPosition: dismissButtonPosition)
 }
@@ -45,11 +47,13 @@ public func imageViewerWithImages(images: [UIImage],
 public func imageViewerWithURLs(urls: [NSURL],
                                 initialImageDisplayIndex: Int = 0,
                                 imageDownloader: ImageDownloader,
+                                backgroundColor: UIColor = .blackColor(),
                                 activityIndicatorColor: UIColor = .whiteColor(),
                                 dismissButtonImage: UIImage? = nil,
                                 dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
     return imageViewerWithData(.Remote(urls: urls, imageDownloader: imageDownloader),
                                initialImageDisplayIndex: initialImageDisplayIndex,
+                               backgroundColor: backgroundColor,
                                activityIndicatorColor: activityIndicatorColor,
                                dismissButtonImage: dismissButtonImage,
                                dismissButtonPosition: dismissButtonPosition)
@@ -59,6 +63,7 @@ public func imageViewerWithURLs(urls: [NSURL],
 
 private func imageViewerWithData(imageData: ImageData,
                                  initialImageDisplayIndex: Int,
+                                 backgroundColor: UIColor,
                                  activityIndicatorColor: UIColor? = nil,
                                  dismissButtonImage: UIImage?,
                                  dismissButtonPosition: DismissButtonPosition) -> UIViewController {
@@ -67,6 +72,7 @@ private func imageViewerWithData(imageData: ImageData,
     
     return AlbumViewController(imageData: imageData,
                                initialImageDisplayIndex: initialImageDisplayIndex,
+                               backgroundColor: backgroundColor,
                                activityIndicatorColor: activityIndicatorColor,
                                dismissButtonImage: (dismissButtonImage != nil) ? dismissButtonImage : defaultDismissButtonImage,
                                dismissButtonPosition: dismissButtonPosition)

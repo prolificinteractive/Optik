@@ -25,6 +25,7 @@ internal final class AlbumViewController: UIViewController {
     
     private var imageData: ImageData
     private var initialImageDisplayIndex: Int
+    private var backgroundColor: UIColor
     private var activityIndicatorColor: UIColor?
     private var dismissButtonImage: UIImage?
     private var dismissButtonPosition: DismissButtonPosition
@@ -34,9 +35,10 @@ internal final class AlbumViewController: UIViewController {
     
     // MARK: - Init/Deinit
     
-    init(imageData: ImageData, initialImageDisplayIndex: Int, activityIndicatorColor: UIColor?, dismissButtonImage: UIImage?, dismissButtonPosition: DismissButtonPosition) {
+    init(imageData: ImageData, initialImageDisplayIndex: Int, backgroundColor: UIColor, activityIndicatorColor: UIColor?, dismissButtonImage: UIImage?, dismissButtonPosition: DismissButtonPosition) {
         self.imageData = imageData
         self.initialImageDisplayIndex = initialImageDisplayIndex
+        self.backgroundColor = backgroundColor
         self.activityIndicatorColor = activityIndicatorColor
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
@@ -98,7 +100,7 @@ internal final class AlbumViewController: UIViewController {
     // MARK: - Private functions
     
     private func setupDesign() {
-        view.backgroundColor = UIColor.blackColor()
+        view.backgroundColor = backgroundColor
         
         setupDismissButton()
     }
