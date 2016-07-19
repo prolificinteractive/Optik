@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View controller for displaying a collection of photos.
 internal final class AlbumViewController: UIViewController {
     
     private struct Constants {
@@ -19,9 +20,22 @@ internal final class AlbumViewController: UIViewController {
     
     // MARK: - Properties
     
+    weak var imageViewerDelegate: ImageViewerDelegate? {
+        didSet {
+            transitioningDelegate = (imageViewerDelegate == nil) ? nil : self
+        }
+    }
+    
     // MARK: Private properties
     
     private var pageViewController: UIPageViewController?
+    private var currentImageViewController: ImageViewController? {
+        guard let viewControllers = pageViewController?.viewControllers where viewControllers.count == 1 else {
+            return nil
+        }
+        
+        return viewControllers[0] as? ImageViewController
+    }
     
     private var imageData: ImageData
     private var initialImageDisplayIndex: Int
@@ -34,7 +48,12 @@ internal final class AlbumViewController: UIViewController {
     
     // MARK: - Init/Deinit
     
-    init(imageData: ImageData, initialImageDisplayIndex: Int, activityIndicatorColor: UIColor?, dismissButtonImage: UIImage?, dismissButtonPosition: DismissButtonPosition) {
+    init(imageData: ImageData,
+         initialImageDisplayIndex: Int,
+         activityIndicatorColor: UIColor?,
+         dismissButtonImage: UIImage?,
+         dismissButtonPosition: DismissButtonPosition) {
+        
         self.imageData = imageData
         self.initialImageDisplayIndex = initialImageDisplayIndex
         self.activityIndicatorColor = activityIndicatorColor
@@ -210,6 +229,10 @@ internal final class AlbumViewController: UIViewController {
     
 }
 
+// MARK: - Protocol conformance
+
+// MARK: UIPageViewControllerDataSource
+
 extension AlbumViewController: UIPageViewControllerDataSource {
     
     func pageViewController(pageViewController: UIPageViewController,
@@ -232,20 +255,59 @@ extension AlbumViewController: UIPageViewControllerDataSource {
     
 }
 
+// MARK: UIPageViewControllerDelegate
+
 extension AlbumViewController: UIPageViewControllerDelegate {
     
     func pageViewController(pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
                                                previousViewControllers: [UIViewController],
                                                transitionCompleted completed: Bool) {
-        guard completed == true && previousViewControllers.count > 0 else {
+        guard completed == true else {
             return
         }
         
-        previousViewControllers.forEach { (viewController) in
-            let imageViewController = viewController as? ImageViewController
-            imageViewController?.resetImageView()
+        if previousViewControllers.count > 0 {
+            previousViewControllers.forEach { (viewController) in
+                let imageViewController = viewController as? ImageViewController
+                imageViewController?.resetImageView()
+            }
         }
+        
+        if let currentImageViewController = currentImageViewController {
+            imageViewerDelegate?.imageViewerDidDisplayImage(atIndex: currentImageViewController.index)
+        }
+    }
+    
+}
+
+// MARK: UIViewControllerTransitioningDelegate
+
+extension AlbumViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationControllerForPresentedController(presented: UIViewController,
+                                                   presentingController presenting: UIViewController,
+                                                                        sourceController source: UIViewController)
+        -> UIViewControllerAnimatedTransitioning? {
+            guard
+                let currentImageViewController = currentImageViewController,
+                let fromImageView = imageViewerDelegate?.transitionImageView(forIndex: currentImageViewController.index),
+                let toImageView = currentImageViewController.imageView else {
+                    return nil
+            }
+            
+            return TransitionAnimator(transitionType: .Present, fromImageView: fromImageView, toImageView: toImageView)
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard
+            let currentImageViewController = currentImageViewController,
+            let fromImageView = currentImageViewController.imageView,
+            let toImageView = imageViewerDelegate?.transitionImageView(forIndex: currentImageViewController.index) else {
+                return nil
+        }
+        
+        return TransitionAnimator(transitionType: .Dismiss, fromImageView: fromImageView, toImageView: toImageView)
     }
     
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View controller for displaying a single photo.
 internal final class ImageViewController: UIViewController {
     
     private struct Constants {
@@ -28,14 +29,14 @@ internal final class ImageViewController: UIViewController {
             }
         }
     }
-    
+    private(set) var imageView: UIImageView?
+
     let index: Int
     
     // MARK: - Private properties
     
     private var activityIndicatorColor: UIColor?
     
-    private var imageView: UIImageView?
     private var scrollView: UIScrollView? {
         didSet {
             guard let scrollView = scrollView else {
@@ -233,14 +234,16 @@ internal final class ImageViewController: UIViewController {
         
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             // Zoom out if the image was zoomed in at all.
-            UIView.animateWithDuration(Constants.ZoomAnimationDuration,
-                                       delay: 0,
-                                       options: [],
-                                       animations: {
-                                        scrollView.zoomScale = scrollView.minimumZoomScale
-                                        self.centerImage()
+            UIView.animateWithDuration(
+                Constants.ZoomAnimationDuration,
+                delay: 0,
+                options: [],
+                animations: {
+                    scrollView.zoomScale = scrollView.minimumZoomScale
+                    self.centerImage()
                 },
-                                       completion: nil)
+                completion: nil
+            )
         } else {
             // Otherwise, zoom into the location of the tap point.
             let width = scrollViewSize.width / scrollView.maximumZoomScale
@@ -252,15 +255,17 @@ internal final class ImageViewController: UIViewController {
             
             let zoomRect = CGRect(x: originX, y: originY, width: width, height: height)
             
-            UIView.animateWithDuration(Constants.ZoomAnimationDuration,
-                                       delay: 0,
-                                       options: [],
-                                       animations: {
-                                        scrollView.zoomToRect(zoomRect.enclose(imageView.bounds), animated: false)
+            UIView.animateWithDuration(
+                Constants.ZoomAnimationDuration,
+                delay: 0,
+                options: [],
+                animations: {
+                    scrollView.zoomToRect(zoomRect.enclose(imageView.bounds), animated: false)
                 },
-                                       completion: { (_) in
-                                        self.centerImage()
-            })
+                completion: { (_) in
+                    self.centerImage()
+                }
+            )
         }
     }
     
