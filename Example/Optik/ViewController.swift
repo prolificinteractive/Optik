@@ -21,8 +21,8 @@ internal final class ViewController: UIViewController {
         }
     }
     private let localImages: [UIImage] = [
-        UIImage(named: "super_blood_moon.jpg")!,
         UIImage(named: "cats.jpg")!,
+        UIImage(named: "super_blood_moon.jpg")!,
         UIImage(named: "life.jpg")!,
         UIImage(named: "whiteboard.jpg")!
     ]

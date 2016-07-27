@@ -12,7 +12,7 @@ import UIKit
 internal final class TransitionAnimator: NSObject {
     
     private struct Constants {
-        static let DefaultTransitionDuration: NSTimeInterval = 0.35
+        static let DefaultTransitionDuration: NSTimeInterval = 0.235
     }
     
     enum TransitionType {
@@ -22,9 +22,13 @@ internal final class TransitionAnimator: NSObject {
     
     // MARK: - Private properties
     
-    private let transitionType: TransitionType
     private weak var fromImageView: UIImageView?
     private weak var toImageView: UIImageView?
+
+    private let transitionType: TransitionType
+
+    private var zoomAnimation: SpringAnimation<CGRect, ViewFrame>?
+    private var fadeAnimation: SpringAnimation<CGFloat, ViewAlpha>?
 
     // MARK: - Init/deinit
     
@@ -59,9 +63,6 @@ extension TransitionAnimator: UIViewControllerAnimatedTransitioning {
         transitionContainerView.addSubview(toViewController.view)
         toViewController.view.alpha = 0
         
-        var zoomAnimation: (() -> ())?
-        var zoomAnimationCompletion: (() -> ())?
-        
         if
             let fromImageView = fromImageView,
             let toImageView = toImageView,
@@ -85,26 +86,35 @@ extension TransitionAnimator: UIViewControllerAnimatedTransitioning {
             fromImageView.hidden = true
             toImageView.hidden = true
             
-            zoomAnimation = {
-                transitionImageView.frame = toSuperView.convertRect(toImageView.frame, toView: transitionContainerView)
+            zoomAnimation = SpringAnimation(
+                view: transitionImageView,
+                target: toSuperView.convertRect(toImageView.frame, toView: transitionContainerView),
+                velocity: CGRect.zero,
+                property: ViewFrame()
+            )            
+            zoomAnimation?.onTick = { finished in
+                if finished {
+                    transitionImageView.removeFromSuperview()
+                    toImageView.hidden = false
+                    
+                    transitionContext.completeTransition(true)
+                }
             }
-            zoomAnimationCompletion = {
-                transitionImageView.removeFromSuperview()
-                toImageView.hidden = false
-            }
+            
+            fadeAnimation = SpringAnimation(
+                view: toViewController.view,
+                target: 1,
+                velocity: 0,
+                property: ViewAlpha()
+            )
         }
-
-        UIView.animateWithDuration(
-            transitionDuration(transitionContext),
-            animations: {
-                zoomAnimation?()
-                toViewController.view.alpha = 1
-            },
-            completion: { _ in
-                zoomAnimationCompletion?()
-                transitionContext.completeTransition(true)
-            }
-        )
+        
+        guard let zoomAnimation = zoomAnimation, fadeAnimation = fadeAnimation else {
+            return
+        }
+        
+        transitionContainerView.animator().addAnimation(zoomAnimation)
+        transitionContainerView.animator().addAnimation(fadeAnimation)
     }
     
 }
