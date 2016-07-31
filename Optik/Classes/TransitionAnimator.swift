@@ -11,23 +11,36 @@ import UIKit
 /// Transition animator.
 internal final class TransitionAnimator: NSObject {
     
-    private struct Constants {
-        static let DefaultTransitionDuration: NSTimeInterval = 0.235
-    }
-    
+    /**
+     Modal transition type.
+     
+     - Present: Present.
+     - Dismiss: Dimiss.
+     */
     enum TransitionType {
         case Present
         case Dismiss
+    }
+    
+    private struct Constants {
+        static let AnimationViewShadowColor: CGColor = UIColor.blackColor().CGColor
+        static let AnimationViewShadowOffset: CGSize = CGSize(width: 0, height: 20)
+        static let AnimationViewShadowRadius: CGFloat = 20
+        static let AnimationViewShadowOpacity: Float = 0.35
+        
+        static let TransitionDuration: NSTimeInterval = 0.235
     }
     
     // MARK: - Private properties
     
     private weak var fromImageView: UIImageView?
     private weak var toImageView: UIImageView?
+    private weak var animationView: UIImageView?
+    
     private weak var fromViewController: UIViewController?
     private weak var toViewController: UIViewController?
+    
     private weak var transitionContext: UIViewControllerContextTransitioning?
-
     private let transitionType: TransitionType
     
     // MARK: - Init/deinit
@@ -42,17 +55,42 @@ internal final class TransitionAnimator: NSObject {
     
     // MARK: - Instance functions
     
+    /**
+     Updates ongoing interactive transition and moves `animationView` by specified translation.
+     
+     - parameter translation: Translation.
+     */
     func updateInteractiveTransition(translation: CGPoint) {
-        
+        guard let animationView = animationView else {
+            transitionContext?.completeTransition(false)
+            return
+        }
+                
+        animationView.frame = CGRectOffset(animationView.frame, translation.x, translation.y)
+    }
+    
+    /**
+     Finishes ongoing interactive transition and completes transition animation using specified velocity.
+     
+     - parameter velocity: Velocity.
+     */
+    func finishInteractiveTransition(withVelocity velocity: CGPoint) {
+        performZoomAnimation(reverse: false, withVelocity: CGRect(origin: velocity, size: CGSize.zero))
+    }
+    
+    /**
+     Cancels ongoing interactive transition and reverses transition animation using specified velocity.
+     
+     - parameter velocity: Velocity.
+     */
+    func cancelInteractiveTransition(withVelocity velocity: CGPoint) {
+        performFadeAnimation(reverse: true)
+        performZoomAnimation(reverse: true, withVelocity: CGRect(origin: velocity, size: CGSize.zero))
     }
     
     // MARK: - Private functions
     
-    private func finishInteractiveTransition(withVelocity velocity: CGPoint) {
-        performZoomAnimation(withVelocity: CGRect(origin: velocity, size: CGSize.zero))
-    }
-    
-    private func performFadeAnimation() {
+    private func performFadeAnimation(reverse shouldAnimateInReverse: Bool) {
         guard
             let transitionContainerView = transitionContext?.containerView(),
             let fromViewController = fromViewController,
@@ -76,11 +114,11 @@ internal final class TransitionAnimator: NSObject {
             finalAlpha = 0
         }
         
-        viewControllerToAnimate.view.alpha = initialAlpha
+        viewControllerToAnimate.view.alpha = shouldAnimateInReverse ? finalAlpha : initialAlpha
         
         let fadeAnimation = SpringAnimation(
             view: viewControllerToAnimate.view,
-            target: finalAlpha,
+            target: shouldAnimateInReverse ? initialAlpha : finalAlpha,
             velocity: 0,
             property: ViewAlpha()
         )
@@ -88,47 +126,49 @@ internal final class TransitionAnimator: NSObject {
         transitionContainerView.animator().addAnimation(fadeAnimation)
     }
     
-    private func performZoomAnimation(withVelocity velocity: CGRect) {
+    private func performZoomAnimation(reverse shouldAnimateInReverse: Bool, withVelocity velocity: CGRect) {
         guard
             let transitionContainerView = transitionContext?.containerView(),
-            let toViewController = toViewController,
             let fromImageView = fromImageView,
             let toImageView = toImageView,
+            let animationView = animationView,
             let fromSuperView = fromImageView.superview,
             let toSuperView = toImageView.superview else {
                 transitionContext?.completeTransition(false)
                 return
         }
         
-        let transitionImageView = UIImageView(image: fromImageView.image)
-        transitionImageView.frame = fromSuperView.convertRect(fromImageView.frame, toView: transitionContainerView)
-        transitionImageView.layer.cornerRadius = toImageView.layer.cornerRadius
+        let initialRect = fromSuperView.convertRect(fromImageView.frame, toView: transitionContainerView)
+        let finalRect = toSuperView.convertRect(toImageView.frame, toView: transitionContainerView)
         
-        switch transitionType {
-        case .Present:
-            transitionImageView.contentMode = fromImageView.contentMode
-            transitionImageView.clipsToBounds = fromImageView.clipsToBounds
-        case .Dismiss:
-            transitionImageView.contentMode = toImageView.contentMode
-            transitionImageView.clipsToBounds = toImageView.clipsToBounds
+        if !shouldAnimateInReverse {
+            switch transitionType {
+            case .Present:
+                animationView.clipsToBounds = fromImageView.clipsToBounds
+                animationView.contentMode = fromImageView.contentMode
+            case .Dismiss:
+                animationView.clipsToBounds = toImageView.clipsToBounds
+                animationView.contentMode = toImageView.contentMode
+            }
+            
+            animationView.layer.cornerRadius = toImageView.layer.cornerRadius
         }
         
-        transitionContainerView.addSubview(transitionImageView)
-        fromImageView.hidden = true
-        toImageView.hidden = true
-        
         let zoomAnimation = SpringAnimation(
-            view: transitionImageView,
-            target: toSuperView.convertRect(toImageView.frame, toView: transitionContainerView),
+            view: animationView,
+            target: shouldAnimateInReverse ? initialRect : finalRect,
             velocity: velocity,
             property: ViewFrame()
         )
         zoomAnimation.onTick = { finished in
             if finished {
-                transitionImageView.removeFromSuperview()
+                animationView.removeFromSuperview()
+                self.animationView = nil
+                
+                fromImageView.hidden = false
                 toImageView.hidden = false
                 
-                self.transitionContext?.completeTransition(true)
+                self.transitionContext?.completeTransition(!shouldAnimateInReverse)
             }
         }
         
@@ -138,13 +178,37 @@ internal final class TransitionAnimator: NSObject {
     private func prepareContainerView() {
         guard
             transitionType == .Present,
-            let transitionContext = transitionContext,
+            let transitionContainerView = transitionContext?.containerView(),
             let fromView = fromViewController?.view,
             let toView = toViewController?.view else {
                 return
         }
         
-        transitionContext.containerView()?.insertSubview(toView, aboveSubview: fromView)
+        transitionContainerView.insertSubview(toView, aboveSubview: fromView)
+    }
+    
+    private func prepareImageViews() {
+        guard
+            let transitionContainerView = transitionContext?.containerView(),
+            let fromImageView = fromImageView,
+            let toImageView = toImageView,
+            let fromSuperView = fromImageView.superview else {
+                transitionContext?.completeTransition(false)
+                return
+        }
+        
+        let animationView = UIImageView(image: fromImageView.image)
+        transitionContainerView.addSubview(animationView)
+        self.animationView = animationView
+        
+        animationView.frame = fromSuperView.convertRect(fromImageView.frame, toView: transitionContainerView)
+        animationView.layer.shadowColor = Constants.AnimationViewShadowColor
+        animationView.layer.shadowOffset = Constants.AnimationViewShadowOffset
+        animationView.layer.shadowRadius = Constants.AnimationViewShadowRadius
+        animationView.layer.shadowOpacity = Constants.AnimationViewShadowOpacity
+        
+        fromImageView.hidden = true
+        toImageView.hidden = true
     }
 
 }
@@ -156,7 +220,7 @@ internal final class TransitionAnimator: NSObject {
 extension TransitionAnimator: UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return Constants.DefaultTransitionDuration
+        return Constants.TransitionDuration
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -176,7 +240,8 @@ extension TransitionAnimator: UIViewControllerInteractiveTransitioning {
         toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         
         prepareContainerView()
-        performFadeAnimation()
+        prepareImageViews()
+        performFadeAnimation(reverse: false)
     }
     
 }

@@ -75,9 +75,47 @@ internal final class ImageViewController: UIViewController {
     
     // MARK: - Override functions
     
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        setupDesign()
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        coordinator.animateAlongsideTransition({ (_) in
+            let oldSize = self.scrollView?.bounds.size
+            let newSize = size
+            
+            self.scrollView?.frame = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+            
+            if oldSize != newSize {
+                self.resetImageView()
+            }
+            }, completion: nil)
+    }
+    
+    // MARK: - Instance functions
+    
+    /**
+     Resets and re-centers the image view.
+     */
+    func resetImageView() {
+        scrollView?.zoomScale = Constants.MinimumZoomScale
+        
+        calculateEffectiveImageSize()
+        if let effectiveImageSize = effectiveImageSize {
+            imageView?.frame = CGRect(x: 0, y: 0, width: effectiveImageSize.width, height: effectiveImageSize.height)
+            scrollView?.contentSize = effectiveImageSize
+        }
+        
+        centerImage()
+    }
+    
+    // MARK: - Private functions
+    
+    private func setupDesign() {
         let scrollView = UIScrollView(frame: view.bounds)
         scrollView.delegate = self
         view.addSubview(scrollView)
@@ -123,40 +161,6 @@ internal final class ImageViewController: UIViewController {
         
         setupTapGestureRecognizer()
     }
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-        coordinator.animateAlongsideTransition({ (_) in
-            let oldSize = self.scrollView?.bounds.size
-            let newSize = size
-            
-            self.scrollView?.frame = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-            
-            if oldSize != newSize {
-                self.resetImageView()
-            }
-            }, completion: nil)
-    }
-    
-    // MARK: - Instance functions
-    
-    /**
-     Resets and re-centers the image view.
-     */
-    func resetImageView() {
-        scrollView?.zoomScale = Constants.MinimumZoomScale
-        
-        calculateEffectiveImageSize()
-        if let effectiveImageSize = effectiveImageSize {
-            imageView?.frame = CGRect(x: 0, y: 0, width: effectiveImageSize.width, height: effectiveImageSize.height)
-            scrollView?.contentSize = effectiveImageSize
-        }
-        
-        centerImage()
-    }
-    
-    // MARK: - Private functions
     
     private func setupTapGestureRecognizer() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.didDoubleTap(_:)))

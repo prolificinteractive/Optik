@@ -22,7 +22,26 @@ internal final class AlbumViewController: UIViewController {
     
     weak var imageViewerDelegate: ImageViewerDelegate? {
         didSet {
-            transitioningDelegate = (imageViewerDelegate == nil) ? nil : self
+            if let _ = imageViewerDelegate {
+                transitioningDelegate = transitionController
+                
+                transitionController.viewControllerToDismiss = self
+                transitionController.currentImageView = { [weak self] in
+                    return self?.currentImageViewController?.imageView
+                }
+                transitionController.transitionImageView = { [weak self] in
+                    guard let currentImageIndex = self?.currentImageViewController?.index else {
+                        return nil
+                    }
+                    
+                    return self?.imageViewerDelegate?.transitionImageView(forIndex: currentImageIndex)
+                }
+            } else {
+                transitioningDelegate = nil
+                
+                transitionController.currentImageView = nil
+                transitionController.transitionImageView = nil
+            }
         }
     }
     
@@ -45,6 +64,8 @@ internal final class AlbumViewController: UIViewController {
     
     private var cachedRemoteImages: [NSURL: UIImage] = [:]
     private var viewDidAppear: Bool = false
+    
+    private var transitionController: TransitionController = TransitionController()
     
     // MARK: - Init/Deinit
     
@@ -124,6 +145,7 @@ internal final class AlbumViewController: UIViewController {
         didMoveToParentViewController(pageViewController)
         
         setupDismissButton()
+        setupPanGestureRecognizer()
     }
     
     private func setupPageViewController() {
@@ -131,7 +153,7 @@ internal final class AlbumViewController: UIViewController {
         pageViewController.delegate = self
         
         // Set up initial image view controller.
-        if let imageViewController = imageViewControllerAtIndex(initialImageDisplayIndex) {
+        if let imageViewController = imageViewController(forIndex: initialImageDisplayIndex) {
             pageViewController.setViewControllers([imageViewController],
                                                   direction: .Forward,
                                                   animated: false,
@@ -188,7 +210,14 @@ internal final class AlbumViewController: UIViewController {
         )
     }
     
-    private func imageViewControllerAtIndex(index: Int) -> ImageViewController? {
+    private func setupPanGestureRecognizer() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(AlbumViewController.didPan(_:)))
+        panGestureRecognizer.maximumNumberOfTouches = 1
+        
+        view.addGestureRecognizer(panGestureRecognizer)
+    }
+    
+    private func imageViewController(forIndex index: Int) -> ImageViewController? {
         switch imageData {
         case .Local(let images):
             guard index >= 0 && index < images.count else {
@@ -223,6 +252,10 @@ internal final class AlbumViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @objc private func didPan(sender: UIPanGestureRecognizer) {
+        transitionController.didPan(withGestureRecognizer: sender, sourceView: view)
+    }
+    
 }
 
 // MARK: - Protocol conformance
@@ -237,7 +270,7 @@ extension AlbumViewController: UIPageViewControllerDataSource {
             return nil
         }
         
-        return imageViewControllerAtIndex(imageViewController.index - 1)
+        return self.imageViewController(forIndex: imageViewController.index - 1)
     }
     
     func pageViewController(pageViewController: UIPageViewController,
@@ -246,7 +279,7 @@ extension AlbumViewController: UIPageViewControllerDataSource {
             return nil
         }
         
-        return imageViewControllerAtIndex(imageViewController.index + 1)
+        return self.imageViewController(forIndex: imageViewController.index + 1)
     }
     
 }
@@ -270,44 +303,9 @@ extension AlbumViewController: UIPageViewControllerDelegate {
             }
         }
         
-        if let currentImageViewController = currentImageViewController {
-            imageViewerDelegate?.imageViewerDidDisplayImage(atIndex: currentImageViewController.index)
+        if let currentImageIndex = currentImageViewController?.index {
+            imageViewerDelegate?.imageViewerDidDisplayImage(atIndex: currentImageIndex)
         }
-    }
-    
-}
-
-// MARK: UIViewControllerTransitioningDelegate
-
-extension AlbumViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationControllerForPresentedController(presented: UIViewController,
-                                                   presentingController presenting: UIViewController,
-                                                                        sourceController source: UIViewController)
-        -> UIViewControllerAnimatedTransitioning? {
-            guard
-                let currentImageViewController = currentImageViewController,
-                let fromImageView = imageViewerDelegate?.transitionImageView(forIndex: currentImageViewController.index),
-                let toImageView = currentImageViewController.imageView else {
-                    return nil
-            }
-            
-            return TransitionAnimator(transitionType: .Present, fromImageView: fromImageView, toImageView: toImageView)
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard
-            let currentImageViewController = currentImageViewController,
-            let fromImageView = currentImageViewController.imageView,
-            let toImageView = imageViewerDelegate?.transitionImageView(forIndex: currentImageViewController.index) else {
-                return nil
-        }
-        
-        return TransitionAnimator(transitionType: .Dismiss, fromImageView: fromImageView, toImageView: toImageView)
-    }
-    
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil
     }
     
 }
