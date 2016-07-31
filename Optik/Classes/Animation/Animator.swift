@@ -70,7 +70,7 @@ internal final class Animator {
      - parameter animation: Animation to be removed from animator.
      */
     func removeAnimation(animation: Animation) {
-        animations = animations.filter({ (storedAnimation) -> Bool in
+        animations = animations.filter({ (storedAnimation) in
             return storedAnimation !== animation
         })
         
@@ -83,15 +83,21 @@ internal final class Animator {
     
     @objc private func animationTick(displayLink: CADisplayLink) {
         let timeElapsed = displayLink.duration
+        var finishedAnimationIndices: [Int] = []
         
-        for (index, animation) in animations.enumerate() {
+        animations.enumerate().forEach { (index, animation) in
             var finished = false
             animation.animationTick(timeElapsed, finished: &finished)
             
             if finished {
-                animations.removeAtIndex(index)
+                finishedAnimationIndices.append(index)
             }
         }
+        
+        animations = animations
+            .enumerate()
+            .filter { !finishedAnimationIndices.contains($0.index) }
+            .map { $0.element }
         
         if animations.count == 0 {
             displayLink.paused = true
