@@ -271,6 +271,10 @@ internal final class ImageViewController: UIViewController {
     
 }
 
+// MARK: - Protocol conformance
+
+// MARK: UIScrollViewDelegate
+
 extension ImageViewController: UIScrollViewDelegate {
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {

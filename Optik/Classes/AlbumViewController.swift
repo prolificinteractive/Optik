@@ -28,9 +28,9 @@ internal final class AlbumViewController: UIViewController {
     
     // MARK: Private properties
     
-    private var pageViewController: UIPageViewController?
+    private var pageViewController: UIPageViewController
     private var currentImageViewController: ImageViewController? {
-        guard let viewControllers = pageViewController?.viewControllers where viewControllers.count == 1 else {
+        guard let viewControllers = pageViewController.viewControllers where viewControllers.count == 1 else {
             return nil
         }
         
@@ -60,7 +60,13 @@ internal final class AlbumViewController: UIViewController {
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
         
+        pageViewController = UIPageViewController(transitionStyle: .Scroll,
+                                                  navigationOrientation: .Horizontal,
+                                                  options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
+
         super.init(nibName: nil, bundle: nil)
+        
+        setupPageViewController()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,12 +74,6 @@ internal final class AlbumViewController: UIViewController {
     }
     
     // MARK: - Override functions
-    
-    override func loadView() {
-        super.loadView()
-        
-        setupPageViewController()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +98,7 @@ internal final class AlbumViewController: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         coordinator.animateAlongsideTransition({ (_) in
-            self.pageViewController?.view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            self.pageViewController.view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             }, completion: nil)
     }
     
@@ -119,28 +119,24 @@ internal final class AlbumViewController: UIViewController {
     private func setupDesign() {
         view.backgroundColor = UIColor.blackColor()
         
+        addChildViewController(pageViewController)
+        view.addSubview(pageViewController.view)
+        didMoveToParentViewController(pageViewController)
+        
         setupDismissButton()
     }
     
     private func setupPageViewController() {
-        let pageViewController = UIPageViewController(transitionStyle: .Scroll,
-                                                      navigationOrientation: .Horizontal,
-                                                      options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
+        // Set up initial image view controller.
         if let imageViewController = imageViewControllerAtIndex(initialImageDisplayIndex) {
             pageViewController.setViewControllers([imageViewController],
                                                   direction: .Forward,
                                                   animated: false,
                                                   completion: nil)
         }
-        
-        addChildViewController(pageViewController)
-        view.addSubview(pageViewController.view)
-        didMoveToParentViewController(pageViewController)
-        
-        self.pageViewController = pageViewController
     }
     
     private func setupDismissButton() {
@@ -308,6 +304,10 @@ extension AlbumViewController: UIViewControllerTransitioningDelegate {
         }
         
         return TransitionAnimator(transitionType: .Dismiss, fromImageView: fromImageView, toImageView: toImageView)
+    }
+    
+    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
     }
     
 }

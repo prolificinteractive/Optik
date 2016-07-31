@@ -30,6 +30,7 @@ public func imageViewer(withImages images: [UIImage],
                                           initialImageDisplayIndex: initialImageDisplayIndex,
                                           dismissButtonImage: dismissButtonImage,
                                           dismissButtonPosition: dismissButtonPosition)
+    albumViewController.modalPresentationStyle = .Custom
     albumViewController.imageViewerDelegate = delegate
     
     return albumViewController
