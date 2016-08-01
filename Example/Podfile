@@ -1,10 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'Optik_Example', :exclusive => true do
+target 'Optik_Example' do
   pod 'Optik', :path => '../'
   pod 'AlamofireImage', '2.4.0'
 end
 
-target 'Optik_Tests', :exclusive => true do
+target 'Optik_Tests' do
   pod 'Optik', :path => '../'
 end

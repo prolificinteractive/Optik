@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13790B384C41C5A1EFE87F9F /* Pods_Optik_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A17D2F52E185D6DEC3613D /* Pods_Optik_Example.framework */; };
+		4745CB8BC96A7B3E24E94581 /* Pods_Optik_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 801688BD1F8511B8FC2DED6F /* Pods_Optik_Tests.framework */; };
 		486216831CE76A3A00686557 /* cats.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4862167F1CE76A3A00686557 /* cats.jpg */; };
 		486216841CE76A3A00686557 /* life.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 486216801CE76A3A00686557 /* life.jpg */; };
 		486216861CE76A3A00686557 /* whiteboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 486216821CE76A3A00686557 /* whiteboard.jpg */; };
@@ -18,8 +20,6 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		968F92D2EF68E18AE17CE51B /* Pods_Optik_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D59FAFE5235A28089D818CF /* Pods_Optik_Example.framework */; };
-		EC3AD9DC9B560D79E65AC439 /* Pods_Optik_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764F888D041630C08975F749 /* Pods_Optik_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,14 +33,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0596ABF2F686003DD2D3F54D /* Pods-Optik_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		2D0A34C1C2974437C24314CD /* Pods-Optik_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Example/Pods-Optik_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		20A1BB3E3B40B023C23B43B3 /* Pods-Optik_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4862167F1CE76A3A00686557 /* cats.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cats.jpg; sourceTree = "<group>"; };
 		486216801CE76A3A00686557 /* life.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = life.jpg; sourceTree = "<group>"; };
 		486216821CE76A3A00686557 /* whiteboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = whiteboard.jpg; sourceTree = "<group>"; };
 		486216871CE76B1500686557 /* super_blood_moon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = super_blood_moon.jpg; sourceTree = "<group>"; };
 		486216891CE76C4100686557 /* AlamofireImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireImageDownloader.swift; sourceTree = "<group>"; };
-		4D59FAFE5235A28089D818CF /* Pods_Optik_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Optik_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FF561AF977B560023CB87AF /* Pods-Optik_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Example/Pods-Optik_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Optik_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Optik_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,11 +50,12 @@
 		607FACE51AFB9204008FA782 /* Optik_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Optik_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		764F888D041630C08975F749 /* Pods_Optik_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Optik_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6674191716958A04FCD0BC94 /* Pods-Optik_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		801688BD1F8511B8FC2DED6F /* Pods_Optik_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Optik_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89FE8911D18A696FA3CFA85C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		A26D5CFD7C0E1D0E9A65760A /* Pods-Optik_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Example/Pods-Optik_Example.release.xcconfig"; sourceTree = "<group>"; };
 		B0FA00AA1823D94C9C3CE265 /* Optik.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Optik.podspec; path = ../Optik.podspec; sourceTree = "<group>"; };
-		C3FF620F816515514D9AB9E1 /* Pods-Optik_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		E13FC517D72B217C4DA5438C /* Pods-Optik_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Example/Pods-Optik_Example.release.xcconfig"; sourceTree = "<group>"; };
+		D7A17D2F52E185D6DEC3613D /* Pods_Optik_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Optik_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE51B6418077F50312A753E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				968F92D2EF68E18AE17CE51B /* Pods_Optik_Example.framework in Frameworks */,
+				13790B384C41C5A1EFE87F9F /* Pods_Optik_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,13 +72,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC3AD9DC9B560D79E65AC439 /* Pods_Optik_Tests.framework in Frameworks */,
+				4745CB8BC96A7B3E24E94581 /* Pods_Optik_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12A7D41EF09965600BD654F4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D7A17D2F52E185D6DEC3613D /* Pods_Optik_Example.framework */,
+				801688BD1F8511B8FC2DED6F /* Pods_Optik_Tests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4862167E1CE76A3A00686557 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,15 +99,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		5808674EA359C0F2C65982BB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4D59FAFE5235A28089D818CF /* Pods_Optik_Example.framework */,
-				764F888D041630C08975F749 /* Pods_Optik_Tests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -106,8 +106,8 @@
 				607FACD21AFB9204008FA782 /* Example for Optik */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				88693AA80F4F55C7BCC86841 /* Pods */,
-				5808674EA359C0F2C65982BB /* Frameworks */,
+				978CA36A4BE6E993A6CEB9D6 /* Pods */,
+				12A7D41EF09965600BD654F4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,13 +171,13 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		88693AA80F4F55C7BCC86841 /* Pods */ = {
+		978CA36A4BE6E993A6CEB9D6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2D0A34C1C2974437C24314CD /* Pods-Optik_Example.debug.xcconfig */,
-				E13FC517D72B217C4DA5438C /* Pods-Optik_Example.release.xcconfig */,
-				C3FF620F816515514D9AB9E1 /* Pods-Optik_Tests.debug.xcconfig */,
-				0596ABF2F686003DD2D3F54D /* Pods-Optik_Tests.release.xcconfig */,
+				5FF561AF977B560023CB87AF /* Pods-Optik_Example.debug.xcconfig */,
+				A26D5CFD7C0E1D0E9A65760A /* Pods-Optik_Example.release.xcconfig */,
+				20A1BB3E3B40B023C23B43B3 /* Pods-Optik_Tests.debug.xcconfig */,
+				6674191716958A04FCD0BC94 /* Pods-Optik_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -189,12 +189,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Optik_Example" */;
 			buildPhases = (
-				FDB5CE2BE325B15CF6010D1D /* Check Pods Manifest.lock */,
+				7730B7F573443AC98C4CC567 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				302F467797D160841C3140E2 /* Embed Pods Frameworks */,
-				C3630A296C5CD33789DDA0E0 /* Copy Pods Resources */,
+				001627E3B31015B7950A862F /* [CP] Embed Pods Frameworks */,
+				C1CD7E2768F81665C8539E60 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -209,12 +209,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Optik_Tests" */;
 			buildPhases = (
-				8031C34F854B7B9FB7157D77 /* Check Pods Manifest.lock */,
+				CB111F08FBB1576DE54CA6BA /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				9FB78D6351904E8850BE33FD /* Embed Pods Frameworks */,
-				39D99CDD8768DC6019B60E25 /* Copy Pods Resources */,
+				426A3A2490EB4D8E0F4DEDDD /* [CP] Embed Pods Frameworks */,
+				3FCD6EF1F69E0EF2E2D6DCBE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -289,14 +289,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		302F467797D160841C3140E2 /* Embed Pods Frameworks */ = {
+		001627E3B31015B7950A862F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,14 +304,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Optik_Example/Pods-Optik_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		39D99CDD8768DC6019B60E25 /* Copy Pods Resources */ = {
+		3FCD6EF1F69E0EF2E2D6DCBE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,29 +319,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8031C34F854B7B9FB7157D77 /* Check Pods Manifest.lock */ = {
+		426A3A2490EB4D8E0F4DEDDD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		9FB78D6351904E8850BE33FD /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,14 +334,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C3630A296C5CD33789DDA0E0 /* Copy Pods Resources */ = {
+		7730B7F573443AC98C4CC567 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C1CD7E2768F81665C8539E60 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,14 +364,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Optik_Example/Pods-Optik_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FDB5CE2BE325B15CF6010D1D /* Check Pods Manifest.lock */ = {
+		CB111F08FBB1576DE54CA6BA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,7 +514,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D0A34C1C2974437C24314CD /* Pods-Optik_Example.debug.xcconfig */;
+			baseConfigurationReference = 5FF561AF977B560023CB87AF /* Pods-Optik_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Optik/Info.plist;
@@ -528,7 +528,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E13FC517D72B217C4DA5438C /* Pods-Optik_Example.release.xcconfig */;
+			baseConfigurationReference = A26D5CFD7C0E1D0E9A65760A /* Pods-Optik_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Optik/Info.plist;
@@ -542,7 +542,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3FF620F816515514D9AB9E1 /* Pods-Optik_Tests.debug.xcconfig */;
+			baseConfigurationReference = 20A1BB3E3B40B023C23B43B3 /* Pods-Optik_Tests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -561,7 +561,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0596ABF2F686003DD2D3F54D /* Pods-Optik_Tests.release.xcconfig */;
+			baseConfigurationReference = 6674191716958A04FCD0BC94 /* Pods-Optik_Tests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
