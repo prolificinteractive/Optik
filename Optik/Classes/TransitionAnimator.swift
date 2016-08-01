@@ -24,11 +24,11 @@ internal final class TransitionAnimator: NSObject {
     
     private struct Constants {
         static let AnimationViewShadowColor: CGColor = UIColor.blackColor().CGColor
-        static let AnimationViewShadowOffset: CGSize = CGSize(width: 0, height: 20)
-        static let AnimationViewShadowRadius: CGFloat = 20
-        static let AnimationViewShadowOpacity: Float = 0.35
+        static let AnimationViewShadowOffset: CGSize = CGSize(width: 0, height: 30)
+        static let AnimationViewShadowRadius: CGFloat = 30
+        static let AnimationViewShadowOpacity: Float = 0.6
         
-        static let TransitionDuration: NSTimeInterval = 0.235
+        static let TransitionDuration: NSTimeInterval = 0.15
     }
     
     // MARK: - Private properties
@@ -115,15 +115,10 @@ internal final class TransitionAnimator: NSObject {
         }
         
         viewControllerToAnimate.view.alpha = shouldAnimateInReverse ? finalAlpha : initialAlpha
-        
-        let fadeAnimation = SpringAnimation(
-            view: viewControllerToAnimate.view,
-            target: shouldAnimateInReverse ? initialAlpha : finalAlpha,
-            velocity: 0,
-            property: ViewAlpha()
-        )
-        
-        transitionContainerView.animator().addAnimation(fadeAnimation)
+  
+        UIView.animateWithDuration(transitionDuration(transitionContext)) {
+            viewControllerToAnimate.view.alpha = shouldAnimateInReverse ? initialAlpha : finalAlpha
+        }
     }
     
     private func performZoomAnimation(reverse shouldAnimateInReverse: Bool, withVelocity velocity: CGRect) {
