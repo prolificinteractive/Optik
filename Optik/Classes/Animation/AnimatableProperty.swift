@@ -19,11 +19,8 @@ internal protocol AnimatableProperty {
     /// Threshold value to use in determining if an animation is considered complete.
     var threshold: CGFloat { get }
     
-    /// Function for reading the animatable property from a view.
-    var read: (UIView) -> [CGFloat] { get }
-    
-    /// Function for writing the animatable property to a view.
-    var write: (UIView, [CGFloat]) -> () { get }
+    /// Lens for reading and writing values.
+    var lens: Lens<UIView, [CGFloat]> { get }
     
 }
 
@@ -35,8 +32,10 @@ internal struct ViewFrame: AnimatableProperty {
     typealias PropertyType = CGRect
     
     let threshold: CGFloat = 0.1
-    let read: (UIView) -> [CGFloat] = { $0.frame.values }
-    let write: (UIView, [CGFloat]) -> () = { $0.frame = CGRect($1) }
+    let lens: Lens<UIView, [CGFloat]> = Lens<UIView, [CGFloat]>(
+        get: { $0.frame.values },
+        set: { $1.frame = CGRect($0); return $1 }
+    )
     
 }
 
@@ -48,7 +47,9 @@ internal struct ViewAlpha: AnimatableProperty {
     typealias PropertyType = CGFloat
     
     let threshold: CGFloat = 0.01
-    let read: (UIView) -> [CGFloat] = { $0.alpha.values }
-    let write: (UIView, [CGFloat]) -> () = { $0.alpha = CGFloat($1) }
+    let lens: Lens<UIView, [CGFloat]> = Lens(
+        get: { $0.alpha.values },
+        set: { $1.alpha = CGFloat($0); return $1 }
+    )
     
 }

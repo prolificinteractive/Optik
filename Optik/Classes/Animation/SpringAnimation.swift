@@ -48,8 +48,7 @@ internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProper
     
     private var springIntegrator: SpringIntegrator<T.InterpolatableType>
     
-    private let readAnimatableProperty: (UIView) -> ([CGFloat])
-    private let writAnimatableProperty: (UIView, [CGFloat]) -> ()
+    private let lens: Lens<UIView, [CGFloat]>
     
     // MARK: - Init/Deinit
 
@@ -67,12 +66,11 @@ internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProper
         self.view = view
         
         threshold = property.threshold
-        readAnimatableProperty = property.read
-        writAnimatableProperty = property.write
+        lens = property.lens
         
         toVector = Vector(target.values)
         currentVelocity = Vector(velocity.values)
-        currentVector = Vector(readAnimatableProperty(view))
+        currentVector = Vector(lens.get(view))
         
         springIntegrator = SpringIntegrator()
     }
@@ -123,10 +121,10 @@ extension SpringAnimation: Animation {
         currentVector.values = (currentInterpolatableVector + result.dpdt * CGFloat(timeElapsed)).data.values
         currentVelocity.values = (currentInterpolatableVelocity + result.dvdt * CGFloat(timeElapsed)).data.values
         
-        writAnimatableProperty(view, currentVector.values)
+        lens.set(currentVector.values, view)
 
         if isAnimationComplete() {
-            writAnimatableProperty(view, toVector.values)
+            lens.set(toVector.values, view)
             finished = true
             
             onTick?(finished: true)
