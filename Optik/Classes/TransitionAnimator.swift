@@ -92,7 +92,6 @@ internal final class TransitionAnimator: NSObject {
     
     private func performFadeAnimation(reverse shouldAnimateInReverse: Bool) {
         guard
-            let transitionContainerView = transitionContext?.containerView(),
             let fromViewController = fromViewController,
             let toViewController = toViewController else {
                 transitionContext?.completeTransition(false)
