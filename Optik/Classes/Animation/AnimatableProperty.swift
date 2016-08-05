@@ -32,7 +32,7 @@ internal struct ViewFrame: AnimatableProperty {
     typealias PropertyType = CGRect
     
     let threshold: CGFloat = 0.1
-    let lens: Lens<UIView, [CGFloat]> = Lens<UIView, [CGFloat]>(
+    let lens: Lens<UIView, [CGFloat]> = Lens(
         get: { $0.frame.values },
         set: { $1.frame = CGRect($0); return $1 }
     )

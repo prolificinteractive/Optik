@@ -297,10 +297,9 @@ extension AlbumViewController: UIPageViewControllerDelegate {
         }
         
         if previousViewControllers.count > 0 {
-            previousViewControllers.forEach { (viewController) in
-                let imageViewController = viewController as? ImageViewController
-                imageViewController?.resetImageView()
-            }
+            previousViewControllers
+                .map { $0 as? ImageViewController }
+                .forEach { $0?.resetImageView() }
         }
         
         if let currentImageIndex = currentImageViewController?.index {

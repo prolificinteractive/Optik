@@ -6,8 +6,6 @@
 //  Copyright © 2016 Prolific Interactive. All rights reserved.
 //
 
-import Foundation
-
 /// Vector type that holds a collection of `CGFloat` values.
 internal struct Vector {
     

@@ -6,8 +6,6 @@
 //  Copyright © 2016 Prolific Interactive. All rights reserved.
 //
 
-import Foundation
-
 /// 1D vector type. Internally holds a `Vector`.
 internal struct Vector1D: Interpolatable {
     

@@ -6,8 +6,6 @@
 //  Copyright © 2016 Prolific Interactive. All rights reserved.
 //
 
-import Foundation
-
 /**
  *  Defines a collection of functions required for interpolating values.
  */

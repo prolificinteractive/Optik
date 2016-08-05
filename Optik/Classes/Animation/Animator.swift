@@ -51,10 +51,8 @@ internal final class Animator {
      - parameter animation: Animation to be added to animator.
      */
     func addAnimation(animation: Animation) {
-        for storedAnimation in animations {
-            if storedAnimation === animation {
-                return
-            }
+        guard !animations.contains( { $0 === animation } ) else {
+            return
         }
         
         animations.append(animation)
@@ -70,9 +68,9 @@ internal final class Animator {
      - parameter animation: Animation to be removed from animator.
      */
     func removeAnimation(animation: Animation) {
-        animations = animations.filter({ (storedAnimation) in
+        animations = animations.filter { (storedAnimation) in
             return storedAnimation !== animation
-        })
+        }
         
         if animations.count == 0 {
             displayLink?.paused = true

@@ -6,8 +6,6 @@
 //  Copyright © 2016 Prolific Interactive. All rights reserved.
 //
 
-import Foundation
-
 /**
  *  A type that can be converted to and from an array of `CGFloat` and used as a `Vector` type.
  */
