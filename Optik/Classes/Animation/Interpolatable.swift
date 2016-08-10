@@ -11,17 +11,8 @@
  */
 internal protocol Interpolatable {
     
-    /**
-     Initializes and returns an `Interpolatable` object from a `Vector`.
-     
-     - parameter data: `Vector` data.
-     
-     - returns: Initialized `Interpolatable` object.
-     */
-    init(_ data: Vector)
-    
-    /// Converts and returns the receiver into a `Vector`. 
-    var data: Vector { get }
+    /// Returns underlying values as an array. 
+    var values: [CGFloat] { get }
     
     /**
      Negates specfied object and returns the result.

@@ -41,14 +41,14 @@ internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProper
     
     // MARK: - Private properties
     
-    private var currentVector: Vector
-    private var currentVelocity: Vector
-    private let toVector: Vector
+    private var currentVector: T.InterpolatableType
+    private var currentVelocity: T.InterpolatableType
+    private let toVector: T.InterpolatableType
     private let threshold: CGFloat
     
     private var springIntegrator: SpringIntegrator<T.InterpolatableType>
     
-    private let lens: Lens<UIView, [CGFloat]>
+    private let lens: Lens<UIView, T.InterpolatableType>
     
     // MARK: - Init/Deinit
 
@@ -68,9 +68,9 @@ internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProper
         threshold = property.threshold
         lens = property.lens
         
-        toVector = Vector(target.values)
-        currentVelocity = Vector(velocity.values)
-        currentVector = Vector(lens.get(view))
+        toVector = target.vector
+        currentVelocity = velocity.vector
+        currentVector = lens.get(view)
         
         springIntegrator = SpringIntegrator()
     }
@@ -80,10 +80,6 @@ internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProper
     private func isAnimationComplete() -> Bool {
         let currentValues = currentVector.values
         let toValues = toVector.values
-        
-        guard currentValues.count == toValues.count else {
-            return false
-        }
         
         for (index, value) in currentValues.enumerate() {
             if abs(value - toValues[index]) > threshold {
@@ -108,23 +104,19 @@ extension SpringAnimation: Animation {
             return
         }
         
-        let currentInterpolatableVector = T.InterpolatableType(currentVector)
-        let currentInterpolatableVelocity = T.InterpolatableType(currentVelocity)
-        let toInterpolatableVector = T.InterpolatableType(toVector)
-        
         let result = springIntegrator.integrate(
-            currentInterpolatableVector - toInterpolatableVector,
-            velocity: currentInterpolatableVelocity,
+            currentVector - toVector,
+            velocity: currentVelocity,
             dt: timeElapsed
         )
         
-        currentVector.values = (currentInterpolatableVector + result.dpdt * CGFloat(timeElapsed)).data.values
-        currentVelocity.values = (currentInterpolatableVelocity + result.dvdt * CGFloat(timeElapsed)).data.values
+        currentVector = currentVector + result.dpdt * CGFloat(timeElapsed)
+        currentVelocity = currentVelocity + result.dvdt * CGFloat(timeElapsed)
         
-        lens.set(currentVector.values, view)
+        lens.set(currentVector, view)
 
         if isAnimationComplete() {
-            lens.set(toVector.values, view)
+            lens.set(toVector, view)
             finished = true
             
             onTick?(finished: true)

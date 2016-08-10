@@ -7,7 +7,7 @@
 //
 
 /// 4D vector type. Internally holds a `Vector`.
-internal struct Vector4D: Interpolatable {
+internal struct Vector4D {
     
     // MARK: - Static properties
     
@@ -17,68 +17,30 @@ internal struct Vector4D: Interpolatable {
     }
     
     // MARK: - Properties
-    
-    /// Data.
-    var data: Vector
-    
+
     /// `x` component of the vector.
-    var x: CGFloat {
-        get {
-            return data.values[0]
-        }
-        set {
-            data.values[0] = newValue
-        }
-    }
+    var x: CGFloat
     
     /// `y` component of the vector.
-    var y: CGFloat {
-        get {
-            return data.values[1]
-        }
-        set {
-            data.values[1] = newValue
-        }
-    }
+    var y: CGFloat
     
     /// `z` component of the vector.
-    var z: CGFloat {
-        get {
-            return data.values[2]
-        }
-        set {
-            data.values[2] = newValue
-        }
-    }
+    var z: CGFloat
     
     /// `w` component of the vector.
-    var w: CGFloat {
-        get {
-            return data.values[3]
-        }
-        set {
-            data.values[3] = newValue
-        }
-    }
+    var w: CGFloat
     
     // MARK: - Init/deinit
     
-    init(_ data: Vector) {
-        var values = Array<CGFloat>(count: 4, repeatedValue: 0)
-        
-        for (index, value) in data.values.enumerate() {
-            values[index] = value
-        }
-        
-        self.data = Vector(values)
-    }
-    
-    init(_ other: Vector4D) {
-        self.init(other.data)
-    }
-    
     init(x: CGFloat, y: CGFloat, z: CGFloat, w: CGFloat) {
-        self.init(Vector([x, y, z, w]))
+        self.x = x
+        self.y = y
+        self.z = z
+        self.w = w
+    }
+    
+    init(other: Vector4D) {
+        self.init(x: other.x, y: other.y, z: other.z, w: other.w)
     }
     
 }
@@ -86,6 +48,14 @@ internal struct Vector4D: Interpolatable {
 // MARK: - Protocol conformance
 
 // MARK: Interpolatable
+
+extension Vector4D: Interpolatable {
+    
+    var values: [CGFloat] {
+        return [x, y, z, w]
+    }
+    
+}
 
 internal prefix func -(obj: Vector4D) -> Vector4D {
     return Vector4D(

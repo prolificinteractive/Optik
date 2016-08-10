@@ -7,7 +7,7 @@
 //
 
 /// 1D vector type. Internally holds a `Vector`.
-internal struct Vector1D: Interpolatable {
+internal struct Vector1D {
     
     // MARK: - Static properties
     
@@ -18,37 +18,17 @@ internal struct Vector1D: Interpolatable {
     
     // MARK: - Properties
     
-    /// Data.
-    var data: Vector
-    
     /// `x` component of the vector.
-    var x: CGFloat {
-        get {
-            return data.values[0]
-        }
-        set {
-            data.values[0] = newValue
-        }
-    }
+    var x: CGFloat
     
     // MARK: - Init/deinit
     
-    init(_ data: Vector) {
-        var values = Array<CGFloat>(count: 1, repeatedValue: 0)
-        
-        for (index, value) in data.values.enumerate() {
-            values[index] = value
-        }
-        
-        self.data = Vector(values)
-    }
-    
-    init(_ other: Vector1D) {
-        self.init(other.data)
-    }
-    
     init(x: CGFloat) {
-        self.init(Vector([x]))
+        self.x = x
+    }
+    
+    init(other: Vector1D) {
+        self.init(x: other.x)
     }
     
 }
@@ -56,6 +36,14 @@ internal struct Vector1D: Interpolatable {
 // MARK: - Protocol conformance
 
 // MARK: Interpolatable
+
+extension Vector1D: Interpolatable {
+    
+    var values: [CGFloat] {
+        return [x]
+    }
+    
+}
 
 internal prefix func -(obj: Vector1D) -> Vector1D {
     return Vector1D(x: -obj.x)

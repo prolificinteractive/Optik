@@ -20,7 +20,7 @@ internal protocol AnimatableProperty {
     var threshold: CGFloat { get }
     
     /// Lens for reading and writing values.
-    var lens: Lens<UIView, [CGFloat]> { get }
+    var lens: Lens<UIView, PropertyType.InterpolatableType> { get }
     
 }
 
@@ -32,9 +32,9 @@ internal struct ViewFrame: AnimatableProperty {
     typealias PropertyType = CGRect
     
     let threshold: CGFloat = 0.1
-    let lens: Lens<UIView, [CGFloat]> = Lens(
-        get: { $0.frame.values },
-        set: { $1.frame = CGRect($0); return $1 }
+    let lens: Lens<UIView, PropertyType.InterpolatableType> = Lens(
+        get: { $0.frame.vector },
+        set: { $1.frame = CGRect(vector: $0); return $1 }
     )
     
 }
@@ -47,9 +47,9 @@ internal struct ViewAlpha: AnimatableProperty {
     typealias PropertyType = CGFloat
     
     let threshold: CGFloat = 0.01
-    let lens: Lens<UIView, [CGFloat]> = Lens(
-        get: { $0.alpha.values },
-        set: { $1.alpha = CGFloat($0); return $1 }
+    let lens: Lens<UIView, PropertyType.InterpolatableType> = Lens(
+        get: { $0.alpha.vector },
+        set: { $1.alpha = CGFloat(vector: $0); return $1 }
     )
     
 }

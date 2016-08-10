@@ -14,16 +14,16 @@ internal protocol VectorRepresentable {
     associatedtype InterpolatableType: Interpolatable
 
     /**
-     Initializes from an array of `CGFloat`.
+     Initializes from a vector.
 
-     - parameter values: Array of values.
+     - parameter vector: Vector.
      
      - returns: Initialized object.
      */
-    init(_ values: [CGFloat])
+    init(vector: InterpolatableType)
     
-    /// Convert to an array of `CGFloat`.
-    var values: [CGFloat] { get }
+    /// Convert to a vector.
+    var vector: InterpolatableType { get }
     
 }
 
@@ -35,16 +35,12 @@ extension CGRect: VectorRepresentable {
     
     typealias InterpolatableType = Vector4D
     
-    init(_ values: [CGFloat]) {
-        guard values.count == 4 else {
-            fatalError("Invalid number of values.")
-        }
-        
-        self.init(x: values[0], y: values[1], width: values[2], height: values[3])
+    init(vector: InterpolatableType) {
+        self.init(x: vector.x, y: vector.y, width: vector.z, height: vector.w)
     }
     
-    var values: [CGFloat] {
-        return [origin.x, origin.y, size.width, size.height]
+    var vector: InterpolatableType {
+        return Vector4D(x: origin.x, y: origin.y, z: size.width, w: size.height)
     }
     
 }
@@ -55,16 +51,12 @@ extension CGFloat: VectorRepresentable {
     
     typealias InterpolatableType = Vector1D
     
-    init(_ values: [CGFloat]) {
-        guard values.count == 1 else {
-            fatalError("Invalid number of values.")
-        }
-        
-        self = values[0]
+    init(vector: InterpolatableType) {
+        self = vector.x
     }
     
-    var values: [CGFloat] {
-        return [self]
+    var vector: InterpolatableType {
+        return Vector1D(x: self)
     }
     
 }
