@@ -15,19 +15,25 @@ import UIKit
  
  - parameter images:                        Images to be displayed.
  - parameter initialImageDisplayIndex:      Index of first image to display.
+ - parameter delegate:                      Image viewer delegate.
  - parameter dismissButtonImage:            Image for the dismiss button.
  - parameter dismissButtonPosition:         Dismiss button position.
  
  - returns: The created view controller.
  */
-public func imageViewerWithImages(images: [UIImage],
-                                  initialImageDisplayIndex: Int = 0,
-                                  dismissButtonImage: UIImage? = nil,
-                                  dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
-    return imageViewerWithData(.Local(images: images),
-                               initialImageDisplayIndex: initialImageDisplayIndex,
-                               dismissButtonImage: dismissButtonImage,
-                               dismissButtonPosition: dismissButtonPosition)
+public func imageViewer(withImages images: [UIImage],
+                                   initialImageDisplayIndex: Int = 0,
+                                   delegate: ImageViewerDelegate? = nil,
+                                   dismissButtonImage: UIImage? = nil,
+                                   dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
+    let albumViewController = imageViewer(withData: .Local(images: images),
+                                          initialImageDisplayIndex: initialImageDisplayIndex,
+                                          dismissButtonImage: dismissButtonImage,
+                                          dismissButtonPosition: dismissButtonPosition)
+    albumViewController.modalPresentationStyle = .Custom
+    albumViewController.imageViewerDelegate = delegate
+    
+    return albumViewController
 }
 
 /**
@@ -42,32 +48,32 @@ public func imageViewerWithImages(images: [UIImage],
  
  - returns: The created view controller.
  */
-public func imageViewerWithURLs(urls: [NSURL],
-                                initialImageDisplayIndex: Int = 0,
-                                imageDownloader: ImageDownloader,
-                                activityIndicatorColor: UIColor = .whiteColor(),
-                                dismissButtonImage: UIImage? = nil,
-                                dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
-    return imageViewerWithData(.Remote(urls: urls, imageDownloader: imageDownloader),
-                               initialImageDisplayIndex: initialImageDisplayIndex,
-                               activityIndicatorColor: activityIndicatorColor,
-                               dismissButtonImage: dismissButtonImage,
-                               dismissButtonPosition: dismissButtonPosition)
+public func imageViewer(withURLs urls: [NSURL],
+                                 initialImageDisplayIndex: Int = 0,
+                                 imageDownloader: ImageDownloader,
+                                 activityIndicatorColor: UIColor = .whiteColor(),
+                                 dismissButtonImage: UIImage? = nil,
+                                 dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
+    return imageViewer(withData: .Remote(urls: urls, imageDownloader: imageDownloader),
+                       initialImageDisplayIndex: initialImageDisplayIndex,
+                       activityIndicatorColor: activityIndicatorColor,
+                       dismissButtonImage: dismissButtonImage,
+                       dismissButtonPosition: dismissButtonPosition)
 }
 
 // MARK: - Private functions
 
-private func imageViewerWithData(imageData: ImageData,
-                                 initialImageDisplayIndex: Int,
-                                 activityIndicatorColor: UIColor? = nil,
-                                 dismissButtonImage: UIImage?,
-                                 dismissButtonPosition: DismissButtonPosition) -> UIViewController {
+private func imageViewer(withData imageData: ImageData,
+                                  initialImageDisplayIndex: Int,
+                                  activityIndicatorColor: UIColor? = nil,
+                                  dismissButtonImage: UIImage?,
+                                  dismissButtonPosition: DismissButtonPosition) -> AlbumViewController {
     let bundle = NSBundle(forClass: AlbumViewController.self)
     let defaultDismissButtonImage = UIImage(named: "DismissIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
     
     return AlbumViewController(imageData: imageData,
                                initialImageDisplayIndex: initialImageDisplayIndex,
                                activityIndicatorColor: activityIndicatorColor,
-                               dismissButtonImage: (dismissButtonImage != nil) ? dismissButtonImage : defaultDismissButtonImage,
+                               dismissButtonImage: dismissButtonImage ?? defaultDismissButtonImage,
                                dismissButtonPosition: dismissButtonPosition)
 }

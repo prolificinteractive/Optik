@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// View controller for displaying a collection of photos.
 internal final class AlbumViewController: UIViewController {
     
     private struct Constants {
@@ -19,9 +20,43 @@ internal final class AlbumViewController: UIViewController {
     
     // MARK: - Properties
     
+    weak var imageViewerDelegate: ImageViewerDelegate? {
+        didSet {
+            guard let _ = imageViewerDelegate else {
+                transitioningDelegate = nil
+                
+                transitionController.currentImageView = nil
+                transitionController.transitionImageView = nil
+                
+                return
+            }
+            
+            transitioningDelegate = transitionController
+            
+            transitionController.viewControllerToDismiss = self
+            transitionController.currentImageView = { [weak self] in
+                return self?.currentImageViewController?.imageView
+            }
+            transitionController.transitionImageView = { [weak self] in
+                guard let currentImageIndex = self?.currentImageViewController?.index else {
+                    return nil
+                }
+                
+                return self?.imageViewerDelegate?.transitionImageView(forIndex: currentImageIndex)
+            }
+        }
+    }
+    
     // MARK: Private properties
     
-    private var pageViewController: UIPageViewController?
+    private var pageViewController: UIPageViewController
+    private var currentImageViewController: ImageViewController? {
+        guard let viewControllers = pageViewController.viewControllers where viewControllers.count == 1 else {
+            return nil
+        }
+        
+        return viewControllers[0] as? ImageViewController
+    }
     
     private var imageData: ImageData
     private var initialImageDisplayIndex: Int
@@ -32,16 +67,29 @@ internal final class AlbumViewController: UIViewController {
     private var cachedRemoteImages: [NSURL: UIImage] = [:]
     private var viewDidAppear: Bool = false
     
+    private var transitionController: TransitionController = TransitionController()
+    
     // MARK: - Init/Deinit
     
-    init(imageData: ImageData, initialImageDisplayIndex: Int, activityIndicatorColor: UIColor?, dismissButtonImage: UIImage?, dismissButtonPosition: DismissButtonPosition) {
+    init(imageData: ImageData,
+         initialImageDisplayIndex: Int,
+         activityIndicatorColor: UIColor?,
+         dismissButtonImage: UIImage?,
+         dismissButtonPosition: DismissButtonPosition) {
+        
         self.imageData = imageData
         self.initialImageDisplayIndex = initialImageDisplayIndex
         self.activityIndicatorColor = activityIndicatorColor
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
         
+        pageViewController = UIPageViewController(transitionStyle: .Scroll,
+                                                  navigationOrientation: .Horizontal,
+                                                  options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
+
         super.init(nibName: nil, bundle: nil)
+        
+        setupPageViewController()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,12 +97,6 @@ internal final class AlbumViewController: UIViewController {
     }
     
     // MARK: - Override functions
-    
-    override func loadView() {
-        super.loadView()
-        
-        setupPageViewController()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +121,7 @@ internal final class AlbumViewController: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         coordinator.animateAlongsideTransition({ (_) in
-            self.pageViewController?.view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            self.pageViewController.view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             }, completion: nil)
     }
     
@@ -100,28 +142,25 @@ internal final class AlbumViewController: UIViewController {
     private func setupDesign() {
         view.backgroundColor = UIColor.blackColor()
         
+        addChildViewController(pageViewController)
+        view.addSubview(pageViewController.view)
+        didMoveToParentViewController(pageViewController)
+        
         setupDismissButton()
+        setupPanGestureRecognizer()
     }
     
     private func setupPageViewController() {
-        let pageViewController = UIPageViewController(transitionStyle: .Scroll,
-                                                      navigationOrientation: .Horizontal,
-                                                      options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
-        if let imageViewController = imageViewControllerAtIndex(initialImageDisplayIndex) {
+        // Set up initial image view controller.
+        if let imageViewController = imageViewController(forIndex: initialImageDisplayIndex) {
             pageViewController.setViewControllers([imageViewController],
                                                   direction: .Forward,
                                                   animated: false,
                                                   completion: nil)
         }
-        
-        addChildViewController(pageViewController)
-        view.addSubview(pageViewController.view)
-        didMoveToParentViewController(pageViewController)
-        
-        self.pageViewController = pageViewController
     }
     
     private func setupDismissButton() {
@@ -173,7 +212,14 @@ internal final class AlbumViewController: UIViewController {
         )
     }
     
-    private func imageViewControllerAtIndex(index: Int) -> ImageViewController? {
+    private func setupPanGestureRecognizer() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(AlbumViewController.didPan(_:)))
+        panGestureRecognizer.maximumNumberOfTouches = 1
+        
+        view.addGestureRecognizer(panGestureRecognizer)
+    }
+    
+    private func imageViewController(forIndex index: Int) -> ImageViewController? {
         switch imageData {
         case .Local(let images):
             guard index >= 0 && index < images.count else {
@@ -208,7 +254,15 @@ internal final class AlbumViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @objc private func didPan(sender: UIPanGestureRecognizer) {
+        transitionController.didPan(withGestureRecognizer: sender, sourceView: view)
+    }
+    
 }
+
+// MARK: - Protocol conformance
+
+// MARK: UIPageViewControllerDataSource
 
 extension AlbumViewController: UIPageViewControllerDataSource {
     
@@ -218,7 +272,7 @@ extension AlbumViewController: UIPageViewControllerDataSource {
             return nil
         }
         
-        return imageViewControllerAtIndex(imageViewController.index - 1)
+        return self.imageViewController(forIndex: imageViewController.index - 1)
     }
     
     func pageViewController(pageViewController: UIPageViewController,
@@ -227,10 +281,12 @@ extension AlbumViewController: UIPageViewControllerDataSource {
             return nil
         }
         
-        return imageViewControllerAtIndex(imageViewController.index + 1)
+        return self.imageViewController(forIndex: imageViewController.index + 1)
     }
     
 }
+
+// MARK: UIPageViewControllerDelegate
 
 extension AlbumViewController: UIPageViewControllerDelegate {
     
@@ -238,13 +294,18 @@ extension AlbumViewController: UIPageViewControllerDelegate {
                             didFinishAnimating finished: Bool,
                                                previousViewControllers: [UIViewController],
                                                transitionCompleted completed: Bool) {
-        guard completed == true && previousViewControllers.count > 0 else {
+        guard completed == true else {
             return
         }
         
-        previousViewControllers.forEach { (viewController) in
-            let imageViewController = viewController as? ImageViewController
-            imageViewController?.resetImageView()
+        if previousViewControllers.count > 0 {
+            previousViewControllers
+                .map { $0 as? ImageViewController }
+                .forEach { $0?.resetImageView() }
+        }
+        
+        if let currentImageIndex = currentImageViewController?.index {
+            imageViewerDelegate?.imageViewerDidDisplayImage(atIndex: currentImageIndex)
         }
     }
     
