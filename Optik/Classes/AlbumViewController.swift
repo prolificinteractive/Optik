@@ -22,25 +22,27 @@ internal final class AlbumViewController: UIViewController {
     
     weak var imageViewerDelegate: ImageViewerDelegate? {
         didSet {
-            if let _ = imageViewerDelegate {
-                transitioningDelegate = transitionController
-                
-                transitionController.viewControllerToDismiss = self
-                transitionController.currentImageView = { [weak self] in
-                    return self?.currentImageViewController?.imageView
-                }
-                transitionController.transitionImageView = { [weak self] in
-                    guard let currentImageIndex = self?.currentImageViewController?.index else {
-                        return nil
-                    }
-                    
-                    return self?.imageViewerDelegate?.transitionImageView(forIndex: currentImageIndex)
-                }
-            } else {
+            guard let _ = imageViewerDelegate else {
                 transitioningDelegate = nil
                 
                 transitionController.currentImageView = nil
                 transitionController.transitionImageView = nil
+                
+                return
+            }
+            
+            transitioningDelegate = transitionController
+            
+            transitionController.viewControllerToDismiss = self
+            transitionController.currentImageView = { [weak self] in
+                return self?.currentImageViewController?.imageView
+            }
+            transitionController.transitionImageView = { [weak self] in
+                guard let currentImageIndex = self?.currentImageViewController?.index else {
+                    return nil
+                }
+                
+                return self?.imageViewerDelegate?.transitionImageView(forIndex: currentImageIndex)
             }
         }
     }
