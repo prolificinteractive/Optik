@@ -34,7 +34,8 @@ Optik can be used to display images stored either locally or remotely.
 Local images can be displayed by creating an image viewer with an array of images:
 
 ```swift
-let imageViewer = Optik.imageViewer(withImages: [
+let imageViewer = Optik.imageViewer(
+    withImages: [
 		UIImage(named: "image1.jpg")!,
 		UIImage(named: "image2.jpg")!,
 		UIImage(named: "image3.jpg")!
@@ -51,7 +52,8 @@ For remote images, an array of `NSURLs` should be provided - as well as an objec
 ```swift
 let imageDownloader = MyImageDownloader()
 
-let imageViewer = Optik.imageViewer(withURLs: [
+let imageViewer = Optik.imageViewer(
+    withURLs: [
         NSURL(string: "https://somewebsite.com/image1.png")!,
         NSURL(string: "https://somewebsite.com/image2.png")!,
         NSURL(string: "https://somewebsite.com/image3.png")!
@@ -68,20 +70,22 @@ presentViewController(imageViewer, animated: true, completion: nil)
 
 The dismiss button image and position can be customized.
 
-To indicate a custom dismiss button image, provide a `dismissButtonImage:` parameter when creating an image viewer:
+To indicate a custom dismiss button image, provide a `dismissButtonImage` parameter when creating an image viewer:
 
 ```swift
-let imageViewer = Optik.imageViewer(withImages: [
+let imageViewer = Optik.imageViewer(
+    withImages: [
         UIImage(named: "image1.jpg")!
     ],
     dismissButtonImage: UIImage(named: "MyDismissButton")
 )
 ```
 
-To indicate a position for the dismiss button, provide a `dismissButtonPosition:`
+To indicate a position for the dismiss button, provide a `dismissButtonPosition`
 
 ```swift
-let imageViewer = Optik.imageViewer(withImages: [
+let imageViewer = Optik.imageViewer(
+    withImages: [
         UIImage(named: "image1.jpg")!
     ],
     dismissButtonImage: UIImage(named: "MyDismissButton"),
@@ -94,8 +98,9 @@ let imageViewer = Optik.imageViewer(withImages: [
 When fetching remote images, an activity indicator is displayed while images are loaded. To indicate a custom activity indicator color, provide an `activityIndicatorColor:` parameter when creating an image viewer:
 
 ```swift
-let imageViewer = Optik.imageViewerWithURLs([
-        NSURL(string: "https://somewebsite.com/image1.png")!
+let imageViewer = Optik.imageViewer(
+    withURLs: [
+    	NSURL(string: "https://somewebsite.com/image1.png")!
     ],
     imageDownloader: imageDownloader,
     activityIndicatorColor: UIColor.redColor()
