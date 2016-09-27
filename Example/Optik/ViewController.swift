@@ -13,11 +13,11 @@ internal final class ViewController: UIViewController {
     
     // MARK: - Private properties
     
-    @IBOutlet private weak var localImagesButton: UIButton!
+    @IBOutlet fileprivate weak var localImagesButton: UIButton!
     
-    private var currentLocalImageIndex = 0 {
+    fileprivate var currentLocalImageIndex = 0 {
         didSet {
-            localImagesButton.setImage(localImages[currentLocalImageIndex], forState: .Normal)
+            localImagesButton.setImage(localImages[currentLocalImageIndex], for: .normal)
         }
     }
     private let localImages: [UIImage] = [
@@ -39,23 +39,23 @@ internal final class ViewController: UIViewController {
     
     private func setupDesign() {
         localImagesButton.imageView?.layer.cornerRadius = 5
-        localImagesButton.imageView?.contentMode = .ScaleAspectFill
+        localImagesButton.imageView?.contentMode = .scaleAspectFill
     }
 
-    @IBAction private func presentLocalImageViewer(sender: UIButton) {
+    @IBAction private func presentLocalImageViewer(_ sender: UIButton) {
         let viewController = Optik.imageViewer(withImages: localImages,
                                                initialImageDisplayIndex: currentLocalImageIndex,
                                                delegate: self)
         
-        presentViewController(viewController, animated: true, completion: nil)
+        present(viewController, animated: true, completion: nil)
     }
     
-    @IBAction private func presentRemoteImageViewer(sender: UIButton) {
+    @IBAction private func presentRemoteImageViewer(_ sender: UIButton) {
         guard
-            let url1 = NSURL(string: "https://upload.wikimedia.org/wikipedia/commons/9/96/BURN_THE_WITCH.png"),
-            let url2 = NSURL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Croissant%2C_cross_section.jpg"),
-            let url3 = NSURL(string: "https://upload.wikimedia.org/wikipedia/en/9/9d/Link_%28Hyrule_Historia%29.png"),
-            let url4 = NSURL(string: "https://upload.wikimedia.org/wikipedia/en/3/34/RickAstleyNeverGonnaGiveYouUp7InchSingleCover.jpg") else {
+            let url1 = URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/96/BURN_THE_WITCH.png"),
+            let url2 = URL(string: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Croissant%2C_cross_section.jpg"),
+            let url3 = URL(string: "https://upload.wikimedia.org/wikipedia/en/9/9d/Link_%28Hyrule_Historia%29.png"),
+            let url4 = URL(string: "https://upload.wikimedia.org/wikipedia/en/3/34/RickAstleyNeverGonnaGiveYouUp7InchSingleCover.jpg") else {
                 return
         }
         
@@ -63,7 +63,7 @@ internal final class ViewController: UIViewController {
         let imageDownloader = AlamofireImageDownloader()
         
         let viewController = Optik.imageViewer(withURLs: urls, imageDownloader: imageDownloader)
-        presentViewController(viewController, animated: true, completion: nil)
+        present(viewController, animated: true, completion: nil)
     }
 
 }
@@ -74,11 +74,11 @@ internal final class ViewController: UIViewController {
 
 extension ViewController: ImageViewerDelegate {
     
-    func transitionImageView(forIndex index: Int) -> UIImageView {
+    func transitionImageView(for index: Int) -> UIImageView {
         return localImagesButton.imageView!
     }
     
-    func imageViewerDidDisplayImage(atIndex index: Int) {
+    func imageViewerDidDisplayImage(at index: Int) {
         currentLocalImageIndex = index
     }
     

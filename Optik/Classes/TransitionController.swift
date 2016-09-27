@@ -28,8 +28,8 @@ internal final class TransitionController: NSObject {
     
     // MARK: - Private properties
     
-    private var dismissTransitionAnimator: TransitionAnimator?
-    private var shouldDismissInteractively: Bool = false
+    fileprivate var dismissTransitionAnimator: TransitionAnimator?
+    fileprivate var shouldDismissInteractively: Bool = false
     
     private var lastPanTranslation: CGPoint?
     
@@ -43,22 +43,22 @@ internal final class TransitionController: NSObject {
      */
     func didPan(withGestureRecognizer gestureRecognizer: UIPanGestureRecognizer, sourceView: UIView) {
         switch gestureRecognizer.state {
-        case .Began:
+        case .began:
             guard let imageView = currentImageView?() else {
                 return
             }
             
-            let touchLocation = gestureRecognizer.locationInView(sourceView)
-            let imageViewFrame = imageView.superview?.convertRect(imageView.frame, toView: sourceView)
+            let touchLocation = gestureRecognizer.location(in: sourceView)
+            let imageViewFrame = imageView.superview?.convert(imageView.frame, to: sourceView)
             
             if imageViewFrame?.contains(touchLocation) == true {
-                lastPanTranslation = gestureRecognizer.translationInView(sourceView)
+                lastPanTranslation = gestureRecognizer.translation(in: sourceView)
                 shouldDismissInteractively = true
                 
                 // Kick off interactive transition.
-                viewControllerToDismiss?.dismissViewControllerAnimated(true, completion: nil)
+                viewControllerToDismiss?.dismiss(animated: true, completion: nil)
             }
-        case .Changed:
+        case .changed:
             guard 
                 shouldDismissInteractively,
                 let dismissTransitionAnimator = dismissTransitionAnimator,
@@ -66,7 +66,7 @@ internal final class TransitionController: NSObject {
                     return
             }
             
-            let translation = gestureRecognizer.translationInView(sourceView)
+            let translation = gestureRecognizer.translation(in: sourceView)
             
             // Calculate how much user's finger has moved since last time and update the transition.
             let translationDelta = CGPoint(x: translation.x - lastPanTranslation.x,
@@ -74,15 +74,15 @@ internal final class TransitionController: NSObject {
             dismissTransitionAnimator.updateInteractiveTransition(translationDelta)
             
             self.lastPanTranslation = translation
-        case .Ended:
+        case .ended:
             guard
                 shouldDismissInteractively,
                 let dismissTransitionAnimator = dismissTransitionAnimator else {
                     return
             }
             
-            let translation = gestureRecognizer.translationInView(sourceView)
-            let velocity = gestureRecognizer.velocityInView(sourceView)
+            let translation = gestureRecognizer.translation(in: sourceView)
+            let velocity = gestureRecognizer.velocity(in: sourceView)
             
             // Finish or cancel the transition based on how much user's finger has moved since the transition started.
             if
@@ -109,9 +109,9 @@ internal final class TransitionController: NSObject {
 
 extension TransitionController: UIViewControllerTransitioningDelegate {
     
-    func animationControllerForPresentedController(presented: UIViewController,
-                                                   presentingController presenting: UIViewController,
-                                                                        sourceController source: UIViewController)
+    func animationController(forPresented presented: UIViewController,
+                                                   presenting: UIViewController,
+                                                                        source: UIViewController)
         -> UIViewControllerAnimatedTransitioning? {
             guard
                 let fromImageView = transitionImageView?(),
@@ -119,10 +119,10 @@ extension TransitionController: UIViewControllerTransitioningDelegate {
                     return nil
             }
             
-            return TransitionAnimator(transitionType: .Present, fromImageView: fromImageView, toImageView: toImageView)
+            return TransitionAnimator(transitionType: .present, fromImageView: fromImageView, toImageView: toImageView)
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController)
+    func animationController(forDismissed dismissed: UIViewController)
         -> UIViewControllerAnimatedTransitioning? {
             guard
                 let fromImageView = currentImageView?(),
@@ -130,13 +130,13 @@ extension TransitionController: UIViewControllerTransitioningDelegate {
                     return nil
             }
             
-            dismissTransitionAnimator = TransitionAnimator(transitionType: .Dismiss,
+            dismissTransitionAnimator = TransitionAnimator(transitionType: .dismiss,
                                                            fromImageView: fromImageView,
                                                            toImageView: toImageView)
             return dismissTransitionAnimator
     }
     
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning)
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning)
         -> UIViewControllerInteractiveTransitioning? {
             guard shouldDismissInteractively && animator === dismissTransitionAnimator else {
                 return nil

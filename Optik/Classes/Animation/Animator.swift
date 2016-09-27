@@ -24,7 +24,7 @@ internal final class Animator {
     
     // MARK: - Static functions
     
-    static func animatorWithScreen(screen: UIScreen) -> Animator {
+    static func animatorWithScreen(_ screen: UIScreen) -> Animator {
         if let driver = objc_getAssociatedObject(screen, &AssociatedKeys.ScreenDriverKey) as? Animator {
             return driver
         } else {
@@ -38,9 +38,9 @@ internal final class Animator {
     // MARK: - Init/Deinit
     
     private init(screen: UIScreen) {
-        displayLink = screen.displayLinkWithTarget(self, selector: #selector(Animator.animationTick(_:)))
-        displayLink?.paused = true
-        displayLink?.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+        displayLink = screen.displayLink(withTarget: self, selector: #selector(Animator.animationTick(_:)))
+        displayLink?.isPaused = true
+        displayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
     }
     
     // MARK: - Instance functions
@@ -50,15 +50,15 @@ internal final class Animator {
      
      - parameter animation: Animation to be added to animator.
      */
-    func addAnimation(animation: Animation) {
-        guard !animations.contains( { $0 === animation } ) else {
+    func add(_ animation: Animation) {
+        guard !animations.contains( where: { $0 === animation } ) else {
             return
         }
         
         animations.append(animation)
         
         if animations.count == 1 {
-            displayLink?.paused = false
+            displayLink?.isPaused = false
         }
     }
     
@@ -67,23 +67,23 @@ internal final class Animator {
      
      - parameter animation: Animation to be removed from animator.
      */
-    func removeAnimation(animation: Animation) {
+    func remove(_ animation: Animation) {
         animations = animations.filter { (storedAnimation) in
             return storedAnimation !== animation
         }
         
         if animations.count == 0 {
-            displayLink?.paused = true
+            displayLink?.isPaused = true
         }
     }
     
     // MARK: - Private functions
     
-    @objc private func animationTick(displayLink: CADisplayLink) {
+    @objc private func animationTick(_ displayLink: CADisplayLink) {
         let timeElapsed = displayLink.duration
         var finishedAnimationIndices: [Int] = []
         
-        animations.enumerate().forEach { (index, animation) in
+        animations.enumerated().forEach { (index, animation) in
             var finished = false
             animation.animationTick(timeElapsed, finished: &finished)
             
@@ -93,12 +93,12 @@ internal final class Animator {
         }
         
         animations = animations
-            .enumerate()
-            .filter { !finishedAnimationIndices.contains($0.index) }
+            .enumerated()
+            .filter { !finishedAnimationIndices.contains($0.offset) }
             .map { $0.element }
         
         if animations.count == 0 {
-            displayLink.paused = true
+            displayLink.isPaused = true
         }
     }
     

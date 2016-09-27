@@ -3,7 +3,7 @@ use_frameworks!
 
 target 'Optik_Example' do
   pod 'Optik', :path => '../'
-  pod 'AlamofireImage', '2.5.0'
+  pod 'AlamofireImage', '3.0.0'
 end
 
 target 'Optik_Tests' do

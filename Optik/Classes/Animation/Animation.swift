@@ -17,6 +17,6 @@ internal protocol Animation: class {
      - parameter timeElapsed: Time elapsed since last frame update.
      - parameter finished:    true when `Animatable` types consider animation complete. false otherwise.
      */
-    func animationTick(timeElapsed: CFTimeInterval, inout finished: Bool)
+    func animationTick(_ timeElapsed: CFTimeInterval, finished: inout Bool)
     
 }

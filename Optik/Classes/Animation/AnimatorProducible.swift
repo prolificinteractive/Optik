@@ -28,7 +28,7 @@ extension UIView: AnimatorProducible {
         if let windowScreen = window?.screen {
             return Animator.animatorWithScreen(windowScreen)
         } else {
-            return Animator.animatorWithScreen(UIScreen.mainScreen())
+            return Animator.animatorWithScreen(UIScreen.main)
         }
     }
     

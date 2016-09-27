@@ -11,10 +11,10 @@ import UIKit
 /// View controller for displaying a single photo.
 internal final class ImageViewController: UIViewController {
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let MaximumZoomScale: CGFloat = 3
         static let MinimumZoomScale: CGFloat = 1
-        static let ZoomAnimationDuration: NSTimeInterval = 0.3
+        static let ZoomAnimationDuration: TimeInterval = 0.3
     }
     
     // MARK: - Properties
@@ -81,10 +81,10 @@ internal final class ImageViewController: UIViewController {
         setupDesign()
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         
-        coordinator.animateAlongsideTransition({ (_) in
+        coordinator.animate(alongsideTransition: { (_) in
             let oldSize = self.scrollView?.bounds.size
             let newSize = size
             
@@ -130,7 +130,7 @@ internal final class ImageViewController: UIViewController {
             imageView.image = image
             resetImageView()
         } else {
-            let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+            let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
             activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
             activityIndicatorView.hidesWhenStopped = true
             activityIndicatorView.startAnimating()
@@ -139,19 +139,19 @@ internal final class ImageViewController: UIViewController {
             
             view.addConstraint(
                 NSLayoutConstraint(item: activityIndicatorView,
-                    attribute: .CenterX,
-                    relatedBy: .Equal,
+                    attribute: .centerX,
+                    relatedBy: .equal,
                     toItem: view,
-                    attribute: .CenterX,
+                    attribute: .centerX,
                     multiplier: 1,
                     constant: 0)
             )
             view.addConstraint(
                 NSLayoutConstraint(item: activityIndicatorView,
-                    attribute: .CenterY,
-                    relatedBy: .Equal,
+                    attribute: .centerY,
+                    relatedBy: .equal,
                     toItem: view,
-                    attribute: .CenterY,
+                    attribute: .centerY,
                     multiplier: 1,
                     constant: 0)
             )
@@ -187,7 +187,7 @@ internal final class ImageViewController: UIViewController {
         effectiveImageSize = CGSize(width: scaleFactor * imageSize.width, height: scaleFactor * imageSize.height)
     }
     
-    private func centerImage() {
+    fileprivate func centerImage() {
         guard
             let effectiveImageSize = effectiveImageSize,
             let scrollView = scrollView else {
@@ -215,7 +215,7 @@ internal final class ImageViewController: UIViewController {
         scrollView.contentInset = UIEdgeInsets(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
     }
     
-    @objc private func didDoubleTap(sender: UITapGestureRecognizer) {
+    @objc private func didDoubleTap(_ sender: UITapGestureRecognizer) {
         guard
             let effectiveImageSize = effectiveImageSize,
             let imageView = imageView,
@@ -223,7 +223,7 @@ internal final class ImageViewController: UIViewController {
                 return
         }
         
-        let tapPointInContainer = sender.locationInView(view)
+        let tapPointInContainer = sender.location(in: view)
         let scrollViewSize = scrollView.frame.size
         let scaledImageSize = CGSize(width: effectiveImageSize.width * scrollView.zoomScale,
                                      height: effectiveImageSize.height * scrollView.zoomScale)
@@ -232,14 +232,14 @@ internal final class ImageViewController: UIViewController {
                                      width: scaledImageSize.width,
                                      height: scaledImageSize.height)
         
-        guard CGRectContainsPoint(scaledImageRect, tapPointInContainer) else {
+        guard scaledImageRect.contains(tapPointInContainer) else {
             return
         }
         
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             // Zoom out if the image was zoomed in at all.
-            UIView.animateWithDuration(
-                Constants.ZoomAnimationDuration,
+            UIView.animate(
+                withDuration: Constants.ZoomAnimationDuration,
                 delay: 0,
                 options: [],
                 animations: {
@@ -253,18 +253,18 @@ internal final class ImageViewController: UIViewController {
             let width = scrollViewSize.width / scrollView.maximumZoomScale
             let height = scrollViewSize.height / scrollView.maximumZoomScale
             
-            let tapPointInImageView = sender.locationInView(imageView)
+            let tapPointInImageView = sender.location(in: imageView)
             let originX = tapPointInImageView.x - (width / 2)
             let originY = tapPointInImageView.y - (height / 2)
             
             let zoomRect = CGRect(x: originX, y: originY, width: width, height: height)
             
-            UIView.animateWithDuration(
-                Constants.ZoomAnimationDuration,
+            UIView.animate(
+                withDuration: Constants.ZoomAnimationDuration,
                 delay: 0,
                 options: [],
                 animations: {
-                    scrollView.zoomToRect(zoomRect.enclose(imageView.bounds), animated: false)
+                    scrollView.zoom(to: zoomRect.enclose(imageView.bounds), animated: false)
                 },
                 completion: { (_) in
                     self.centerImage()
@@ -281,16 +281,16 @@ internal final class ImageViewController: UIViewController {
 
 extension ImageViewController: UIScrollViewDelegate {
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         centerImage()
     }
     
-    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
-        UIView.animateWithDuration(Constants.ZoomAnimationDuration, animations: {
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        UIView.animate(withDuration: Constants.ZoomAnimationDuration, animations: {
             self.centerImage()
         })
     }

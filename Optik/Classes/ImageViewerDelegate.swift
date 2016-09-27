@@ -21,13 +21,13 @@ public protocol ImageViewerDelegate: class {
      
      - returns: An image view.
      */
-    func transitionImageView(forIndex index: Int) -> UIImageView
+    func transitionImageView(for index: Int) -> UIImageView
     
     /**
      Tells the delegate that the image viewer has displayed a different image.
      
      - parameter index: Index of the new image.
      */
-    func imageViewerDidDisplayImage(atIndex index: Int)
+    func imageViewerDidDisplayImage(at index: Int)
     
 }

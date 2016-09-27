@@ -17,7 +17,7 @@ internal extension CGRect {
      
      - returns: A CGRect that is the size of the receiver and is enclosed within the specified rentangle.
      */
-    func enclose(surroundingRect: CGRect) -> CGRect {
+    func enclose(_ surroundingRect: CGRect) -> CGRect {
         guard surroundingRect.width > width && surroundingRect.height > height else {
             return self
         }
@@ -48,7 +48,7 @@ internal extension CGRect {
      
      - parameter surroundingRect: Rectangle that the receiver should be enclosed in.
      */
-    mutating func encloseInPlace(surroundingRect: CGRect) {
+    mutating func encloseInPlace(_ surroundingRect: CGRect) {
         self = enclose(surroundingRect)
     }
     
