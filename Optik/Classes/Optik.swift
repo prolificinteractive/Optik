@@ -25,11 +25,13 @@ public func imageViewer(withImages images: [UIImage],
                                    initialImageDisplayIndex: Int = 0,
                                    delegate: ImageViewerDelegate? = nil,
                                    dismissButtonImage: UIImage? = nil,
-                                   dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
+                                   dismissButtonPosition: DismissButtonPosition = .TopLeading,
+                                   toolbarController: ToolbarController? = nil) -> UIViewController {
     let albumViewController = imageViewer(withData: .Local(images: images),
                                           initialImageDisplayIndex: initialImageDisplayIndex,
                                           dismissButtonImage: dismissButtonImage,
-                                          dismissButtonPosition: dismissButtonPosition)
+                                          dismissButtonPosition: dismissButtonPosition,
+                                          toolbarController: toolbarController)
     albumViewController.modalPresentationStyle = .Custom
     albumViewController.imageViewerDelegate = delegate
     
@@ -53,12 +55,14 @@ public func imageViewer(withURLs urls: [NSURL],
                                  imageDownloader: ImageDownloader,
                                  activityIndicatorColor: UIColor = .whiteColor(),
                                  dismissButtonImage: UIImage? = nil,
-                                 dismissButtonPosition: DismissButtonPosition = .TopLeading) -> UIViewController {
+                                 dismissButtonPosition: DismissButtonPosition = .TopLeading,
+                                 toolbarController: ToolbarController? = nil) -> UIViewController {
     return imageViewer(withData: .Remote(urls: urls, imageDownloader: imageDownloader),
                        initialImageDisplayIndex: initialImageDisplayIndex,
                        activityIndicatorColor: activityIndicatorColor,
                        dismissButtonImage: dismissButtonImage,
-                       dismissButtonPosition: dismissButtonPosition)
+                       dismissButtonPosition: dismissButtonPosition,
+                       toolbarController: toolbarController)
 }
 
 // MARK: - Private functions
@@ -67,7 +71,8 @@ private func imageViewer(withData imageData: ImageData,
                                   initialImageDisplayIndex: Int,
                                   activityIndicatorColor: UIColor? = nil,
                                   dismissButtonImage: UIImage?,
-                                  dismissButtonPosition: DismissButtonPosition) -> AlbumViewController {
+                                  dismissButtonPosition: DismissButtonPosition,
+                                  toolbarController: ToolbarController? = nil) -> AlbumViewController {
     let bundle = NSBundle(forClass: AlbumViewController.self)
     let defaultDismissButtonImage = UIImage(named: "DismissIcon", inBundle: bundle, compatibleWithTraitCollection: nil)
     
@@ -75,5 +80,6 @@ private func imageViewer(withData imageData: ImageData,
                                initialImageDisplayIndex: initialImageDisplayIndex,
                                activityIndicatorColor: activityIndicatorColor,
                                dismissButtonImage: dismissButtonImage ?? defaultDismissButtonImage,
-                               dismissButtonPosition: dismissButtonPosition)
+                               dismissButtonPosition: dismissButtonPosition,
+                               toolbarController: toolbarController)
 }

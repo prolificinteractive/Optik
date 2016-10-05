@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0832454B1DA5BE40006F492E /* CustomToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0832454A1DA5BE40006F492E /* CustomToolbarController.swift */; };
 		486216831CE76A3A00686557 /* cats.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4862167F1CE76A3A00686557 /* cats.jpg */; };
 		486216841CE76A3A00686557 /* life.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 486216801CE76A3A00686557 /* life.jpg */; };
 		486216861CE76A3A00686557 /* whiteboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 486216821CE76A3A00686557 /* whiteboard.jpg */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0832454A1DA5BE40006F492E /* CustomToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomToolbarController.swift; sourceTree = "<group>"; };
 		380B0038E4A48ADE86928EF5 /* Pods-Optik_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Optik_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4862167F1CE76A3A00686557 /* cats.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cats.jpg; sourceTree = "<group>"; };
 		486216801CE76A3A00686557 /* life.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = life.jpg; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				0832454A1DA5BE40006F492E /* CustomToolbarController.swift */,
 				486216891CE76C4100686557 /* AlamofireImageDownloader.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -388,6 +391,7 @@
 			files = (
 				4862168A1CE76C4100686557 /* AlamofireImageDownloader.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				0832454B1DA5BE40006F492E /* CustomToolbarController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
