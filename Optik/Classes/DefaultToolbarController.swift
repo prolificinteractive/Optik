@@ -20,11 +20,11 @@ internal final class DefaultToolbarController: ToolbarController {
 
     // MARK: - Functions
 
-    func setup(navigationBar: UINavigationBar, forUseIn albumViewController: UIViewController) {
+    func setupNavigationBar(navigationBar: UINavigationBar, forUseIn albumViewController: UIViewController) {
         navigationBar.barStyle = .BlackTranslucent
     }
 
-    func setup(toolbar: UIToolbar, forUseIn albumViewController: UIViewController) {
+    func setupToolbar(toolbar: UIToolbar, forUseIn albumViewController: UIViewController) {
         toolbar.barStyle = .BlackTranslucent
     }
 

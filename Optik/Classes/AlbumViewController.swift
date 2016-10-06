@@ -228,8 +228,8 @@ internal final class AlbumViewController: UIViewController {
         }
 
         navigationBar.setItems([toolbarController.navigationItem], animated: false)
-        toolbarController.setup(navigationBar, forUseIn: self)
-        toolbarController.setup(toolbar, forUseIn: self)
+        toolbarController.setupNavigationBar(navigationBar, forUseIn: self)
+        toolbarController.setupToolbar(toolbar, forUseIn: self)
 
         let hideGestureRecognizer = UITapGestureRecognizer()
 

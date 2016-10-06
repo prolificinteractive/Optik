@@ -17,11 +17,11 @@ internal final class CustomToolbarController: ToolbarController {
 
     let navigationItem: UINavigationItem = UINavigationItem(title: "Photos")
 
-    func setup(navigationBar: UINavigationBar, forUseIn albumViewController: UIViewController) {
+    func setupNavigationBar(navigationBar: UINavigationBar, forUseIn albumViewController: UIViewController) {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(share))
     }
 
-    func setup(toolbar: UIToolbar, forUseIn albumViewController: UIViewController) {
+    func setupToolbar(toolbar: UIToolbar, forUseIn albumViewController: UIViewController) {
         toolbar.items = [UIBarButtonItem(title: "Nop", style: .Done, target: nil, action: nil)]
     }
 

@@ -22,11 +22,11 @@ public protocol ToolbarController: class {
     /// Sets up the given navigation bar before adding it to the album view controller.
     ///
     /// - parameter navigationBar: The album view controller's navigation bar.
-    func setup(navigationBar: UINavigationBar, forUseIn albumViewController: UIViewController)
+    func setupNavigationBar(navigationBar: UINavigationBar, forUseIn albumViewController: UIViewController)
 
     /// Sets up the given toolbar before adding it to the album view contorller.
     ///
     /// - parameter toolbar: The album view controller's toolbar.
-    func setup(toolbar: UIToolbar, forUseIn albumViewController: UIViewController)
+    func setupToolbar(toolbar: UIToolbar, forUseIn albumViewController: UIViewController)
 
 }
