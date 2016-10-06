@@ -91,6 +91,11 @@ internal final class AlbumViewController: UIViewController {
                     self.toolbar?.alpha = 1.0
                     self.toolbar?.transform = CGAffineTransformIdentity
                 }
+
+                let scale = (self.pageViewController.view.bounds.height
+                    - (self.navigationBarHidden ? CGFloat(0) : Constants.navbarHeight)
+                    - (self.toolbarHidden ? CGFloat(0) : Constants.toolbarHeight)) / self.view.bounds.height
+                self.pageViewController.view.transform = CGAffineTransformMakeScale(scale, scale)
             })
         }
     }
@@ -146,6 +151,9 @@ internal final class AlbumViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        navigationBarHidden = false
+        toolbarHidden = false
         
         // HACK: UIKit doesn't animate status bar transition on iOS 9. So, manually animate it.
         if !viewDidAppear {
@@ -193,6 +201,7 @@ internal final class AlbumViewController: UIViewController {
     private func setupPageViewController() {
         pageViewController.dataSource = self
         pageViewController.delegate = self
+        pageViewController.view.clipsToBounds = false
         
         // Set up initial image view controller.
         if let imageViewController = imageViewController(forIndex: initialImageDisplayIndex) {
@@ -374,6 +383,27 @@ extension AlbumViewController: UIPageViewControllerDelegate {
         
         if let currentImageIndex = currentImageViewController?.index {
             imageViewerDelegate?.imageViewerDidDisplayImage(atIndex: currentImageIndex)
+        }
+    }
+
+    func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
+        return .Max
+    }
+
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return numberOfImages()
+    }
+
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return currentImageViewController?.index ?? 0
+    }
+
+    private func numberOfImages() -> Int {
+        switch imageData {
+        case .Local(images: let images):
+            return images.count
+        case .Remote(urls: let urls, imageDownloader: _):
+            return urls.count
         }
     }
     
