@@ -84,7 +84,7 @@ internal final class AlbumViewController: UIViewController {
         self.dismissButtonPosition = dismissButtonPosition
         
         pageViewController = UIPageViewController(transitionStyle: .scroll,
-                                                  navigationOrientation: .horizontal,
+                                                  navigationOrientation: .vertical,
                                                   options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
 
         super.init(nibName: nil, bundle: nil)
