@@ -113,10 +113,10 @@ extension SpringAnimation: Animation {
         currentVector = currentVector + result.dpdt * CGFloat(timeElapsed)
         currentVelocity = currentVelocity + result.dvdt * CGFloat(timeElapsed)
         
-        lens.set(currentVector, view)
+        _ = lens.set(currentVector, view)
 
         if isAnimationComplete() {
-            lens.set(toVector, view)
+            _ = lens.set(toVector, view)
             finished = true
             
             onTick?(true)

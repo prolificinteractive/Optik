@@ -21,7 +21,7 @@ internal protocol Interpolatable {
      
      - returns: Result of negation.
      */
-    prefix func -(obj: Self) -> Self
+    prefix static func -(obj: Self) -> Self
     
     /**
      Adds given objects and returns the result.
@@ -31,7 +31,7 @@ internal protocol Interpolatable {
      
      - returns: Sum of given objects.
      */
-    func +(lhs: Self, rhs: Self) -> Self
+    static func +(lhs: Self, rhs: Self) -> Self
     
     /**
      Subtracts given objects and returns the result.
@@ -41,7 +41,7 @@ internal protocol Interpolatable {
      
      - returns: Difference between given objects.
      */
-    func -(lhs: Self, rhs: Self) -> Self
+    static func -(lhs: Self, rhs: Self) -> Self
     
     /**
      Multiplies given objects and returns the result.
@@ -51,7 +51,7 @@ internal protocol Interpolatable {
      
      - returns: Product of given objects.
      */
-    func *(lhs: Self, rhs: Self) -> Self
+    static func *(lhs: Self, rhs: Self) -> Self
     
     /**
      Multiplies a `CGFloat` to given object and returns the result.
@@ -61,7 +61,7 @@ internal protocol Interpolatable {
      
      - returns: Result of the product.
      */
-    func *(multiplier: CGFloat, rhs: Self) -> Self
+    static func *(multiplier: CGFloat, rhs: Self) -> Self
     
     /**
      Multiplies a `CGFloat` to given object and returns the result.
@@ -71,6 +71,6 @@ internal protocol Interpolatable {
      
      - returns: Result of the product.
      */
-    func *(lhs: Self, multiplier: CGFloat) -> Self
+    static func *(lhs: Self, multiplier: CGFloat) -> Self
     
 }
