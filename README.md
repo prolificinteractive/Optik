@@ -1,4 +1,4 @@
-# Optik
+![Optik](Images/Optik_Banner.jpg)
 
 [![Travis build status](https://img.shields.io/travis/prolificinteractive/Optik.svg?style=flat-square)](https://travis-ci.org/prolificinteractive/Optik)
 [![Cocoapods Compatible](https://img.shields.io/cocoapods/v/Optik.svg?style=flat-square)](https://img.shields.io/cocoapods/v/Optik.svg)
@@ -9,7 +9,7 @@
 
 Optik provides a simple viewing experience for a set of images, whether stored locally or remotely.
 
-<img src="https://github.com/prolificinteractive/Optik/blob/master/optik_example.gif" width="320px" height="568px" />
+<img src="https://github.com/prolificinteractive/Optik/blob/master/Images/Optik_Example.gif" width="320px" height="568px" />
 
 ## Requirements
 
