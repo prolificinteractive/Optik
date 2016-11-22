@@ -47,6 +47,16 @@ internal final class AlbumViewController: UIViewController {
         }
     }
     
+    // MARK: Override properties
+    
+    override var prefersStatusBarHidden : Bool {
+        return viewDidAppear
+    }
+    
+    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
+        return .fade
+    }
+    
     // MARK: Private properties
     
     private var pageViewController: UIPageViewController
@@ -123,14 +133,6 @@ internal final class AlbumViewController: UIViewController {
         coordinator.animate(alongsideTransition: { (_) in
             self.pageViewController.view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             }, completion: nil)
-    }
-    
-    override var prefersStatusBarHidden : Bool {
-        return viewDidAppear
-    }
-    
-    override var preferredStatusBarUpdateAnimation : UIStatusBarAnimation {
-        return .fade
     }
     
     override func didReceiveMemoryWarning() {
