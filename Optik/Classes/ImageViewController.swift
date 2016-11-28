@@ -30,13 +30,15 @@ internal final class ImageViewController: UIViewController {
         }
     }
     private(set) var imageView: UIImageView?
-
+    var actionButton: UIButton?
+    
     let index: Int
     
     // MARK: - Private properties
     
     private var activityIndicatorColor: UIColor?
-    
+    private var actionButtonPosition: ActionButtonPosition?
+
     private var scrollView: UIScrollView? {
         didSet {
             guard let scrollView = scrollView else {
@@ -58,15 +60,17 @@ internal final class ImageViewController: UIViewController {
     }
     
     private var effectiveImageSize: CGSize?
-    
+
     // MARK: - Init/Deinit
     
-    init(image: UIImage? = nil, activityIndicatorColor: UIColor? = nil, index: Int) {
+    init(image: UIImage? = nil, activityIndicatorColor: UIColor? = nil, index: Int, actionButtonPosition: ActionButtonPosition) {
         self.image = image
         self.activityIndicatorColor = activityIndicatorColor
         self.index = index
-        
+        self.actionButtonPosition = actionButtonPosition
         super.init(nibName: nil, bundle: nil)
+        self.actionButton = UIButton()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -157,6 +161,57 @@ internal final class ImageViewController: UIViewController {
             )
             
             self.activityIndicatorView = activityIndicatorView
+        }
+        
+        if let button = actionButton {
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.imageView?.contentMode = .scaleAspectFill
+            
+            let xAnchorAttribute = actionButtonPosition?.xAnchorAttribute()
+            let yAnchorAttribute = actionButtonPosition?.yAnchorAttribute()
+            
+            view.addSubview(button)
+            if let xAnchor = xAnchorAttribute,
+                let yAnchor = yAnchorAttribute {
+                
+                view.addConstraint(
+                    NSLayoutConstraint(item: button,
+                                       attribute: yAnchor,
+                                       relatedBy: .equal,
+                                       toItem: view,
+                                       attribute: yAnchor,
+                                       multiplier: 1,
+                                       constant: -20)
+                )
+                view.addConstraint(
+                    NSLayoutConstraint(item: button,
+                                       attribute: xAnchor,
+                                       relatedBy: .equal,
+                                       toItem: view,
+                                       attribute: xAnchor,
+                                       multiplier: 1,
+                                       constant: 20)
+                )
+                view.addConstraint(
+                    NSLayoutConstraint(item: button,
+                                       attribute: .width,
+                                       relatedBy: .equal,
+                                       toItem: nil,
+                                       attribute: .width,
+                                       multiplier: 1,
+                                       constant: 44)
+                )
+                view.addConstraint(
+                    NSLayoutConstraint(item: button,
+                                       attribute: .height,
+                                       relatedBy: .equal,
+                                       toItem: nil,
+                                       attribute: .height,
+                                       multiplier: 1,
+                                       constant: 44)
+                )
+            }
+            
         }
         
         setupTapGestureRecognizer()

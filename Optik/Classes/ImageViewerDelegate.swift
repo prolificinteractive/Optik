@@ -30,4 +30,20 @@ public protocol ImageViewerDelegate: class {
      */
     func imageViewerDidDisplayImage(at index: Int)
     
+    /**
+     Tells when the user touch in the action button
+     
+     - parameter index: Index of the image.
+     */
+    func actionButtonTapped(button: UIButton, at index: Int)
+    
+    
+    /**
+     Ask delegate for the image that should appear in the button when the image appears.
+     - parameter index: index of the image
+     
+     - return: UIImage
+     */
+    func imageForActionButton (at index: Int) -> UIImage
+    
 }

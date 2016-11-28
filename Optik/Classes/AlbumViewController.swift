@@ -63,7 +63,7 @@ internal final class AlbumViewController: UIViewController {
     private var activityIndicatorColor: UIColor?
     private var dismissButtonImage: UIImage?
     private var dismissButtonPosition: DismissButtonPosition
-    
+    private var actionButtonPosition: ActionButtonPosition
     private var cachedRemoteImages: [URL: UIImage] = [:]
     private var viewDidAppear: Bool = false
     
@@ -75,13 +75,15 @@ internal final class AlbumViewController: UIViewController {
          initialImageDisplayIndex: Int,
          activityIndicatorColor: UIColor?,
          dismissButtonImage: UIImage?,
-         dismissButtonPosition: DismissButtonPosition) {
+         dismissButtonPosition: DismissButtonPosition,
+         actionButtonPosition: ActionButtonPosition) {
         
         self.imageData = imageData
         self.initialImageDisplayIndex = initialImageDisplayIndex
         self.activityIndicatorColor = activityIndicatorColor
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
+        self.actionButtonPosition = actionButtonPosition
         
         pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                   navigationOrientation: .horizontal,
@@ -115,6 +117,8 @@ internal final class AlbumViewController: UIViewController {
                 self.setNeedsStatusBarAppearanceUpdate()
             }) 
         }
+        updateActionButtonImage(at: initialImageDisplayIndex)
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -226,13 +230,16 @@ internal final class AlbumViewController: UIViewController {
                 return nil
             }
             
-            return ImageViewController(image: images[index], index: index)
+            let imageViewController =  ImageViewController(image: images[index], index: index, actionButtonPosition: .bottomLeading)
+            imageViewController.actionButton?.addTarget(self, action: #selector(AlbumViewController.didSelectImage(_:)), for: .touchUpInside)
+            return imageViewController
+            
         case .remote(let urls, let imageDownloader):
             guard index >= 0 && index < urls.count else {
                 return nil
             }
             
-            let imageViewController = ImageViewController(activityIndicatorColor: activityIndicatorColor, index: index)
+            let imageViewController = ImageViewController(activityIndicatorColor: activityIndicatorColor, index: index, actionButtonPosition: actionButtonPosition)
             let url = urls[index]
             
             if let image = cachedRemoteImages[url] {
@@ -246,9 +253,19 @@ internal final class AlbumViewController: UIViewController {
                     })
             }
             
+            imageViewController.actionButton?.addTarget(self, action: #selector(AlbumViewController.didSelectImage(_:)), for: .touchUpInside)
             return imageViewController
         }
     }
+    
+    fileprivate func updateActionButtonImage(at index: Int) {
+        if let imageViewController = pageViewController.viewControllers?.first as? ImageViewController{
+            let actionButton = imageViewController.actionButton
+            let image = imageViewerDelegate?.imageForActionButton(at: index)
+            actionButton?.setImage(image, for: .normal)
+        }
+    }
+
     
     @objc private func didTapDismissButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -258,6 +275,11 @@ internal final class AlbumViewController: UIViewController {
         transitionController.didPan(withGestureRecognizer: sender, sourceView: view)
     }
     
+    @objc private func didSelectImage(_ sender: UIButton) {
+        if let currentImageIndex = currentImageViewController?.index {
+            imageViewerDelegate?.actionButtonTapped(button: sender, at: currentImageIndex)
+        }
+    }
 }
 
 // MARK: - Protocol conformance
@@ -306,6 +328,8 @@ extension AlbumViewController: UIPageViewControllerDelegate {
         
         if let currentImageIndex = currentImageViewController?.index {
             imageViewerDelegate?.imageViewerDidDisplayImage(at: currentImageIndex)
+            self.updateActionButtonImage(at: currentImageIndex)
+
         }
     }
     

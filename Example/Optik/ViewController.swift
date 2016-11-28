@@ -82,4 +82,20 @@ extension ViewController: ImageViewerDelegate {
         currentLocalImageIndex = index
     }
     
+    func actionButtonTapped(button: UIButton, at index: Int) {
+        if  button.currentImage == UIImage(named: "heart-full")! {
+            button.setImage(UIImage(named: "heart-empty"), for: .normal)
+        } else {
+            button.setImage(UIImage(named: "heart-full"), for: .normal)
+        }
+    }
+    
+    func imageForActionButton (at index: Int) -> UIImage {
+        if index % 2 == 0 {
+            return UIImage(named: "heart-full")!
+        } else {
+            return UIImage(named: "heart-empty")!
+        }
+    }
+    
 }
