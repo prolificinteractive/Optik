@@ -26,11 +26,13 @@ public func imageViewer(withImages images: [UIImage],
                                    delegate: ImageViewerDelegate? = nil,
                                    dismissButtonImage: UIImage? = nil,
                                    dismissButtonPosition: DismissButtonPosition = .topLeading,
+                                   enablePageControl: Bool,
                                    actionButtonPosition: ActionButtonPosition = .bottomLeading) -> UIViewController {
     let albumViewController = imageViewer(withData: .local(images: images),
                                           initialImageDisplayIndex: initialImageDisplayIndex,
                                           dismissButtonImage: dismissButtonImage,
                                           dismissButtonPosition: dismissButtonPosition,
+                                          enablePageControl: enablePageControl,
                                           actionButtonPosition: actionButtonPosition)
     albumViewController.modalPresentationStyle = .custom
     albumViewController.imageViewerDelegate = delegate
@@ -56,12 +58,14 @@ public func imageViewer(withURLs urls: [URL],
                                  activityIndicatorColor: UIColor = .white,
                                  dismissButtonImage: UIImage? = nil,
                                  dismissButtonPosition: DismissButtonPosition = .topLeading,
+                                 enablePageControl: Bool,
                                  actionButtonPosition: ActionButtonPosition = .bottomLeading) -> UIViewController {
     return imageViewer(withData: .remote(urls: urls, imageDownloader: imageDownloader),
                        initialImageDisplayIndex: initialImageDisplayIndex,
                        activityIndicatorColor: activityIndicatorColor,
                        dismissButtonImage: dismissButtonImage,
                        dismissButtonPosition: dismissButtonPosition,
+                       enablePageControl: enablePageControl,
                        actionButtonPosition: actionButtonPosition)
 }
 
@@ -72,7 +76,8 @@ private func imageViewer(withData imageData: ImageData,
                                   activityIndicatorColor: UIColor? = nil,
                                   dismissButtonImage: UIImage?,
                                   dismissButtonPosition: DismissButtonPosition,
-                                  actionButtonPosition: ActionButtonPosition = .bottomLeading) -> AlbumViewController {
+                                  enablePageControl: Bool,
+                                  actionButtonPosition: ActionButtonPosition) -> AlbumViewController {
     let bundle = Bundle(for: AlbumViewController.self)
     let defaultDismissButtonImage = UIImage(named: "DismissIcon", in: bundle, compatibleWith: nil)
     
@@ -81,5 +86,6 @@ private func imageViewer(withData imageData: ImageData,
                                activityIndicatorColor: activityIndicatorColor,
                                dismissButtonImage: dismissButtonImage ?? defaultDismissButtonImage,
                                dismissButtonPosition: dismissButtonPosition,
+                               enablePageControl: enablePageControl,
                                actionButtonPosition: actionButtonPosition)
 }
