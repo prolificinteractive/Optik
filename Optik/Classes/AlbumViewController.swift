@@ -58,7 +58,7 @@ internal final class AlbumViewController: UIViewController {
         return viewControllers[0] as? ImageViewController
     }
     
-    private var imageData: ImageData
+    fileprivate var imageData: ImageData
     private var initialImageDisplayIndex: Int
     private var activityIndicatorColor: UIColor?
     private var dismissButtonImage: UIImage?
@@ -69,13 +69,16 @@ internal final class AlbumViewController: UIViewController {
     
     private var transitionController: TransitionController = TransitionController()
     
+    fileprivate var pageControl: UIPageControl?
+    
     // MARK: - Init/Deinit
     
     init(imageData: ImageData,
          initialImageDisplayIndex: Int,
          activityIndicatorColor: UIColor?,
          dismissButtonImage: UIImage?,
-         dismissButtonPosition: DismissButtonPosition) {
+         dismissButtonPosition: DismissButtonPosition,
+         enablePageControl: Bool) {
         
         self.imageData = imageData
         self.initialImageDisplayIndex = initialImageDisplayIndex
@@ -83,9 +86,16 @@ internal final class AlbumViewController: UIViewController {
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
         
-        pageViewController = UIPageViewController(transitionStyle: .scroll,
-                                                  navigationOrientation: .horizontal,
+        if enablePageControl {
+            pageViewController = UIPageViewController(transitionStyle: .scroll,
+                                                  navigationOrientation: .vertical,
                                                   options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
+            pageControl = UIPageControl()
+        } else {
+            pageViewController = UIPageViewController(transitionStyle: .scroll,
+                                                      navigationOrientation: .horizontal,
+                                                      options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
+        }
 
         super.init(nibName: nil, bundle: nil)
         
@@ -147,6 +157,7 @@ internal final class AlbumViewController: UIViewController {
         didMove(toParentViewController: pageViewController)
         
         setupDismissButton()
+        setupPageControl()
         setupPanGestureRecognizer()
     }
     
@@ -162,6 +173,56 @@ internal final class AlbumViewController: UIViewController {
                                                   completion: nil)
         }
     }
+    
+    private func setupPageControl() {
+        
+        if let page = pageControl {
+            page.currentPage = 0
+            page.pageIndicatorTintColor = UIColor.red
+            page.translatesAutoresizingMaskIntoConstraints = false
+            page.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI/2))
+            view.addSubview(page)
+            
+            view.addConstraint(
+                NSLayoutConstraint(item: page,
+                                   attribute: .trailing,
+                                   relatedBy: .equal,
+                                   toItem: view,
+                                   attribute: .trailing,
+                                   multiplier: 1,
+                                   constant: -10)
+            )
+            view.addConstraint(
+                NSLayoutConstraint(item: page,
+                                   attribute: .centerY,
+                                   relatedBy: .equal,
+                                   toItem: view,
+                                   attribute: .centerY,
+                                   multiplier: 1,
+                                   constant: 0)
+            )
+            view.addConstraint(
+                NSLayoutConstraint(item: page,
+                                   attribute: .width,
+                                   relatedBy: .equal,
+                                   toItem: nil,
+                                   attribute: .notAnAttribute,
+                                   multiplier: 1,
+                                   constant: 30)
+            )
+            view.addConstraint(
+                NSLayoutConstraint(item: page,
+                                   attribute: .height,
+                                   relatedBy: .equal,
+                                   toItem: nil,
+                                   attribute: .notAnAttribute,
+                                   multiplier: 1,
+                                   constant: 25)
+            )
+        }
+        
+    }
+    
     
     private func setupDismissButton() {
         let dismissButton = UIButton(type: .custom)
@@ -226,12 +287,14 @@ internal final class AlbumViewController: UIViewController {
                 return nil
             }
             
+            pageControl?.numberOfPages = images.count
             return ImageViewController(image: images[index], index: index)
         case .remote(let urls, let imageDownloader):
             guard index >= 0 && index < urls.count else {
                 return nil
             }
             
+            pageControl?.numberOfPages = urls.count
             let imageViewController = ImageViewController(activityIndicatorColor: activityIndicatorColor, index: index)
             let url = urls[index]
             
@@ -245,6 +308,7 @@ internal final class AlbumViewController: UIViewController {
                     imageViewController.image = image
                     })
             }
+
             
             return imageViewController
         }
@@ -306,6 +370,28 @@ extension AlbumViewController: UIPageViewControllerDelegate {
         
         if let currentImageIndex = currentImageViewController?.index {
             imageViewerDelegate?.imageViewerDidDisplayImage(at: currentImageIndex)
+            pageControl?.currentPage = currentImageIndex
+        }
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
+        return .max
+    }
+    
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return numberOfImages()
+    }
+    
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return currentImageViewController?.index ?? 0
+    }
+    
+    private func numberOfImages() -> Int {
+        switch imageData {
+        case .local(images: let images):
+            return images.count
+        case .remote(urls: let urls, imageDownloader: _):
+            return urls.count
         }
     }
     
