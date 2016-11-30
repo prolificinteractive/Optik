@@ -177,7 +177,7 @@ internal final class AlbumViewController: UIViewController {
     private func setupPageControl() {
         
         if let page = pageControl {
-            page.currentPage = 0
+            page.currentPage = initialImageDisplayIndex
             page.pageIndicatorTintColor = UIColor.red
             page.translatesAutoresizingMaskIntoConstraints = false
             page.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI/2))
