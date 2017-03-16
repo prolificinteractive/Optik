@@ -16,9 +16,14 @@ internal final class AlbumViewController: UIViewController {
         static let DismissButtonDimension: CGFloat = 60
         
         static let TransitionAnimationDuration: NSTimeInterval = 0.3
+
+        static let toolbarHeight: CGFloat = 44.0
+        static let navbarHeight: CGFloat = 44.0
     }
     
     // MARK: - Properties
+
+    var toolbarController: ToolbarController?
     
     weak var imageViewerDelegate: ImageViewerDelegate? {
         didSet {
@@ -48,7 +53,7 @@ internal final class AlbumViewController: UIViewController {
     }
     
     // MARK: Private properties
-    
+
     private var pageViewController: UIPageViewController
     private var currentImageViewController: ImageViewController? {
         guard let viewControllers = pageViewController.viewControllers where viewControllers.count == 1 else {
@@ -56,6 +61,43 @@ internal final class AlbumViewController: UIViewController {
         }
         
         return viewControllers[0] as? ImageViewController
+    }
+
+    private var navigationBar: UINavigationBar?
+
+    private var toolbar: UIToolbar?
+
+    private var navigationBarHidden: Bool = false {
+        didSet {
+            UIView.animateWithDuration(Constants.TransitionAnimationDuration, animations: {
+                if self.navigationBarHidden {
+                    self.navigationBar?.alpha = 0.0
+                    self.navigationBar?.transform = CGAffineTransformMakeTranslation(0, -Constants.navbarHeight)
+                } else {
+                    self.navigationBar?.alpha = 1.0
+                    self.navigationBar?.transform = CGAffineTransformIdentity
+                }
+            })
+        }
+    }
+
+    private var toolbarHidden: Bool = false {
+        didSet {
+            UIView.animateWithDuration(Constants.TransitionAnimationDuration, animations: {
+                if self.toolbarHidden {
+                    self.toolbar?.alpha = 0.0
+                    self.toolbar?.transform = CGAffineTransformMakeTranslation(0, Constants.toolbarHeight)
+                } else {
+                    self.toolbar?.alpha = 1.0
+                    self.toolbar?.transform = CGAffineTransformIdentity
+                }
+
+                let scale = (self.pageViewController.view.bounds.height
+                    - (self.navigationBarHidden ? CGFloat(0) : Constants.navbarHeight)
+                    - (self.toolbarHidden ? CGFloat(0) : Constants.toolbarHeight)) / self.view.bounds.height
+                self.pageViewController.view.transform = CGAffineTransformMakeScale(scale, scale)
+            })
+        }
     }
     
     private var imageData: ImageData
@@ -75,14 +117,17 @@ internal final class AlbumViewController: UIViewController {
          initialImageDisplayIndex: Int,
          activityIndicatorColor: UIColor?,
          dismissButtonImage: UIImage?,
-         dismissButtonPosition: DismissButtonPosition) {
+         dismissButtonPosition: DismissButtonPosition,
+         toolbarController: ToolbarController? = nil) {
         
         self.imageData = imageData
         self.initialImageDisplayIndex = initialImageDisplayIndex
         self.activityIndicatorColor = activityIndicatorColor
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
-        
+
+        self.toolbarController = toolbarController
+
         pageViewController = UIPageViewController(transitionStyle: .Scroll,
                                                   navigationOrientation: .Horizontal,
                                                   options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
@@ -106,6 +151,9 @@ internal final class AlbumViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        navigationBarHidden = false
+        toolbarHidden = false
         
         // HACK: UIKit doesn't animate status bar transition on iOS 9. So, manually animate it.
         if !viewDidAppear {
@@ -145,14 +193,15 @@ internal final class AlbumViewController: UIViewController {
         addChildViewController(pageViewController)
         view.addSubview(pageViewController.view)
         didMoveToParentViewController(pageViewController)
-        
-        setupDismissButton()
+
+        setupToolbars()
         setupPanGestureRecognizer()
     }
     
     private func setupPageViewController() {
         pageViewController.dataSource = self
         pageViewController.delegate = self
+        pageViewController.view.clipsToBounds = false
         
         // Set up initial image view controller.
         if let imageViewController = imageViewController(forIndex: initialImageDisplayIndex) {
@@ -162,54 +211,74 @@ internal final class AlbumViewController: UIViewController {
                                                   completion: nil)
         }
     }
-    
-    private func setupDismissButton() {
-        let dismissButton = UIButton(type: .Custom)
-        dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        dismissButton.setImage(dismissButtonImage, forState: .Normal)
-        dismissButton.addTarget(self, action: #selector(AlbumViewController.didTapDismissButton(_:)), forControlEvents: .TouchUpInside)
-        
-        let xAnchorAttribute = dismissButtonPosition.xAnchorAttribute()
-        let yAnchorAttribute = dismissButtonPosition.yAnchorAttribute()
-        
-        view.addSubview(dismissButton)
-        
-        view.addConstraint(
-            NSLayoutConstraint(item: dismissButton,
-                attribute: xAnchorAttribute,
-                relatedBy: .Equal,
-                toItem: view,
-                attribute: xAnchorAttribute,
-                multiplier: 1,
-                constant: 0)
-        )
-        view.addConstraint(
-            NSLayoutConstraint(item: dismissButton,
-                attribute: yAnchorAttribute,
-                relatedBy: .Equal,
-                toItem: view,
-                attribute: yAnchorAttribute,
-                multiplier: 1,
-                constant: 0)
-        )
-        view.addConstraint(
-            NSLayoutConstraint(item: dismissButton,
-                attribute: .Width,
-                relatedBy: .Equal,
-                toItem: nil,
-                attribute: .NotAnAttribute,
-                multiplier: 1,
-                constant: Constants.DismissButtonDimension)
-        )
-        view.addConstraint(
-            NSLayoutConstraint(item: dismissButton,
-                attribute: .Height,
-                relatedBy: .Equal,
-                toItem: nil,
-                attribute: .NotAnAttribute,
-                multiplier: 1,
-                constant: Constants.DismissButtonDimension)
-        )
+
+    private func setupToolbars() {
+        let navigationBar = UINavigationBar(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: view.bounds.width,
+            height: Constants.navbarHeight
+            ))
+        let toolbar = UIToolbar(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: view.bounds.width,
+            height: Constants.toolbarHeight
+            ))
+
+        let toolbarController = (self.toolbarController ?? DefaultToolbarController())
+
+        let dismissButton = UIBarButtonItem(image: dismissButtonImage, style: .Done, target: self, action: #selector(AlbumViewController.didTapDismissButton(_:)))
+        switch dismissButtonPosition {
+        case .TopLeading:
+            toolbarController.navigationItem.leftBarButtonItem = dismissButton
+        case .TopTrailing:
+            toolbarController.navigationItem.rightBarButtonItem = dismissButton
+        }
+
+        navigationBar.setItems([toolbarController.navigationItem], animated: false)
+        toolbarController.setupNavigationBar(navigationBar, forUseIn: self)
+        toolbarController.setupToolbar(toolbar, forUseIn: self)
+
+        let hideGestureRecognizer = UITapGestureRecognizer()
+
+        if toolbarController.navigationBarHidesOnTap {
+            hideGestureRecognizer.addTarget(self, action: #selector(toggleNavigationBar))
+        }
+
+        if toolbarController.toolbarHidesOnTap {
+            hideGestureRecognizer.addTarget(self, action: #selector(toggleToolbar))
+        }
+
+        view.addGestureRecognizer(hideGestureRecognizer)
+
+        view.addSubview(navigationBar)
+        view.addSubview(toolbar)
+
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+
+        setAttributeEqual(.Leading, for: view, from: view, to: navigationBar, with: 0)
+        setAttributeEqual(.Trailing, for: view, from: view, to: navigationBar, with: 0)
+        setAttributeEqual(.Top, for: view, from: topLayoutGuide, to: navigationBar, with: 0)
+
+        setAttributeEqual(.Leading, for: view, from: view, to: toolbar, with: 0)
+        setAttributeEqual(.Trailing, for: view, from: view, to: toolbar, with: 0)
+        setAttributeEqual(.Bottom, for: view, from: bottomLayoutGuide, to: toolbar, with: 0)
+
+        self.navigationBar = navigationBar
+        self.toolbar = toolbar
+    }
+
+    private func setAttributeEqual(attribute: NSLayoutAttribute, for view: UIView, from source: AnyObject, to destination: AnyObject, with distance: CGFloat) {
+        view.addConstraint(NSLayoutConstraint(
+            item: source,
+            attribute: attribute,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: destination,
+            attribute: attribute,
+            multiplier: 1.0,
+            constant: distance))
     }
     
     private func setupPanGestureRecognizer() {
@@ -256,6 +325,14 @@ internal final class AlbumViewController: UIViewController {
     
     @objc private func didPan(sender: UIPanGestureRecognizer) {
         transitionController.didPan(withGestureRecognizer: sender, sourceView: view)
+    }
+
+    @objc private func toggleNavigationBar() {
+        navigationBarHidden = !navigationBarHidden
+    }
+
+    @objc private func toggleToolbar() {
+        toolbarHidden = !toolbarHidden
     }
     
 }
@@ -306,6 +383,27 @@ extension AlbumViewController: UIPageViewControllerDelegate {
         
         if let currentImageIndex = currentImageViewController?.index {
             imageViewerDelegate?.imageViewerDidDisplayImage(atIndex: currentImageIndex)
+        }
+    }
+
+    func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
+        return .Max
+    }
+
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return numberOfImages()
+    }
+
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return currentImageViewController?.index ?? 0
+    }
+
+    private func numberOfImages() -> Int {
+        switch imageData {
+        case .Local(images: let images):
+            return images.count
+        case .Remote(urls: let urls, imageDownloader: _):
+            return urls.count
         }
     }
     

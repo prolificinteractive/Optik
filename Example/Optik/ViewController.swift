@@ -45,7 +45,8 @@ internal final class ViewController: UIViewController {
     @IBAction private func presentLocalImageViewer(sender: UIButton) {
         let viewController = Optik.imageViewer(withImages: localImages,
                                                initialImageDisplayIndex: currentLocalImageIndex,
-                                               delegate: self)
+                                               delegate: self,
+                                               toolbarController: CustomToolbarController())
         
         presentViewController(viewController, animated: true, completion: nil)
     }
