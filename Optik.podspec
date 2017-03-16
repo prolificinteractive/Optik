@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Optik"
-  s.version          = "0.1.1"
+  s.version          = "0.1.2"
   s.summary          = "A Swift library for displaying images from any source, local or remote."
   s.description      = <<-DESC
 Optik provides a simple viewing experience for a set of images, whether stored locally or remotely.
