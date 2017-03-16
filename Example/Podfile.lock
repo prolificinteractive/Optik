@@ -2,7 +2,7 @@ PODS:
   - Alamofire (4.1.0)
   - AlamofireImage (3.1.0):
     - Alamofire (~> 4.0)
-  - Optik (0.1.2)
+  - Optik (0.2.0)
 
 DEPENDENCIES:
   - AlamofireImage (= 3.1.0)
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: e266cf991b933498df791e645e0d8ac294492153
   AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
-  Optik: 9dfd99629fc9cf1add7ab555f5ac96d66d5af16a
+  Optik: 1601123d313b0ef1925912bcb97c1d18fedf5a4b
 
 PODFILE CHECKSUM: c4cc51091b7726b48b7d19365a55eb8f1cc861f2
 
