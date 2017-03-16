@@ -68,16 +68,18 @@ internal final class AlbumViewController: UIViewController {
         return viewControllers[0] as? ImageViewController
     }
     
-    private var imageData: ImageData
+    fileprivate var imageData: ImageData
     private var initialImageDisplayIndex: Int
     private var activityIndicatorColor: UIColor?
     private var dismissButtonImage: UIImage?
     private var dismissButtonPosition: DismissButtonPosition
-    
+    private var actionButtonPosition: ActionButtonPosition
     private var cachedRemoteImages: [URL: UIImage] = [:]
     private var viewDidAppear: Bool = false
     
     private var transitionController: TransitionController = TransitionController()
+    
+    fileprivate var pageControl: UIPageControl?
     
     // MARK: - Init/Deinit
     
@@ -85,17 +87,27 @@ internal final class AlbumViewController: UIViewController {
          initialImageDisplayIndex: Int,
          activityIndicatorColor: UIColor?,
          dismissButtonImage: UIImage?,
-         dismissButtonPosition: DismissButtonPosition) {
+         dismissButtonPosition: DismissButtonPosition,
+         enablePageControl: Bool,
+         actionButtonPosition: ActionButtonPosition) {
         
         self.imageData = imageData
         self.initialImageDisplayIndex = initialImageDisplayIndex
         self.activityIndicatorColor = activityIndicatorColor
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
+        self.actionButtonPosition = actionButtonPosition
         
-        pageViewController = UIPageViewController(transitionStyle: .scroll,
-                                                  navigationOrientation: .horizontal,
+        if enablePageControl {
+            pageViewController = UIPageViewController(transitionStyle: .scroll,
+                                                  navigationOrientation: .vertical,
                                                   options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
+            pageControl = UIPageControl()
+        } else {
+            pageViewController = UIPageViewController(transitionStyle: .scroll,
+                                                      navigationOrientation: .horizontal,
+                                                      options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
+        }
 
         super.init(nibName: nil, bundle: nil)
         
@@ -125,6 +137,8 @@ internal final class AlbumViewController: UIViewController {
                 self.setNeedsStatusBarAppearanceUpdate()
             }) 
         }
+        updateActionButtonImage(at: initialImageDisplayIndex)
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -149,6 +163,7 @@ internal final class AlbumViewController: UIViewController {
         didMove(toParentViewController: pageViewController)
         
         setupDismissButton()
+        setupPageControl()
         setupPanGestureRecognizer()
     }
     
@@ -164,6 +179,56 @@ internal final class AlbumViewController: UIViewController {
                                                   completion: nil)
         }
     }
+    
+    private func setupPageControl() {
+        
+        if let page = pageControl {
+            page.currentPage = 0
+            page.pageIndicatorTintColor = UIColor.red
+            page.translatesAutoresizingMaskIntoConstraints = false
+            page.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI/2))
+            view.addSubview(page)
+            
+            view.addConstraint(
+                NSLayoutConstraint(item: page,
+                                   attribute: .trailing,
+                                   relatedBy: .equal,
+                                   toItem: view,
+                                   attribute: .trailing,
+                                   multiplier: 1,
+                                   constant: -10)
+            )
+            view.addConstraint(
+                NSLayoutConstraint(item: page,
+                                   attribute: .centerY,
+                                   relatedBy: .equal,
+                                   toItem: view,
+                                   attribute: .centerY,
+                                   multiplier: 1,
+                                   constant: 0)
+            )
+            view.addConstraint(
+                NSLayoutConstraint(item: page,
+                                   attribute: .width,
+                                   relatedBy: .equal,
+                                   toItem: nil,
+                                   attribute: .notAnAttribute,
+                                   multiplier: 1,
+                                   constant: 30)
+            )
+            view.addConstraint(
+                NSLayoutConstraint(item: page,
+                                   attribute: .height,
+                                   relatedBy: .equal,
+                                   toItem: nil,
+                                   attribute: .notAnAttribute,
+                                   multiplier: 1,
+                                   constant: 25)
+            )
+        }
+        
+    }
+    
     
     private func setupDismissButton() {
         let dismissButton = UIButton(type: .custom)
@@ -228,13 +293,18 @@ internal final class AlbumViewController: UIViewController {
                 return nil
             }
             
-            return ImageViewController(image: images[index], index: index)
+            pageControl?.numberOfPages = images.count
+            let imageViewController =  ImageViewController(image: images[index], index: index, actionButtonPosition: .bottomLeading)
+            imageViewController.actionButton?.addTarget(self, action: #selector(AlbumViewController.didSelectImage(_:)), for: .touchUpInside)
+            return imageViewController
+            
         case .remote(let urls, let imageDownloader):
             guard index >= 0 && index < urls.count else {
                 return nil
             }
             
-            let imageViewController = ImageViewController(activityIndicatorColor: activityIndicatorColor, index: index)
+            pageControl?.numberOfPages = urls.count
+            let imageViewController = ImageViewController(activityIndicatorColor: activityIndicatorColor, index: index, actionButtonPosition: actionButtonPosition)
             let url = urls[index]
             
             if let image = cachedRemoteImages[url] {
@@ -247,10 +317,21 @@ internal final class AlbumViewController: UIViewController {
                     imageViewController.image = image
                     })
             }
+
             
+            imageViewController.actionButton?.addTarget(self, action: #selector(AlbumViewController.didSelectImage(_:)), for: .touchUpInside)
             return imageViewController
         }
     }
+    
+    fileprivate func updateActionButtonImage(at index: Int) {
+        if let imageViewController = pageViewController.viewControllers?.first as? ImageViewController{
+            let actionButton = imageViewController.actionButton
+            let image = imageViewerDelegate?.imageForActionButton(at: index)
+            actionButton?.setImage(image, for: .normal)
+        }
+    }
+
     
     @objc private func didTapDismissButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -260,6 +341,11 @@ internal final class AlbumViewController: UIViewController {
         transitionController.didPan(withGestureRecognizer: sender, sourceView: view)
     }
     
+    @objc private func didSelectImage(_ sender: UIButton) {
+        if let currentImageIndex = currentImageViewController?.index {
+            imageViewerDelegate?.actionButtonTapped(button: sender, at: currentImageIndex)
+        }
+    }
 }
 
 // MARK: - Protocol conformance
@@ -308,6 +394,30 @@ extension AlbumViewController: UIPageViewControllerDelegate {
         
         if let currentImageIndex = currentImageViewController?.index {
             imageViewerDelegate?.imageViewerDidDisplayImage(at: currentImageIndex)
+            pageControl?.currentPage = currentImageIndex
+            self.updateActionButtonImage(at: currentImageIndex)
+
+        }
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
+        return .max
+    }
+    
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return numberOfImages()
+    }
+    
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return currentImageViewController?.index ?? 0
+    }
+    
+    private func numberOfImages() -> Int {
+        switch imageData {
+        case .local(images: let images):
+            return images.count
+        case .remote(urls: let urls, imageDownloader: _):
+            return urls.count
         }
     }
     
