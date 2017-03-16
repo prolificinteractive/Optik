@@ -14,6 +14,7 @@ Optik provides a simple viewing experience for a set of images, whether stored l
 ## Requirements
 
 * iOS 8.0+
+* Xcode 8.1 or later
 
 ## Installation
 

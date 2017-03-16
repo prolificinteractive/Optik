@@ -9,7 +9,7 @@
 import UIKit
 
 /// Animation that moves a given view to a new target using spring physics.
-internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProperty where T == U.PropertyType> {
+internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProperty> where T == U.PropertyType {
     
     // MARK: - Properties
     
@@ -37,18 +37,18 @@ internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProper
     }
     
     /// Callback for each animation frame.
-    var onTick: ((finished: Bool) -> ())?
+    var onTick: ((_ finished: Bool) -> ())?
     
     // MARK: - Private properties
     
-    private var currentVector: T.InterpolatableType
-    private var currentVelocity: T.InterpolatableType
-    private let toVector: T.InterpolatableType
+    fileprivate var currentVector: T.InterpolatableType
+    fileprivate var currentVelocity: T.InterpolatableType
+    fileprivate let toVector: T.InterpolatableType
     private let threshold: CGFloat
     
-    private var springIntegrator: SpringIntegrator<T.InterpolatableType>
+    fileprivate var springIntegrator: SpringIntegrator<T.InterpolatableType>
     
-    private let lens: Lens<UIView, T.InterpolatableType>
+    fileprivate let lens: Lens<UIView, T.InterpolatableType>
     
     // MARK: - Init/Deinit
 
@@ -77,11 +77,11 @@ internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProper
     
     // MARK: - Private functions
     
-    private func isAnimationComplete() -> Bool {
+    fileprivate func isAnimationComplete() -> Bool {
         let currentValues = currentVector.values
         let toValues = toVector.values
         
-        for (index, value) in currentValues.enumerate() {
+        for (index, value) in currentValues.enumerated() {
             if abs(value - toValues[index]) > threshold {
                 return false
             }
@@ -98,7 +98,7 @@ internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProper
 
 extension SpringAnimation: Animation {
     
-    func animationTick(timeElapsed: CFTimeInterval, inout finished: Bool) {
+    func animationTick(_ timeElapsed: CFTimeInterval, finished: inout Bool) {
         guard let view = view else {
             finished = true
             return
@@ -113,15 +113,15 @@ extension SpringAnimation: Animation {
         currentVector = currentVector + result.dpdt * CGFloat(timeElapsed)
         currentVelocity = currentVelocity + result.dvdt * CGFloat(timeElapsed)
         
-        lens.set(currentVector, view)
+        _ = lens.set(currentVector, view)
 
         if isAnimationComplete() {
-            lens.set(toVector, view)
+            _ = lens.set(toVector, view)
             finished = true
             
-            onTick?(finished: true)
+            onTick?(true)
         } else {
-            onTick?(finished: false)
+            onTick?(false)
         }
     }
     

@@ -12,7 +12,7 @@
 internal struct Lens<T, U> {
     
     /// Function for getting value from object.
-    let get: T -> U
+    let get: (T) -> U
     
     /// Function for setting value on object.
     let set: (U, T) -> (T)

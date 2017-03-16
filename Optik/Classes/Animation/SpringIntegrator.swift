@@ -27,7 +27,7 @@ internal struct SpringIntegrator<T: Interpolatable> {
      
      - returns: Acceleration.
      */
-    func acceleration(position: T, velocity: T) -> T {
+    func acceleration(_ position: T, velocity: T) -> T {
         return -spring * position - friction * velocity
     }
     
@@ -41,7 +41,7 @@ internal struct SpringIntegrator<T: Interpolatable> {
      
      - returns: Changes in position and velocity over the given period.
      */
-    func integrate(position: T, velocity: T, dt: CFTimeInterval) -> (dpdt: T, dvdt: T) {
+    func integrate(_ position: T, velocity: T, dt: CFTimeInterval) -> (dpdt: T, dvdt: T) {
         let halfDt = CGFloat(dt) * 0.5
         
         let dp1 = velocity

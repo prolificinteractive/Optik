@@ -11,27 +11,27 @@ import UIKit
 /**
  Defines the position of the dismiss button.
  
- - TopLeading:  Dismiss button is constrained to the top and leading anchors of its superview.
- - TopTrailing: Dismiss button is constrained to the top and trailing anchors of its superview. 
+ - topLeading:  Dismiss button is constrained to the top and leading anchors of its superview.
+ - topTrailing: Dismiss button is constrained to the top and trailing anchors of its superview. 
  */
 public enum DismissButtonPosition {
     
-    case TopLeading
-    case TopTrailing
+    case topLeading
+    case topTrailing
     
     func xAnchorAttribute() -> NSLayoutAttribute {
         switch self {
-        case .TopLeading:
-            return .Leading
-        case .TopTrailing:
-            return .Trailing
+        case .topLeading:
+            return .leading
+        case .topTrailing:
+            return .trailing
         }
     }
     
     func yAnchorAttribute() -> NSLayoutAttribute {
         switch self {
-        case .TopLeading, .TopTrailing:
-            return .Top
+        case .topLeading, .topTrailing:
+            return .top
         }
     }
     

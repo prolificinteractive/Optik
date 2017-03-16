@@ -9,7 +9,7 @@
 import UIKit
 
 /// The completion handler closure used when an image download is completed successfully.
-public typealias ImageDownloaderCompletion = UIImage -> ()
+public typealias ImageDownloaderCompletion = (UIImage) -> ()
 
 /**
  *  Types adopting `ImageDownloader` can be used to download images from `NSURL` objects.
@@ -22,6 +22,6 @@ public protocol ImageDownloader {
      - parameter url:        URL to download image from.
      - parameter completion: Callback handler that gets invoked after the download is complete.
      */
-    func downloadImageAtURL(url: NSURL, completion: ImageDownloaderCompletion)
+    func downloadImage(from url: URL, completion: @escaping ImageDownloaderCompletion)
     
 }

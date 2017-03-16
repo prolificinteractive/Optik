@@ -13,16 +13,16 @@ internal struct AlamofireImageDownloader: Optik.ImageDownloader {
     
     private let internalImageDownloader = AlamofireImage.ImageDownloader()
     
-    func downloadImageAtURL(url: NSURL, completion: ImageDownloaderCompletion) {
-        let URLRequest = NSURLRequest(URL: url)
+    func downloadImage(from url: URL, completion: @escaping ImageDownloaderCompletion) {
+        let URLRequest = Foundation.URLRequest(url: url)
         
-        internalImageDownloader.downloadImage(URLRequest: URLRequest) {
+        internalImageDownloader.download(URLRequest) {
             response in
             
             switch response.result {
-            case .Success(let image):
+            case .success(let image):
                 completion(image)
-            case .Failure(_):
+            case .failure(_):
                 // Hanlde error
                 return
             }
