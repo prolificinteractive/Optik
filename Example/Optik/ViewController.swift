@@ -45,7 +45,7 @@ internal final class ViewController: UIViewController {
     @IBAction private func presentLocalImageViewer(_ sender: UIButton) {
         let viewController = Optik.imageViewer(withImages: localImages,
                                                initialImageDisplayIndex: currentLocalImageIndex,
-                                               delegate: self)
+                                               delegate: self, enablePageControl: true)
         
         present(viewController, animated: true, completion: nil)
     }
@@ -62,7 +62,7 @@ internal final class ViewController: UIViewController {
         let urls = [url1, url2, url3, url4]
         let imageDownloader = AlamofireImageDownloader()
         
-        let viewController = Optik.imageViewer(withURLs: urls, imageDownloader: imageDownloader)
+        let viewController = Optik.imageViewer(withURLs: urls, imageDownloader: imageDownloader, enablePageControl: true)
         present(viewController, animated: true, completion: nil)
     }
 
