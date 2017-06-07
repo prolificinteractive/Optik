@@ -81,6 +81,19 @@ internal final class ImageViewController: UIViewController {
         setupDesign()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let oldSize = self.scrollView?.bounds.size
+        let newSize = view.bounds.size
+        
+        self.scrollView?.frame = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        if oldSize != newSize {
+            resetImageView()
+        }
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
