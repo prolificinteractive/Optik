@@ -84,29 +84,15 @@ internal final class ImageViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        let oldSize = self.scrollView?.bounds.size
-        let newSize = view.bounds.size
-        
-        self.scrollView?.frame = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        
-        if oldSize != newSize {
-            resetImageView()
-        }
+        resizeScrollViewFrame(to: view.bounds.size)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
         coordinator.animate(alongsideTransition: { (_) in
-            let oldSize = self.scrollView?.bounds.size
-            let newSize = size
-            
-            self.scrollView?.frame = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-            
-            if oldSize != newSize {
-                self.resetImageView()
-            }
-            }, completion: nil)
+            self.resizeScrollViewFrame(to: size)
+        }, completion: nil)
     }
     
     // MARK: - Instance functions
@@ -283,6 +269,16 @@ internal final class ImageViewController: UIViewController {
                     self.centerImage()
                 }
             )
+        }
+    }
+    
+    private func resizeScrollViewFrame(to size: CGSize) {
+        let oldSize = scrollView?.bounds.size
+        
+        scrollView?.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        if oldSize != size {
+            resetImageView()
         }
     }
     
