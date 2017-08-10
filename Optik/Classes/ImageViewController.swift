@@ -49,6 +49,10 @@ internal final class ImageViewController: UIViewController {
             
             scrollView.minimumZoomScale = Constants.MinimumZoomScale
             scrollView.maximumZoomScale = Constants.MaximumZoomScale
+
+            if #available(iOS 11.0, *) {
+                scrollView.contentInsetAdjustmentBehavior = .never
+            }
         }
     }
     private var activityIndicatorView: UIActivityIndicatorView? {
@@ -135,26 +139,10 @@ internal final class ImageViewController: UIViewController {
             activityIndicatorView.startAnimating()
             
             view.addSubview(activityIndicatorView)
-            
-            view.addConstraint(
-                NSLayoutConstraint(item: activityIndicatorView,
-                    attribute: .centerX,
-                    relatedBy: .equal,
-                    toItem: view,
-                    attribute: .centerX,
-                    multiplier: 1,
-                    constant: 0)
-            )
-            view.addConstraint(
-                NSLayoutConstraint(item: activityIndicatorView,
-                    attribute: .centerY,
-                    relatedBy: .equal,
-                    toItem: view,
-                    attribute: .centerY,
-                    multiplier: 1,
-                    constant: 0)
-            )
-            
+
+            activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+            activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+
             self.activityIndicatorView = activityIndicatorView
         }
         

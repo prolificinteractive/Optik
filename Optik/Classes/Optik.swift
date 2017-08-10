@@ -70,10 +70,13 @@ private func imageViewer(withData imageData: ImageData,
                                   dismissButtonPosition: DismissButtonPosition) -> AlbumViewController {
     let bundle = Bundle(for: AlbumViewController.self)
     let defaultDismissButtonImage = UIImage(named: "DismissIcon", in: bundle, compatibleWith: nil)
+
+    let albumViewController = AlbumViewController(imageData: imageData,
+                                                  initialImageDisplayIndex: initialImageDisplayIndex,
+                                                  activityIndicatorColor: activityIndicatorColor,
+                                                  dismissButtonImage: dismissButtonImage ?? defaultDismissButtonImage,
+                                                  dismissButtonPosition: dismissButtonPosition)
+    albumViewController.modalPresentationCapturesStatusBarAppearance = true
     
-    return AlbumViewController(imageData: imageData,
-                               initialImageDisplayIndex: initialImageDisplayIndex,
-                               activityIndicatorColor: activityIndicatorColor,
-                               dismissButtonImage: dismissButtonImage ?? defaultDismissButtonImage,
-                               dismissButtonPosition: dismissButtonPosition)
+    return albumViewController
 }

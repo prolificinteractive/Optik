@@ -19,20 +19,4 @@ public enum DismissButtonPosition {
     case topLeading
     case topTrailing
     
-    func xAnchorAttribute() -> NSLayoutAttribute {
-        switch self {
-        case .topLeading:
-            return .leading
-        case .topTrailing:
-            return .trailing
-        }
-    }
-    
-    func yAnchorAttribute() -> NSLayoutAttribute {
-        switch self {
-        case .topLeading, .topTrailing:
-            return .top
-        }
-    }
-    
 }

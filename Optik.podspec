@@ -12,7 +12,7 @@ Optik provides a simple viewing experience for a set of images, whether stored l
   s.author           = { "htinlinn" => "linn@prolificinteractive.com" }
   s.source           = { :git => "https://github.com/prolificinteractive/Optik.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '9.0'
   s.requires_arc = true
 
   s.source_files = 'Optik/Classes/**/*'
