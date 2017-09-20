@@ -16,6 +16,7 @@ internal final class AlbumViewController: UIViewController {
         static let dismissButtonDimension: CGFloat = 60
         
         static let transitionAnimationDuration: TimeInterval = 0.3
+        static let artificialDelayDuration: TimeInterval = 0.001
     }
     
     // MARK: - Properties
@@ -122,12 +123,14 @@ internal final class AlbumViewController: UIViewController {
         if !viewDidAppear {
             viewDidAppear = true
 
-            // Wait for the safe area insets to be in effect and set up the constraints.
-            setupDismissButtonConstraints()
-
             // UIKit doesn't animate status bar transition on iOS 9. So, manually animate it.
             UIView.animate(withDuration: Constants.transitionAnimationDuration, animations: {
                 self.setNeedsStatusBarAppearanceUpdate()
+            })
+
+            // Wait for the safe area insets to be in effect and set up the constraints.
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.artificialDelayDuration, execute: {
+                self.setupDismissButtonConstraints()
             })
         }
     }
