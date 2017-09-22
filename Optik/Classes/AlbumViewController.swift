@@ -12,10 +12,11 @@ import UIKit
 internal final class AlbumViewController: UIViewController {
     
     private struct Constants {
-        static let SpacingBetweenImages: CGFloat = 40
-        static let DismissButtonDimension: CGFloat = 60
+        static let spacingBetweenImages: CGFloat = 40
+        static let dismissButtonDimension: CGFloat = 60
         
-        static let TransitionAnimationDuration: TimeInterval = 0.3
+        static let transitionAnimationDuration: TimeInterval = 0.3
+        static let artificialDelayDuration: TimeInterval = 0.001
     }
     
     // MARK: - Properties
@@ -71,6 +72,8 @@ internal final class AlbumViewController: UIViewController {
     private var imageData: ImageData
     private var initialImageDisplayIndex: Int
     private var activityIndicatorColor: UIColor?
+
+    private var dismissButton: UIButton?
     private var dismissButtonImage: UIImage?
     private var dismissButtonPosition: DismissButtonPosition
     
@@ -95,7 +98,7 @@ internal final class AlbumViewController: UIViewController {
         
         pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                   navigationOrientation: .horizontal,
-                                                  options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.SpacingBetweenImages])
+                                                  options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.spacingBetweenImages])
 
         super.init(nibName: nil, bundle: nil)
         
@@ -116,14 +119,19 @@ internal final class AlbumViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // HACK: UIKit doesn't animate status bar transition on iOS 9. So, manually animate it.
+
         if !viewDidAppear {
             viewDidAppear = true
-            
-            UIView.animate(withDuration: Constants.TransitionAnimationDuration, animations: {
+
+            // UIKit doesn't animate status bar transition on iOS 9. So, manually animate it.
+            UIView.animate(withDuration: Constants.transitionAnimationDuration, animations: {
                 self.setNeedsStatusBarAppearanceUpdate()
-            }) 
+            })
+
+            // Wait for the safe area insets to be in effect and set up the constraints.
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.artificialDelayDuration, execute: {
+                self.setupDismissButtonConstraints()
+            })
         }
     }
     
@@ -170,48 +178,30 @@ internal final class AlbumViewController: UIViewController {
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         dismissButton.setImage(dismissButtonImage, for: UIControlState())
         dismissButton.addTarget(self, action: #selector(AlbumViewController.didTapDismissButton(_:)), for: .touchUpInside)
-        
-        let xAnchorAttribute = dismissButtonPosition.xAnchorAttribute()
-        let yAnchorAttribute = dismissButtonPosition.yAnchorAttribute()
-        
         view.addSubview(dismissButton)
-        
-        view.addConstraint(
-            NSLayoutConstraint(item: dismissButton,
-                attribute: xAnchorAttribute,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: xAnchorAttribute,
-                multiplier: 1,
-                constant: 0)
-        )
-        view.addConstraint(
-            NSLayoutConstraint(item: dismissButton,
-                attribute: yAnchorAttribute,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: yAnchorAttribute,
-                multiplier: 1,
-                constant: 0)
-        )
-        view.addConstraint(
-            NSLayoutConstraint(item: dismissButton,
-                attribute: .width,
-                relatedBy: .equal,
-                toItem: nil,
-                attribute: .notAnAttribute,
-                multiplier: 1,
-                constant: Constants.DismissButtonDimension)
-        )
-        view.addConstraint(
-            NSLayoutConstraint(item: dismissButton,
-                attribute: .height,
-                relatedBy: .equal,
-                toItem: nil,
-                attribute: .notAnAttribute,
-                multiplier: 1,
-                constant: Constants.DismissButtonDimension)
-        )
+
+        self.dismissButton = dismissButton
+    }
+
+    private func setupDismissButtonConstraints() {
+        if #available(iOS 11.0, *), view.safeAreaInsets.top > 0 {
+            // Using `safeAreaLayoutGuide` on devices other than iPhone X causes a visual glitch
+            // where the button shifts down before dimissing.
+            // So, restrict this to devices with top inset that is greater than 0.
+            dismissButton?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        } else {
+            dismissButton?.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        }
+
+        switch dismissButtonPosition {
+        case .topLeading:
+            dismissButton?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        case .topTrailing:
+            dismissButton?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        }
+
+        dismissButton?.widthAnchor.constraint(equalToConstant: Constants.dismissButtonDimension).isActive = true
+        dismissButton?.heightAnchor.constraint(equalToConstant: Constants.dismissButtonDimension).isActive = true
     }
     
     private func setupPanGestureRecognizer() {

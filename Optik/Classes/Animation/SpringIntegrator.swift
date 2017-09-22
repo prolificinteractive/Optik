@@ -55,9 +55,9 @@ internal struct SpringIntegrator<T: Interpolatable> {
         
         let dp4 = velocity + CGFloat(dt) * dv3
         let dv4 = acceleration(position + CGFloat(dt) * dp3, velocity: dp4)
-        
-        let dpdt = 1 / 6 * (dp1 + 2 * (dp2 + dp3) + dp4)
-        let dvdt = 1 / 6 * (dv1 + 2 * (dv2 + dv3) + dv4)
+
+        let dpdt = 0.16667 * (dp1 + 2 * (dp2 + dp3) + dp4) // 0.16667 = 1/6
+        let dvdt = 0.16667 * (dv1 + 2 * (dv2 + dv3) + dv4)
         
         return (dpdt, dvdt)
     }

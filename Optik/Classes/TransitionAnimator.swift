@@ -23,12 +23,12 @@ internal final class TransitionAnimator: NSObject {
     }
     
     fileprivate struct Constants {
-        static let AnimationViewShadowColor: CGColor = UIColor.black.cgColor
-        static let AnimationViewShadowOffset: CGSize = CGSize(width: 0, height: 30)
-        static let AnimationViewShadowRadius: CGFloat = 30
-        static let AnimationViewShadowOpacity: Float = 0.6
+        static let animationViewShadowColor: CGColor = UIColor.black.cgColor
+        static let animationViewShadowOffset: CGSize = CGSize(width: 0, height: 30)
+        static let animationViewShadowRadius: CGFloat = 30
+        static let animationViewShadowOpacity: Float = 0.6
         
-        static let TransitionDuration: TimeInterval = 0.15
+        static let transitionDuration: TimeInterval = 0.15
     }
     
     // MARK: - Private properties
@@ -161,8 +161,14 @@ internal final class TransitionAnimator: NSObject {
                 
                 fromImageView.isHidden = false
                 toImageView.isHidden = false
-                
-                self.transitionContext?.completeTransition(!shouldAnimateInReverse)
+
+                if shouldAnimateInReverse {
+                    self.transitionContext?.cancelInteractiveTransition()
+                    self.transitionContext?.completeTransition(false)
+                } else {
+                    self.transitionContext?.finishInteractiveTransition()
+                    self.transitionContext?.completeTransition(true)
+                }
             }
         }
         
@@ -196,10 +202,10 @@ internal final class TransitionAnimator: NSObject {
         self.animationView = animationView
         
         animationView.frame = fromSuperView.convert(fromImageView.frame, to: transitionContainerView)
-        animationView.layer.shadowColor = Constants.AnimationViewShadowColor
-        animationView.layer.shadowOffset = Constants.AnimationViewShadowOffset
-        animationView.layer.shadowRadius = Constants.AnimationViewShadowRadius
-        animationView.layer.shadowOpacity = Constants.AnimationViewShadowOpacity
+        animationView.layer.shadowColor = Constants.animationViewShadowColor
+        animationView.layer.shadowOffset = Constants.animationViewShadowOffset
+        animationView.layer.shadowRadius = Constants.animationViewShadowRadius
+        animationView.layer.shadowOpacity = Constants.animationViewShadowOpacity
         
         fromImageView.isHidden = true
         toImageView.isHidden = true
@@ -214,7 +220,7 @@ internal final class TransitionAnimator: NSObject {
 extension TransitionAnimator: UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return Constants.TransitionDuration
+        return Constants.transitionDuration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

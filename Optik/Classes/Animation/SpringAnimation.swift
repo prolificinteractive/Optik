@@ -9,7 +9,7 @@
 import UIKit
 
 /// Animation that moves a given view to a new target using spring physics.
-internal final class SpringAnimation<T: VectorRepresentable, U: AnimatableProperty> where T == U.PropertyType {
+internal final class SpringAnimation<T, U: AnimatableProperty> where T == U.PropertyType {
     
     // MARK: - Properties
     
