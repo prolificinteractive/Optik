@@ -37,6 +37,8 @@ internal final class TransitionAnimator: NSObject {
     private weak var toImageView: UIImageView?
     private weak var animationView: UIImageView?
     
+    private var transitionShadow: Bool
+    
     fileprivate weak var fromViewController: UIViewController?
     fileprivate weak var toViewController: UIViewController?
     
@@ -45,10 +47,11 @@ internal final class TransitionAnimator: NSObject {
     
     // MARK: - Init/deinit
     
-    init(transitionType: TransitionType, fromImageView: UIImageView, toImageView: UIImageView) {
+    init(transitionType: TransitionType, fromImageView: UIImageView, toImageView: UIImageView, transitionShadow: Bool) {
         self.transitionType = transitionType
         self.fromImageView = fromImageView
         self.toImageView = toImageView
+        self.transitionShadow = transitionShadow
         
         super.init()
     }
@@ -202,10 +205,12 @@ internal final class TransitionAnimator: NSObject {
         self.animationView = animationView
         
         animationView.frame = fromSuperView.convert(fromImageView.frame, to: transitionContainerView)
-        animationView.layer.shadowColor = Constants.animationViewShadowColor
-        animationView.layer.shadowOffset = Constants.animationViewShadowOffset
-        animationView.layer.shadowRadius = Constants.animationViewShadowRadius
-        animationView.layer.shadowOpacity = Constants.animationViewShadowOpacity
+        if (transitionShadow) {
+            animationView.layer.shadowColor = Constants.animationViewShadowColor
+            animationView.layer.shadowOffset = Constants.animationViewShadowOffset
+            animationView.layer.shadowRadius = Constants.animationViewShadowRadius
+            animationView.layer.shadowOpacity = Constants.animationViewShadowOpacity
+        }
         
         fromImageView.isHidden = true
         toImageView.isHidden = true

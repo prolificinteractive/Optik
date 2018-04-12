@@ -31,7 +31,15 @@ internal final class TransitionController: NSObject {
     fileprivate var dismissTransitionAnimator: TransitionAnimator?
     fileprivate var shouldDismissInteractively: Bool = false
     
+    fileprivate var transitionShadow: Bool
+    
     private var lastPanTranslation: CGPoint?
+    
+    // MARK: - Initializers
+    
+    init(transitionShadow: Bool) {
+        self.transitionShadow = transitionShadow
+    }
     
     // MARK: - Instance functions
     
@@ -119,7 +127,10 @@ extension TransitionController: UIViewControllerTransitioningDelegate {
                     return nil
             }
             
-            return TransitionAnimator(transitionType: .present, fromImageView: fromImageView, toImageView: toImageView)
+            return TransitionAnimator(transitionType: .present,
+                                      fromImageView: fromImageView,
+                                      toImageView: toImageView,
+                                      transitionShadow: transitionShadow)
     }
     
     func animationController(forDismissed dismissed: UIViewController)
@@ -132,7 +143,8 @@ extension TransitionController: UIViewControllerTransitioningDelegate {
             
             dismissTransitionAnimator = TransitionAnimator(transitionType: .dismiss,
                                                            fromImageView: fromImageView,
-                                                           toImageView: toImageView)
+                                                           toImageView: toImageView,
+                                                           transitionShadow: transitionShadow)
             return dismissTransitionAnimator
     }
     
