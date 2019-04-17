@@ -5,7 +5,7 @@ target 'Optik_Example' do
     platform :ios, '9.0'
 
     pod 'Optik', :path => '../'
-    pod 'AlamofireImage', '3.3.0'
+    pod 'AlamofireImage', '~> 3.4'
 end
 
 target 'Optik_Tests' do
