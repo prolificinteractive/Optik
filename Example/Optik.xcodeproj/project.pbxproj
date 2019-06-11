@@ -296,7 +296,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Optik_Example/Pods-Optik_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Optik_Example/Pods-Optik_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Optik/Optik.framework",
@@ -309,7 +309,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Optik_Example/Pods-Optik_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Optik_Example/Pods-Optik_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		426A3A2490EB4D8E0F4DEDDD /* [CP] Embed Pods Frameworks */ = {
@@ -318,7 +318,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Optik/Optik.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -327,7 +327,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Optik_Tests/Pods-Optik_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7730B7F573443AC98C4CC567 /* [CP] Check Pods Manifest.lock */ = {
@@ -556,10 +556,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 380B0038E4A48ADE86928EF5 /* Pods-Optik_Tests.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -577,10 +574,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CB4D1E3A798611F0203A9E37 /* Pods-Optik_Tests.release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

@@ -1,11 +1,12 @@
 language: objective-c
 osx_image: xcode10.2
-podfile: Example/Podfile
 
 before_install:
-    - brew update
     - pod repo update --silent
+    - cd Example
+    - pod update
 
 script:
-    - set -o pipefail && xcodebuild test -workspace Example/Optik.xcworkspace -scheme Optik-Example -destination 'platform=iOS Simulator,name=iPhone 7,OS=11.1' | xcpretty
+    - set -o pipefail && xcodebuild test -workspace Optik.xcworkspace -scheme Optik-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' | xcpretty
+    - cd ../
     - pod lib lint
