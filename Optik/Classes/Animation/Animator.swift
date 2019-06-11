@@ -40,7 +40,7 @@ internal final class Animator {
     private init(screen: UIScreen) {
         displayLink = screen.displayLink(withTarget: self, selector: #selector(Animator.animationTick(_:)))
         displayLink?.isPaused = true
-        displayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
     
     // MARK: - Instance functions

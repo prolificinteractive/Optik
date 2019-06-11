@@ -43,7 +43,7 @@ internal final class ImageViewController: UIViewController {
                 return
             }
             
-            scrollView.decelerationRate = UIScrollViewDecelerationRateFast
+            scrollView.decelerationRate = UIScrollView.DecelerationRate.fast
             scrollView.showsVerticalScrollIndicator = false
             scrollView.showsHorizontalScrollIndicator = false
             
@@ -133,7 +133,7 @@ internal final class ImageViewController: UIViewController {
             imageView.image = image
             resetImageView()
         } else {
-            let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+            let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
             activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
             activityIndicatorView.hidesWhenStopped = true
             activityIndicatorView.startAnimating()
