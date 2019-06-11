@@ -98,7 +98,7 @@ internal final class AlbumViewController: UIViewController {
         
         pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                   navigationOrientation: .horizontal,
-                                                  options: [UIPageViewControllerOptionInterPageSpacingKey : Constants.spacingBetweenImages])
+                                                  options: [UIPageViewController.OptionsKey.interPageSpacing : Constants.spacingBetweenImages])
 
         super.init(nibName: nil, bundle: nil)
         
@@ -152,9 +152,9 @@ internal final class AlbumViewController: UIViewController {
     private func setupDesign() {
         view.backgroundColor = UIColor.black
         
-        addChildViewController(pageViewController)
+        addChild(pageViewController)
         view.addSubview(pageViewController.view)
-        didMove(toParentViewController: pageViewController)
+        didMove(toParent: pageViewController)
         
         setupDismissButton()
         setupPanGestureRecognizer()
@@ -176,7 +176,7 @@ internal final class AlbumViewController: UIViewController {
     private func setupDismissButton() {
         let dismissButton = UIButton(type: .custom)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        dismissButton.setImage(dismissButtonImage, for: UIControlState())
+        dismissButton.setImage(dismissButtonImage, for: UIControl.State())
         dismissButton.addTarget(self, action: #selector(AlbumViewController.didTapDismissButton(_:)), for: .touchUpInside)
         view.addSubview(dismissButton)
 
