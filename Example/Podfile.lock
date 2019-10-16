@@ -1,8 +1,8 @@
 PODS:
-  - Alamofire (4.8.2)
+  - Alamofire (4.9.0)
   - AlamofireImage (3.5.2):
     - Alamofire (~> 4.8)
-  - Optik (0.4.0)
+  - Optik (0.5.0)
 
 DEPENDENCIES:
   - AlamofireImage (= 3.5.2)
@@ -18,10 +18,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
-  Optik: 64066ad701b3d440bc4b3847a5f354b602e188aa
+  Optik: 40417e8ed7ac0ecdc3723f01f8b317894bf57555
 
 PODFILE CHECKSUM: d67d5ec03568c2c450e4e08d87956e556f0b2f08
 
-COCOAPODS: 1.7.1
+COCOAPODS: 1.7.5
