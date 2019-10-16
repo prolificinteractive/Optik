@@ -80,7 +80,7 @@ internal final class AlbumViewController: UIViewController {
     private var cachedRemoteImages: [URL: UIImage] = [:]
     private var viewDidAppear: Bool = false
     
-    private var transitionController: TransitionController = TransitionController()
+    private var transitionController: TransitionController
     
     // MARK: - Init/Deinit
     
@@ -88,13 +88,15 @@ internal final class AlbumViewController: UIViewController {
          initialImageDisplayIndex: Int,
          activityIndicatorColor: UIColor?,
          dismissButtonImage: UIImage?,
-         dismissButtonPosition: DismissButtonPosition) {
+         dismissButtonPosition: DismissButtonPosition,
+         transitionShadow: Bool) {
         
         self.imageData = imageData
         self.initialImageDisplayIndex = initialImageDisplayIndex
         self.activityIndicatorColor = activityIndicatorColor
         self.dismissButtonImage = dismissButtonImage
         self.dismissButtonPosition = dismissButtonPosition
+        self.transitionController = TransitionController(transitionShadow: transitionShadow)
         
         pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                   navigationOrientation: .horizontal,

@@ -18,6 +18,7 @@ import UIKit
  - parameter delegate:                      Image viewer delegate.
  - parameter dismissButtonImage:            Image for the dismiss button.
  - parameter dismissButtonPosition:         Dismiss button position.
+ - parameter transitionShadow               Whether to display a shadow to the image or not during transitions.
  
  - returns: The created view controller.
  */
@@ -25,13 +26,14 @@ public func imageViewer(withImages images: [UIImage],
                                    initialImageDisplayIndex: Int = 0,
                                    delegate: ImageViewerDelegate? = nil,
                                    dismissButtonImage: UIImage? = nil,
-                                   dismissButtonPosition: DismissButtonPosition = .topLeading) -> UIViewController {
+                                   dismissButtonPosition: DismissButtonPosition = .topLeading,
+                                   transitionShadow: Bool = true) -> UIViewController {
     let albumViewController = imageViewer(withData: .local(images: images),
                                           initialImageDisplayIndex: initialImageDisplayIndex,
+                                          delegate: delegate,
                                           dismissButtonImage: dismissButtonImage,
-                                          dismissButtonPosition: dismissButtonPosition)
-    albumViewController.modalPresentationStyle = .custom
-    albumViewController.imageViewerDelegate = delegate
+                                          dismissButtonPosition: dismissButtonPosition,
+                                          transitionShadow: transitionShadow)
     
     return albumViewController
 }
@@ -45,29 +47,36 @@ public func imageViewer(withImages images: [UIImage],
  - parameter activityIndicatorColor:        Tint color of the activity indicator that is displayed while images are being downloaded.
  - parameter dismissButtonImage:            Image for the dismiss button.
  - parameter dismissButtonPosition:         Dismiss button position.
+ - parameter transitionShadow               Whether to display a shadow to the image or not during transitions.
  
  - returns: The created view controller.
  */
 public func imageViewer(withURLs urls: [URL],
                                  initialImageDisplayIndex: Int = 0,
+                                 delegate: ImageViewerDelegate? = nil,
                                  imageDownloader: ImageDownloader,
                                  activityIndicatorColor: UIColor = .white,
                                  dismissButtonImage: UIImage? = nil,
-                                 dismissButtonPosition: DismissButtonPosition = .topLeading) -> UIViewController {
+                                 dismissButtonPosition: DismissButtonPosition = .topLeading,
+                                 transitionShadow: Bool = true) -> UIViewController {
     return imageViewer(withData: .remote(urls: urls, imageDownloader: imageDownloader),
                        initialImageDisplayIndex: initialImageDisplayIndex,
+                       delegate: delegate,
                        activityIndicatorColor: activityIndicatorColor,
                        dismissButtonImage: dismissButtonImage,
-                       dismissButtonPosition: dismissButtonPosition)
+                       dismissButtonPosition: dismissButtonPosition,
+                       transitionShadow: transitionShadow)
 }
 
 // MARK: - Private functions
 
 private func imageViewer(withData imageData: ImageData,
                                   initialImageDisplayIndex: Int,
+                                  delegate: ImageViewerDelegate? = nil,
                                   activityIndicatorColor: UIColor? = nil,
                                   dismissButtonImage: UIImage?,
-                                  dismissButtonPosition: DismissButtonPosition) -> AlbumViewController {
+                                  dismissButtonPosition: DismissButtonPosition,
+                                  transitionShadow: Bool) -> AlbumViewController {
     let bundle = Bundle(for: AlbumViewController.self)
     let defaultDismissButtonImage = UIImage(named: "DismissIcon", in: bundle, compatibleWith: nil)
 
@@ -75,8 +84,11 @@ private func imageViewer(withData imageData: ImageData,
                                                   initialImageDisplayIndex: initialImageDisplayIndex,
                                                   activityIndicatorColor: activityIndicatorColor,
                                                   dismissButtonImage: dismissButtonImage ?? defaultDismissButtonImage,
-                                                  dismissButtonPosition: dismissButtonPosition)
+                                                  dismissButtonPosition: dismissButtonPosition,
+                                                  transitionShadow: transitionShadow)
     albumViewController.modalPresentationCapturesStatusBarAppearance = true
+    albumViewController.modalPresentationStyle = .custom
+    albumViewController.imageViewerDelegate = delegate
     
     return albumViewController
 }
